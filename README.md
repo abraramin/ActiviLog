@@ -32,7 +32,7 @@ Run the server
 ```
 heroku ps:scale web=1
 ```
-Check server
+Check server status
 ```
 heroku ps
 ``` 
