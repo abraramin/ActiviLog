@@ -10,27 +10,20 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
-    "jade": "*",
+    "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.2",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2"
   },
-  "engines": {
-    "node": "*",
-    "npm":"*"
-  },
   "description": "A log of activities that students undertake during clinical placements.",
-  "main": "app.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Perth155/understanding-clinical-placement-app.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/Perth155/understanding-clinical-placement-app/issues"
-  },
-  "homepage": "https://github.com/Perth155/understanding-clinical-placement-app#readme"
+  }
 }
