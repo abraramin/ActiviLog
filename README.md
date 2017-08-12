@@ -1,5 +1,4 @@
 # Understanding-Clinical-Placement-App
-
 >A log of activities that students undertake during clinical placements.
 
 
@@ -9,14 +8,11 @@
 * git
 * heroku-cli 
 
-
+## Running the node webserver from localhost
 Clone this repository
 ```
 git clone https://github.com/Perth155/clinicalog
 ```
-
-To run the server from ```localhost:3000```
-
 Install all dependencies
 ```
 npm install
@@ -25,11 +21,10 @@ Start the node webserver
 ```
 npm start
 ```
+Project sould be running on ```localhost:3000```.
+
 
 ## Deploy on Heroku
-
-Heroku URL: https://clinicalog.herokuapp.com/
-
 ```
 git push heroku master
 ```
@@ -45,5 +40,6 @@ Launch
 ```
 heroku open
 ```
+Heroku URL: https://clinicalog.herokuapp.com/
 
 
