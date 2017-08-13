@@ -32,7 +32,7 @@ Run the server
 ```
 heroku ps:scale web=1
 ```
-Check server status
+Check on the server status
 ```
 heroku ps
 ``` 
@@ -40,6 +40,6 @@ Launch
 ```
 heroku open
 ```
-Heroku URL: https://clinicalog.herokuapp.com/
+Currently deployed on Heroku- URL: https://clinicalog.herokuapp.com/
 
 
