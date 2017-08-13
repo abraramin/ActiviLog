@@ -39,7 +39,7 @@ Check on the server status
 ```
 $ heroku ps
 ```
-Launch
+Launch the deployed web app on a browser
 ```
 $ heroku open
 ```
