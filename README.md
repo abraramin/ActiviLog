@@ -40,6 +40,6 @@ Launch
 ```
 heroku open
 ```
-Currently deployed on Heroku- URL: https://clinicalog.herokuapp.com/
+[Currently deployed on Heroku](https://clinicalog.herokuapp.com/)
 
 
