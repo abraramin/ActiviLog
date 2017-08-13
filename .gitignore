@@ -10,4 +10,10 @@ node_modules/
 
 # Packages
 *.tar
+*.tar.gz
 *.zip
+
+# Generated using webpack 
+public/javascripts/bundle.js
+
+

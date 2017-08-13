@@ -2,8 +2,9 @@
   "name": "clinicalog",
   "version": "0.0.1",
   "description": "A log of activities that students undertake during clinical placements.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "start": "node ./bin/www",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"

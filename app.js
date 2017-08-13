@@ -21,6 +21,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//Middleware
+app.use(express.static(path.join(__dirname, 'client')));
+
 
 app.use('/', index);
 //app.use('/users', users);

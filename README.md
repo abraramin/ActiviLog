@@ -6,16 +6,17 @@
 * nodejs
 * npm
 * git
-* heroku-cli 
+* heroku-cli
 
 ## Running the node webserver from localhost
 Clone this repository
 ```
 git clone https://github.com/Perth155/clinicalog
 ```
-Install all dependencies
+Install all dependencies and run webpack to create ```bundle.js```
 ```
 npm install
+npm run webpack
 ```
 Start the node webserver
 ```
@@ -35,11 +36,9 @@ heroku ps:scale web=1
 Check on the server status
 ```
 heroku ps
-``` 
+```
 Launch
 ```
 heroku open
 ```
 [Currently deployed on Heroku](https://clinicalog.herokuapp.com/)
-
-
