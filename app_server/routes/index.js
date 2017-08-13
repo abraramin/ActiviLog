@@ -12,6 +12,7 @@ var express = require('express');
 var router = express.Router();
 var ctrlHomePage = require('../controllers/home_page');
 var ctrlLogin = require('../controllers/login');
+var ctrlRegister = require('../controllers/register');
 
 
 var passport = require('passport');
@@ -20,5 +21,7 @@ var passport = require('passport');
 router.get('/', ctrlHomePage.renderIndex);
 /* User login */
 router.get('/login', ctrlLogin.renderLogin);
+/* User registration */
+router.get('/register', ctrlRegister.renderRegister);
 
 module.exports = router;

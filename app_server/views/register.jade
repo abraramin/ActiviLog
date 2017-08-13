@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    #coverflowRegister.coverflow
+        .container-fluid
+            .row
+                .col-md-6.col-md-offset-3
+                    form.entries(name='/register', method="post")
+                        h2
+                          |  Request a new
+                          b  Clinicalog
+                          |  account
+                        .form-group
+                            label 
+                              | Full Name  
+                              span#required_field  *
+                            input#fullname(type='text', name='fullname', placeholder='Full Name', required)
+                        .form-group
+                            label 
+                              | Student Email Address  
+                              span#required_field  *
+                            input#email(type='text', name='email', placeholder='001@student.uwa.edu.au', required)
+                        .form-group
+                            label
+                              | Set Password  
+                              span#required_field  *
+                            input#passwd(type='Password', name='password', required)
+                        .form-group
+                            label 
+                              | Confirm Password  
+                              span#required_field  *
+                            input#rPasswd(type='Password', name='rePassword', required)
+                        .form-group
+                            button.btn.btn-lg.btn-default.btn-block Create
