@@ -11,7 +11,7 @@
 ## Running the node webserver from localhost
 Clone this repository
 ```
-git clone https://github.com/Perth155/clinicalog
+git clone https://github.com/Perth155/clinicalog && cd clinicalog
 ```
 Install all dependencies and run webpack to create ```bundle.js```
 ```
