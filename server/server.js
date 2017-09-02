@@ -56,9 +56,9 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use('/', indexRoutes);
 
 // LOAD MONGOOSE DATABASE //
-mongoose.connect('mongodb://user_01:dbpass123@ds121171.mlab.com:21171/clinical_placements', {
-    useMongoClient: true,
-});
+//mongoose.connect('mongodb://user_01:dbpass123@ds121171.mlab.com:21171/clinical_placements', {
+//    useMongoClient: true,
+//});
 
 // CONFIGURE PASSPORT //
 var Account = require('./models/account');
