@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
+import {Route} from 'react-router';
+//import {browserHistory} from 'react-history';
 
-class App extends React.Component {
+export class App extends React.Component {
    render(){
 	   return <div><h1>hi</h1></div>
    }
 }
 
-render(
-		<Router>
-			<Route path="/" component={App}/>
-		</Router>,
-		document.getElementById('app')
-	);
+ReactDOM.render(
+	<BrowserRouter>
+		<Route path="/" component={App}/>
+	</BrowserRouter>,
+	document.getElementById('app')
+);
+
+export default App;
