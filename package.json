@@ -7,7 +7,8 @@
     "start": "node bin/www",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "webpack"
+    "postinstall": "webpack",
+    "heroku-prebuild": "npm install --only=dev"
   },
   "contributors": [
     {
@@ -22,7 +23,7 @@
     },
     {
       "name": "Peter Joseph",
-      "email": "",
+      "email": "peter.joseph@outlook.com",
       "url": "https://github.com/withpeterjoseph"
     },
     {
