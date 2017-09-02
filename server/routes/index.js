@@ -14,13 +14,9 @@ router.get('/register', function(req, res) {
 
 router.post('/register', function(req, res) {
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-
-        console.log("req data")
-        console.log(req.body);
-
-        if (err) {
+        if(err) {
             res.status(400).send("failure! " + err);
-        }
+        };
 
         passport.authenticate('local')(req, res, function () {
             res.redirect('/');
