@@ -67,7 +67,6 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "serve-favicon": "~2.4.2",
-    "socket.io": "^2.0.1",
     "webpack": "^3.5.4",
     "chai": "~1.8.1",
     "connect-flash": "^0.1.1",
