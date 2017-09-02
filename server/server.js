@@ -22,12 +22,13 @@ app.engine('html', function (path, options, callbacks) {
   fs.readFile(path, 'utf-8', callback);
 });
 
-//var sess = {
-//	secret: 'keyboard cat',
-//	resave: false,
-//	saveUninitialized: false, 
-//	cookie: { secure: true }
-//}
+
+var sess = {
+	secret: 'keyboard cat',
+	resave: false,
+	saveUninitialized: false, 
+	cookie: { secure: true }
+}
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -41,12 +42,12 @@ app.use(cookieParser());
 //    cookie: { secure: true }
 //}));
 
-//if(app.get('env') === 'production'){
-//	app.set('trust proxy', 1) // trust first proxy
-//	sess.cookie.secure = true // serve secure cookies
-//}
+if(app.get('env') === 'production'){
+	app.set('trust proxy', 1) // trust first proxy
+	sess.cookie.secure = true // serve secure cookies
+}
 
-//app.use(session(sess));
+app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '../client')));
