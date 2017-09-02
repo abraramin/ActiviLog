@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
+//var cookie-session = require('cookie-session'); 
 
 // IMPORT ROUTER //
 var indexRoutes = require('./routes/index');
@@ -21,31 +22,31 @@ app.engine('html', function (path, options, callbacks) {
   fs.readFile(path, 'utf-8', callback);
 });
 
-var sess = {
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: false, 
-	cookie: { secure: true }
-}
+//var sess = {
+//	secret: 'keyboard cat',
+//	resave: false,
+//	saveUninitialized: false, 
+//	cookie: { secure: true }
+//}
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true }
-}));
+//app.use(session({
+//    secret: 'keyboard cat',
+//    resave: false,
+//    saveUninitialized: false,
+//    cookie: { secure: true }
+//}));
 
-if(app.get('env') === 'production'){
-	app.set('trust proxy', 1) // trust first proxy
-	sess.cookie.secure = true // serve secure cookies
-}
+//if(app.get('env') === 'production'){
+//	app.set('trust proxy', 1) // trust first proxy
+//	sess.cookie.secure = true // serve secure cookies
+//}
 
-app.use(session(sess));
+//app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '../client')));
