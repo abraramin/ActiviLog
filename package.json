@@ -1,10 +1,10 @@
 {
-  "name": "clinicalog",
+  "name": "Activilog",
   "version": "0.0.1",
   "description": "A log of activities that students undertake during clinical placements.",
   "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node bin/www",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack"
@@ -68,7 +68,10 @@
     "react-dom": "^15.6.1",
     "serve-favicon": "~2.4.2",
     "socket.io": "^2.0.1",
-    "webpack": "^3.5.4"
+    "webpack": "^3.5.4",
+    "chai": "~1.8.1",
+    "connect-flash": "^0.1.1",
+    "should": "~2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
