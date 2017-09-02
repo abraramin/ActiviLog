@@ -12,6 +12,7 @@ ehthumbs.db
 .directory
 ._*
 .Spotlight-V100
+.idea
 
 
 # Packages
