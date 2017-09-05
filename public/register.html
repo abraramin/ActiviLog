@@ -3,7 +3,7 @@
 	<head>
 		<!--tab title-->
 		<title>ActiviLog - Register</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="stylesheet/style.css">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 	</head>
 
@@ -14,15 +14,13 @@
 			<h1>ActiviLog</h1>
 
 			<div class="registerform">
-				<form action="/login" method="POST">
+				<form action="/:org" method="POST">
 					<!--Register Account header-->
 					<h4>Register Account</h4>
 
 					<!--identity forms-->
-					<!-- <p>First Name <span class="req">*</span></p> -->
-					<input type="text" name="firstname" placeholder="First Name" required>
-					<!-- <p>Last Name <span class="req">*</span></p> -->
-					<input type="text" name="lastname" placeholder="Last Name" required>
+					<!-- <p>Full Name <span class="req">*</span></p> -->
+					<input type="text" name="fullname" placeholder="Full Name" required>
 					<!-- <p>Email Address <span class="req">*</span></p> -->
 					<input type="text" name="emailAddress" placeholder="Email Address" required>
 					<!-- <p>Password <span class="req">*</span></p> -->

@@ -52,3 +52,5 @@ if(process.platform === 'win32')
     process.emit('SIGINT');
   });
 }
+
+require('./account_model.js');
