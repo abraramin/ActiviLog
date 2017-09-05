@@ -24,7 +24,7 @@ $ npm start
 ```
 Project sould be running on ```localhost:3000```.
 
-To start the server on *dev mode*, which uses ```nodemon``` to track any file changes, automatically restarts node if so.
+To start the server on __dev mode__, which uses ```nodemon``` to track any file changes, automatically restarts node if so.
 ```
 $ npm run dev
 ```
