@@ -2,6 +2,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
+var account = require('../models/account_model');
 var orgname;
 
 /* GET home page */
@@ -18,5 +19,26 @@ module.exports.postOrganisation = function(req, res){
 
 /*List all users by organisation.*/
 module.exports.postUserList = function(req, res){
-	console.log("tada");
+	account.register(new Account(
+		{
+			username:req.body.email,
+			email:req.body.email,
+			full_name:req.body.fullname,
+			organisation:orgname,
+			date_joined:new Date(),
+		}),
+		req.body.password,
+		function(err, account)
+		{
+			if(err){
+				console.log("Error! Posting user list.")
+				return res.render('Oops');
+			}
+			passport.authenticate('local')(req, res, function(){
+				res.redirect('/');
+			});
+		}
+	);
 };
+
+	
