@@ -1,0 +1,114 @@
+/*background color*/
+body{
+	background-color: #3399ff;
+	overflow:hidden;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+}
+
+/*ActiviLog heading - change to logo*/
+h1{
+	font-family:"Arial";
+	color: white;
+	margin-top: 120px;
+}
+
+
+/*form background*/
+div.loginform form{
+	display: inline-block;
+	text-align:center;
+	border-radius: 7px;
+	padding: 10px 20px;
+	background-color: #f2f2f2;
+	width: 250px;
+	height: 250px;
+}
+
+/*login to your account header*/
+div.loginform h4{
+	text-align: center;
+	font-family:"Verdana";
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+/*form content - text type*/
+div.loginform input[type=text]{
+	padding: 10px 10px;
+	width: 200px;
+	font-family:"Verdana";
+	margin: 8px;
+}
+
+/*form content - password type*/
+div.loginform input[type=password]{
+	padding: 10px 10px;
+	width: 200px;
+	font-family:"Verdana";
+	margin: 8px;
+}
+
+
+/*button*/
+div.loginform button
+{
+	border: none;
+	background-color:#3399ff;
+	font-size: 12px;
+	padding: 10px 20px;
+	cursor: pointer;
+	margin-top: 8px;
+	margin-bottom:10px;
+	width:105px;
+	height:40px;
+	color: white;
+}
+
+/*hover button*/
+div.loginform button:hover {
+	background-color: #0066ff;
+}
+
+/*register button color setting*/
+#register{
+	background-color: #ff5050;
+	margin-left: 5px;
+}
+
+
+/*forgot your password?*/
+div.loginform a{
+	font-size:10px;
+	float: right;
+	margin-right: 15px;
+	margin-top:10px;
+}
+
+
+/*Copyright footer*/
+div.footer{
+	position:fixed;
+	width: 100%;
+	bottom:0px;
+	background-color: #ffffff;
+	opacity: .2;
+	padding: 6px;
+}
+
+div.footer p{
+	font-size: 11px;
+	display: inline;
+	color: black;
+	font-family: "Arial";
+	margin-right: 5px;
+}
+
+div.footer a{
+	display: inline;
+	font-size: 11px;
+	color: black;
+	font-family: "Arial";
+	margin: 5px;
+}

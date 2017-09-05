@@ -1,44 +1,17 @@
+var express = require('express');
 var path = require('path');
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
-var router = require('express').Router();
+var router = express.Router();
 
-router.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../client/index.html'));
-});
+var ctrlMain = require('../controllers/main');
+var ctrlLogin = require('../controllers/login');
+var ctrlRegister = require('../controllers/register');
 
-router.get('/register', function(req, res) {
-    res.render('register', { });
-});
+router.get('/', ctrlMain.renderIndex);
+router.get('/login', ctrlLogin.renderLoginPage);
+router.get('/register', ctrlRegister.renderRegisterPage);
 
-router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if(err) {
-            res.status(400).send("failure! " + err);
-        };
-
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
-    });
-});
-
-router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
-});
-
-router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
-});
-
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
-router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
-});
-
+router.post('/fuckoff', ctrlMain.postOrganisation);
 module.exports = router;

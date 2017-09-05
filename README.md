@@ -16,13 +16,18 @@ $ git clone https://github.com/Perth155/clinicalog && cd clinicalog
 Install all dependencies and run webpack to create ```bundle.js```
 ```
 $ npm install
-$ npm run webpack
+$ npm run webpack 
 ```
 Start the node webserver
 ```
 $ npm start
 ```
 Project sould be running on ```localhost:3000```.
+
+To start the server on *dev mode*, which uses ```nodemon``` to track any file changes, automatically restarts node if so.
+```
+$ npm run dev
+```
 
 
 ## Deploy on Heroku

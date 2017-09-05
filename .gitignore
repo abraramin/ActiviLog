@@ -1,6 +1,9 @@
 # Log Files
 *.log
 
+# VIM
+*.swp
+
 # Dependency directory
 node_modules/
 
@@ -21,7 +24,5 @@ ehthumbs.db
 *.tar.xz
 *.zip
 
-# Generated using webpack 
-public/javascripts/bundle.js
 
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--tab title-->
+		<title>ActiviLog - Register</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+	</head>
+
+
+	<body>
+
+			<!--ActiviLog Heading - logo here-->
+			<h1>ActiviLog</h1>
+
+			<div class="registerform">
+				<form action="/login" method="POST">
+					<!--Register Account header-->
+					<h4>Register Account</h4>
+
+					<!--identity forms-->
+					<!-- <p>First Name <span class="req">*</span></p> -->
+					<input type="text" name="firstname" placeholder="First Name" required>
+					<!-- <p>Last Name <span class="req">*</span></p> -->
+					<input type="text" name="lastname" placeholder="Last Name" required>
+					<!-- <p>Email Address <span class="req">*</span></p> -->
+					<input type="text" name="emailAddress" placeholder="Email Address" required>
+					<!-- <p>Password <span class="req">*</span></p> -->
+					<input type="password" name="password" placeholder="Password" required>
+					<!-- <p>Confirm password <span class="req">*</span></p> -->
+					<input type="password" name="password" placeholder="Confirm Password" required>
+					<input type="checkbox" name="tc"><p>I agree to the </p><a href="">Terms and Conditions</a><p> and </p><a href="">Privacy Policy</a>
+
+					<!--Register button-->
+					<button id="register" type="submit"><b>Register</b></button>
+
+				</form>
+
+			</div>
+
+
+			<div class="footer">
+				<p>Copyright 2017. All Rights Reserved.</p>
+				<a href="">About</a>
+				<p>|</p>
+				<a href="">Help</a>
+			</div>
+	</body>
+</html>
