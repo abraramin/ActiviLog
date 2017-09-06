@@ -14,19 +14,20 @@
 			<h1>ActiviLog</h1>
 
 			<div class="registerform">
-				<form action="/:org" method="POST">
+				<form action="/access" method="POST">
 					<!--Register Account header-->
 					<h4>Register Account</h4>
 
 					<!--identity forms-->
 					<!-- <p>Full Name <span class="req">*</span></p> -->
-					<input type="text" name="fullname" placeholder="Full Name" required>
+					<input type="text" name="full_name" placeholder="Full Name" required>
 					<!-- <p>Email Address <span class="req">*</span></p> -->
-					<input type="text" name="emailAddress" placeholder="Email Address" required>
+					<input type="text" name="email" placeholder="Email Address" required>
+					<input type="text" name="username" placeholder="username" required>
 					<!-- <p>Password <span class="req">*</span></p> -->
 					<input type="password" name="password" placeholder="Password" required>
 					<!-- <p>Confirm password <span class="req">*</span></p> -->
-					<input type="password" name="password" placeholder="Confirm Password" required>
+					<input type="password" name="confirm-password" placeholder="Confirm Password" required>
 					<input type="checkbox" name="tc"><p>I agree to the </p><a href="">Terms and Conditions</a><p> and </p><a href="">Privacy Policy</a>
 
 					<!--Register button-->

@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  h1 Access Page
+
+  if(!user)
+    p Access Denied
+    a.req(href='/') Login
+
+
+  if(user)
+    h2 Welcome Back, #{user.username} | 
+      a(href="/logout")  Logout
+
+    table
+      tr
+        th Full Name
+        th Email Address
+        th Organisation
+        th Perform Action
+      each p in people
+        tr
+          td #{p.full_name}
+          td #{p.email}
+          td #{p.organisation}
+          td
+            span.req
+              a(href='/delete_user/'+p._id) Delete
