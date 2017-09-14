@@ -1,9 +1,6 @@
-export default {
-
-	ACCOUNT_TYPE: {
-		ADMINISTRATOR: 1,
-		SUPERVISOR: 2,
-		STUDENT: 3,
-	}
-
-};
+export const ACCOUNT_TYPE = {
+	"UNREGISTERED": 0,
+	"ADMINISTRATOR": 1,
+	"SUPERVISOR": 2,
+	"STUDENT": 3,
+}

@@ -8,17 +8,14 @@ class AuthenticatedRoute extends React.Component {
 	}
 
 	render() {
-
 		return <Route {...this.props} />;
 	};
 };
 
 AuthenticatedRoute.propTypes = {
-	anyRole: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
-	anyFeature: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
-	loggedInUser: PropTypes.object,
-	hasAnyRole: PropTypes.func,
-	hasAnyFeature: PropTypes.func,
+	user: PropTypes.object,
+	role: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
+	feature: PropTypes.oneOfType([PropTypes.array, PropTypes.number]),
 };
 
 export default AuthenticatedRoute;

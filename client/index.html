@@ -3,29 +3,13 @@
   <head>
     <meta charset="utf-8">
     <title>ActiviLog</title>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-
-    <script>
-      $(window).load(function() {
-        $("#loading").fadeOut("slow");
-      });
-    </script>
-
-    <style>
-      #loading {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index:9999;
-        background-color: #fff;
-        text-align: center;
-      }
-    </style>
+    <script src="common/scripts/jquery.min.js"></script>
+    <script src="common/scripts/loading.js"></script>
+    <link href="common/styles/loading.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
-    <div id="loading">Loading...</div>
+    <div id="loading"></div>
     <div id="app"></div>
   </body>
 
