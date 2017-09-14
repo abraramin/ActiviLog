@@ -15,7 +15,7 @@ ehthumbs.db
 .Spotlight-V100
 .idea
 
-
+*bundle.js
 # Packages
 *.tar
 *.tar.gz
