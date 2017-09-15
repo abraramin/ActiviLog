@@ -17,6 +17,7 @@ class Login extends React.Component {
 			emailAddress: "",
 			password: "",
 			register: false,
+			forgotPassword: false,
 			error: {
 				organization: null,
 				email: null,
@@ -28,6 +29,8 @@ class Login extends React.Component {
 		this.checkOrganization = this.checkOrganization.bind(this);
 		this.login = this.login.bind(this);
 		this.register = this.register.bind(this);
+		this.forgotPassword = this.forgotPassword.bind(this);
+		this.resetPassword = this.resetPassword.bind(this);
 	}
 
 	changeField(evt) {
@@ -63,6 +66,22 @@ class Login extends React.Component {
 		this.setState({ register: true });
 	}
 
+	forgotPassword() {
+		this.setState({ forgotPassword: true });
+	}
+
+	resetPassword() {
+		let errors = this.state.error;
+		
+		// Check Email is Valid
+		if (validateEmail(this.state.emailAddress) == false) {
+			errors.email = "Please enter a valid email address";
+		} else {
+			errors.email = "";
+		}
+		this.setState({error: errors});
+	}
+
 	render() {
 		const { 
 			organizationName,
@@ -70,6 +89,7 @@ class Login extends React.Component {
 			emailAddress,
 			password,
 			register,
+			forgotPassword,
 			error
 		} = this.state;
 
@@ -78,7 +98,7 @@ class Login extends React.Component {
 		}
 
 		return <div>
-			{organizationValid == false && <div>
+			{organizationValid == false && !forgotPassword && <div>
 				<div>
 					<input
 						type="text"
@@ -94,7 +114,7 @@ class Login extends React.Component {
 					<button type="button" onClick={this.checkOrganization}>Continue</button>
 				</div>
 			</div>}
-			{organizationValid == true && <div>
+			{organizationValid == true && !forgotPassword && <div>
 				<input
 					type="text"
 					name="emailAddress"
@@ -113,6 +133,19 @@ class Login extends React.Component {
 				{error.password && <div className="error">{error.password}</div>}
 				<button type="button" onClick={this.login}>Login</button>
 				<button type="button" onClick={this.register}>Register</button>
+
+				<span className="forgotPassword" onClick={this.forgotPassword}>Forgot your Password?</span>
+			</div>}
+			{forgotPassword && <div>
+				<input
+					type="text"
+					name="emailAddress"
+					value={emailAddress}
+					onChange={this.changeField}
+					placeholder={"Email Address"}
+				/>
+				{error.email && <div className="error">{error.email}</div>}
+				<button type="button" onClick={this.resetPassword}>Reset Password</button>
 			</div>}
 			<LoginFooter />
 		</div>;
