@@ -1,5 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Redirect } from 'react-router-dom';
+
+import validateCharacters from '../../common/utilities/validateCharacters';
+import validateEmail from '../../common/utilities/validateEmail';
 
 import LoginFooter from '../../common/components/LoginFooter';
 
@@ -12,6 +16,7 @@ class Login extends React.Component {
 			organizationValid: true,
 			emailAddress: "",
 			password: "",
+			register: false,
 			error: {
 				organization: null,
 				email: null,
@@ -27,14 +32,15 @@ class Login extends React.Component {
 
 	changeField(evt) {
 		if (evt.target.name == "organizationName") {
-			if (/^[a-zA-Z()]+$/.test(evt.target.value) || evt.target.value == "") {
+			if (validateCharacters(evt.target.value)) {
 				this.setState({[evt.target.name]: evt.target.value});
+				return;
 			} else {
 				return;
 			}
-		} else {
-			this.setState({[evt.target.name]: evt.target.value});
 		}
+
+		this.setState({[evt.target.name]: evt.target.value});
 	}
 
 	checkOrganization() {
@@ -42,11 +48,19 @@ class Login extends React.Component {
 	}
 
 	login() {
+		let errors = this.state.error;
 
+		// Check Email is Valid
+		if (validateEmail(this.state.emailAddress) == false) {
+			errors.email = "Please enter a valid email address";
+		} else {
+			errors.email = "";
+		}
+		this.setState({error: errors});
 	}
 
 	register() {
-
+		this.setState({ register: true });
 	}
 
 	render() {
@@ -55,8 +69,13 @@ class Login extends React.Component {
 			organizationValid,
 			emailAddress,
 			password,
+			register,
 			error
 		} = this.state;
+
+		if (register) {
+			return <Redirect to='/register'/>;
+		}
 
 		return <div>
 			{organizationValid == false && <div>
