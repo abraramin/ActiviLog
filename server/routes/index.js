@@ -2,17 +2,25 @@ var path = require('path');
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
-var router = require('express').Router();
+var router = express.Router();
 
-router.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../client/index.html'));
+router.get('/api/status', function(req, res){
+    res.status(200).send("Running!");
 });
 
-router.get('/register', function(req, res) {
+router.get('/api/login', function(req, res) {
+    res.render('login', { user : req.user });
+});
+
+router.post('/api/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/');
+});
+
+router.get('/api/register', function(req, res) {
     res.render('register', { });
 });
 
-router.post('/register', function(req, res) {
+router.post('/api/register', function(req, res) {
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         if(err) {
             res.status(400).send("failure! " + err);
@@ -24,21 +32,13 @@ router.post('/register', function(req, res) {
     });
 });
 
-router.get('/login', function(req, res) {
-    res.render('login', { user : req.user });
-});
-
-router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.redirect('/');
-});
-
-router.get('/logout', function(req, res) {
+router.get('/api/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
-router.get('/ping', function(req, res){
-    res.status(200).send("pong!");
+router.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
 
 module.exports = router;

@@ -3,6 +3,7 @@
 
 # Dependency directory
 node_modules/
+client/bundle.js
 
 # OS generated files
 .Trashes
@@ -13,7 +14,6 @@ ehthumbs.db
 ._*
 .Spotlight-V100
 .idea
-
 
 # Packages
 *.tar
