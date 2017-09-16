@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
-
+import { login } from '../../common/api/authentication';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
 
