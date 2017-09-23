@@ -18,43 +18,43 @@ ReactDOM.render(
 		<Switch>
 			<AuthenticatedRoute
 				exact path="/"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT]}
 				component={Dashboard}
 			/>
 			<AuthenticatedRoute
 				path="/login"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.UNREGISTERED]}
 				component={Login}
 			/>
 			<AuthenticatedRoute
 				path="/register"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.UNREGISTERED]}
 				component={Register}
 			/>
 			<AuthenticatedRoute
 				path="/publish*"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.STUDENT]}
 				component={Publish}
 			/>
 			<AuthenticatedRoute
 				path="/activites"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 				component={Activites}
 			/>
 			<AuthenticatedRoute
 				path="/users"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 				component={Users}
 			/>
 			<AuthenticatedRoute
 				path="*"
-				user={null}
+				user={window.account}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT, ACCOUNT_TYPE.UNREGISTERED]}
 				component={MissingPath}
 			/>

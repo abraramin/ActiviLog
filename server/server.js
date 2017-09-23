@@ -22,7 +22,7 @@ app.engine('html', function (path, options, callbacks) { fs.readFile(path, 'utf-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'securesessionsecret', cookie: { secure: true } }));
+app.use(session({ secret: 'securesessionsecret', cookie: { secure: true }, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '../client')));

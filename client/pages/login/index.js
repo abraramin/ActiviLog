@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
-import { login } from '../../common/api/authentication';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
+import { check_organization, login } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
 
@@ -13,7 +13,7 @@ class Login extends React.Component {
 
 		this.state = {
 			organizationName: "",
-			organizationValid: true,
+			organizationValid: false,
 			emailAddress: "",
 			password: "",
 			register: false,
@@ -47,12 +47,13 @@ class Login extends React.Component {
 	}
 
 	checkOrganization() {
-		
+        check_organization(this.state.organizationName).then(function(res) {
+        	console.log(res);
+		});
 	}
 
 	login() {
 		let errors = this.state.error;
-
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
 			errors.email = "Please enter a valid email address";
@@ -60,6 +61,11 @@ class Login extends React.Component {
 			errors.email = "";
 		}
 		this.setState({error: errors});
+		if (errors.email == "") {
+			login(this.state.username, this.state.password).then(function(res) {
+				console.log(res);
+			});
+		}
 	}
 
 	register() {

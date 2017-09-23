@@ -1,7 +1,8 @@
 var path = require('path');
 var express = require('express');
 var passport = require('passport');
-var Account = require('./models/account');
+var account = require('./models/account');
+var client = require('./models/client');
 var router = express.Router();
 
 
@@ -17,17 +18,25 @@ function isLoggedIn(req, res, next) {
     res.status(400).send("Not Logged In!");
 }
 
-
+// Return Server Status
 router.get('/api/status', function(req, res){
-    res.status(200).send("Running!");
+    res.status(200).send("Server Running!");
+});
+
+// Check if Organization Exists
+router.get('/api/check_organization', function(req, res){
+    client.find({}, function (err, data) {
+        if (err) return console.error(err);
+        res.status(200).send(data);
+    })
 });
 
 router.post('/api/login', passport.authenticate('local'), function(req, res) {
-    res.json({user: req.user });
+    res.json({ user: req.user });
 });
 
 router.post('/api/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    account.register(new account({ username : req.body.username }), req.body.password, function(err, account) {
         if(err) {
             res.status(400).send("failure! " + err);
         };
