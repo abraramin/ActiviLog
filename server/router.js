@@ -25,10 +25,9 @@ router.get('/api/status', function(req, res){
 
 // Check if Organization Exists
 router.get('/api/check_organization', function(req, res){
-    client.find({}, function (err, data) {
-        if (err) return console.error(err);
-        res.status(200).send(data);
-    })
+    client.find({}).exec(function(err, response) {
+        res.json({ response });
+    });
 });
 
 router.post('/api/login', passport.authenticate('local'), function(req, res) {
