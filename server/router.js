@@ -5,7 +5,6 @@ var account = require('./models/account');
 var client = require('./models/client');
 var router = express.Router();
 
-
 // Logged In User Function
 function isLoggedIn(req, res, next) {
 
@@ -18,6 +17,15 @@ function isLoggedIn(req, res, next) {
     res.status(400).send("Not Logged In!");
 }
 
+// Validate Characters for strange inputs
+function validateCharacters(val) {
+    if (/^[a-zA-Z()]+$/.test(val) && val != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Return Server Status
 router.get('/api/status', function(req, res){
     res.status(200).send("Server Running!");
@@ -25,8 +33,17 @@ router.get('/api/status', function(req, res){
 
 // Check if Organization Exists
 router.get('/api/check_organization', function(req, res){
-    client.find({}).exec(function(err, response) {
-        res.json({ response });
+    var org = req.headers['organization'];
+    if (!validateCharacters(org)) {
+        res.status(400).json({ valid: false, msg: "Please enter a valid organization name" });
+        return;
+    }
+    client.findOne({ 'clientSubdomain': org }).exec(function(err, response) {
+        if (response != null) {
+            res.status(200).json({ valid: true });
+        } else {
+            res.status(200).json({ valid: false, msg: "Please enter a valid organization name" });
+        }
     });
 });
 
