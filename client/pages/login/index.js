@@ -18,6 +18,7 @@ class Login extends React.Component {
 			password: "",
 			register: false,
 			forgotPassword: false,
+			loading: false,
 			error: {
 				organization: null,
 				email: null,
@@ -47,8 +48,29 @@ class Login extends React.Component {
 	}
 
 	checkOrganization() {
-        check_organization(this.state.organizationName).then(function(res) {
-        	console.log(res);
+        this.setState({ loading: true });
+        let self = this;
+        let errors = this.state.error;
+        check_organization(this.state.organizationName).then(response => response.json()).then(function(result) {
+			if (result.valid == false) {
+				errors.organization = result.msg;
+                self.setState({
+					error: errors,
+					loading: false
+                });
+                return;
+			} else {
+                errors.organization = "";
+                self.setState({
+					error: errors,
+                    organizationValid: true,
+					loading: false
+                });
+                return;
+            }
+		}).catch(function(err) {
+			console.log(err);
+            self.setState({ loading: false });
 		});
 	}
 
@@ -96,7 +118,8 @@ class Login extends React.Component {
 			password,
 			register,
 			forgotPassword,
-			error
+			error,
+			disabled
 		} = this.state;
 
 		if (register) {
@@ -112,12 +135,13 @@ class Login extends React.Component {
 						value={organizationName}
 						onChange={this.changeField}
 						placeholder={"Organization Name"}
+						disabled={disabled}
 					/>
 					@activilog
 				</div>
 				{error.organization && <div className="error">{error.organization}</div>}
 				<div>
-					<button type="button" onClick={this.checkOrganization}>Continue</button>
+					<button type="button" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
 				</div>
 			</div>}
 			{organizationValid == true && !forgotPassword && <div>
@@ -127,6 +151,7 @@ class Login extends React.Component {
 					value={emailAddress}
 					onChange={this.changeField}
 					placeholder={"Email Address"}
+					disabled={disabled}
 				/>
 				{error.email && <div className="error">{error.email}</div>}
 				<input
@@ -135,12 +160,13 @@ class Login extends React.Component {
 					value={password}
 					onChange={this.changeField}
 					placeholder={"Password"}
+					disabled={disabled}
 				/>
 				{error.password && <div className="error">{error.password}</div>}
-				<button type="button" onClick={this.login}>Login</button>
-				<button type="button" onClick={this.register}>Register</button>
+				<button type="button" onClick={this.login} disabled={disabled}>Login</button>
+				<button type="button" onClick={this.register} disabled={disabled}>Register</button>
 
-				<span className="forgotPassword" onClick={this.forgotPassword}>Forgot your Password?</span>
+				<span className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</span>
 			</div>}
 			{forgotPassword && <div>
 				<input
@@ -149,9 +175,10 @@ class Login extends React.Component {
 					value={emailAddress}
 					onChange={this.changeField}
 					placeholder={"Email Address"}
+					disabled={disabled}
 				/>
 				{error.email && <div className="error">{error.email}</div>}
-				<button type="button" onClick={this.resetPassword}>Reset Password</button>
+				<button type="button" onClick={this.resetPassword} disabled={disabled}>Reset Password</button>
 			</div>}
 			<LoginFooter />
 		</div>;
