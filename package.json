@@ -1,7 +1,7 @@
 {
   "name": "Activilog",
   "version": "0.0.2",
-  "description": "Activilog is a web application created using a MERN stack to for creating supervised activity logs.",
+  "description": "Activilog is a web application for creating supervised activity logs.",
   "main": "app.js",
   "scripts": {
     "start": "webpack && node bin/www",
