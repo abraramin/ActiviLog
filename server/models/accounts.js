@@ -30,7 +30,7 @@ var accountSchema = new Schema
       }
     },
 
-    full_name: {
+    fullName: {
       type: String,
       require:true
     },
@@ -46,9 +46,9 @@ var accountSchema = new Schema
       require: true
     },
 
-    user_type:{type:String, require:true, enum:enumUserType},
+    userType:{type:String, require:true, enum:enumUserType},
 
-    date_joined:{
+    dateJoined:{
       type:Date,
       require: true
     }

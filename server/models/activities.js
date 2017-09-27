@@ -20,9 +20,9 @@ var activitySchema = new Schema
       require:true
     },
 
-    post_desc:{type:String},
+    postDesc:{type:String},
 
-    decor_color:{type:String, enum:enumColor}
+    decorColor:{type:String, enum:enumColor}
 });
 
 activitySchema.plugin(uniqueValidator);

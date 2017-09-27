@@ -9,17 +9,17 @@ var enumSubType = {
 
 var clientSchema = new Schema
 ({
-    client_name: {type: String, unique:true, require:true},
+    clientName: {type: String, unique:true, require:true},
 
-    client_desc: {type: String, require:false},
+    clientDesc: {type: String, require:false},
 
-    client_admin_email: {type: String, require: true},
+    clientAdminEmail: {type: String, require: true},
 
-    client_subdomain: {type: String},
+    clientSubDomain: {type: String},
 
-    subscription_start_date: {type: Date, require:true},
+    subscriptionStartDate: {type: Date, require:true},
 
-    subscription_type: {
+    subscriptionType: {
       type: String,
       enum: enumSubType,
       required: true

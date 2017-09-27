@@ -20,7 +20,7 @@ var postSchema = new Schema
 
     endTime:{type:Date, require:true},
 
-    time_posted:{
+    timePosted:{
       type:Date,
       require: true
     }
