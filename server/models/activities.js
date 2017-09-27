@@ -10,8 +10,11 @@ var enumColor = {
 
 var activitySchema = new Schema
 ({
-    organisation: {
-      type: String,
+
+    _id: {type: Number},
+
+    organisationID: {
+      type: Number,
       require:true
     },
 
@@ -26,4 +29,4 @@ var activitySchema = new Schema
 });
 
 activitySchema.plugin(uniqueValidator);
-module.exports = mongoose.model('Activity', activitySchema);
+module.exports = mongoose.model('Activities', activitySchema);

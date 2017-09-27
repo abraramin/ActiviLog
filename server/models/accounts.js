@@ -12,6 +12,9 @@ var enumUserType = {
 
 var accountSchema = new Schema
 ({
+	
+    _id:{Number},
+
     username: {
       type: String,
       unique:true,
@@ -41,8 +44,8 @@ var accountSchema = new Schema
     },
 
 
-    organisation:{
-      type:String,
+    organisationID:{
+      type:Number,
       require: true
     },
 
@@ -68,4 +71,4 @@ accountSchema.methods.validPassword = function(password) {
 };
 
 
-module.exports = mongoose.model('Account', accountSchema);
+module.exports = mongoose.model('Accounts', accountSchema);

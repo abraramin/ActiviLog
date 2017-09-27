@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var semesterSchema = new Schema
 ({
+    _id:{Number},
     user: {
       type: String,
       unique: true,
@@ -12,4 +13,4 @@ var semesterSchema = new Schema
     endDate: {Date}
   });
 
-module.exports = mongoose.model('Semester',  semesterSchema);
+module.exports = mongoose.model('Semesters',  semesterSchema);

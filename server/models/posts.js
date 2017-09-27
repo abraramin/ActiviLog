@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema
 ({
-    poster: {
-      type: String,
+    posterID: {
+      type: Number,
       require:true
     },
 
@@ -26,4 +26,4 @@ var postSchema = new Schema
     }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Posts', postSchema);

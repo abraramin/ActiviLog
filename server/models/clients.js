@@ -9,6 +9,8 @@ var enumSubType = {
 
 var clientSchema = new Schema
 ({
+    _id: {type:Number},
+
     clientName: {type: String, unique:true, require:true},
 
     clientDesc: {type: String, require:false},
@@ -28,4 +30,4 @@ var clientSchema = new Schema
 
 });
 
-module.exports = mongoose.model('Client', clientSchema);
+module.exports = mongoose.model('Clients', clientSchema);
