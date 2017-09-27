@@ -1,5 +1,5 @@
 # Activilog
-![Activilog Logo](https://i.imgur.com/MbSar79.png)
+![Activilog Logo](https://i.imgur.com/9iWt0IF.png)
 >A supervised activity log web application.
 
 
