@@ -74,6 +74,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "react": "^15.6.1",
+    "react-collapsible": "^2.0.3",
     "react-dom": "^15.6.1",
     "react-history": "^0.18.2",
     "react-redux": "^5.0.6",
