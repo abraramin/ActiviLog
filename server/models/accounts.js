@@ -39,7 +39,7 @@ var accountSchema = new Schema
       require: true
     },
 
-    userType:{type:String, require:false, enum:enumUserType},
+    userType:{type:String, require:true, enum:enumUserType},
 },{
   timestamps: true,
 });

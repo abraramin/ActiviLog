@@ -10,16 +10,15 @@ var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
-// Logged In User Function
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()) {
-        return next();
+// Check user Level
+function hasRole(role) {
+    return function (req, res, next) {
+        if (role.indexOf(req.user.userType) !== -1) {
+            next();
+        } else {
+            res.send(403);
+        }
     }
-
-    // if they aren't redirect them to the home page
-    res.status(400).send("Not Logged In!");
 }
 
 // Validate Characters for strange inputs
@@ -77,7 +76,7 @@ router.post('/api/login', function(req, res) {
     });
 });
 
-router.get('/api/testauth', passport.authenticate('jwt', { session: false }), function(req, res) {  
+router.get('/api/testauth', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
