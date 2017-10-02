@@ -9,6 +9,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
+var JwtStrategy = require('passport-jwt').Strategy;  
+var ExtractJwt = require('passport-jwt').ExtractJwt;  
+var accounts = require('./models/accounts');  
 
 // IMPORT ROUTER //
 var routes = require('./router');
@@ -22,8 +25,8 @@ app.engine('html', function (path, options, callbacks) { fs.readFile(path, 'utf-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'securesessionsecret', cookie: { secure: true }, resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
+
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(function (err, req, res, next) { res.status(err.status || 500); });
@@ -31,7 +34,24 @@ app.use('/', routes);
 
 // CONFIGURE PASSPORT //
 var account = require('./models/accounts');
-passport.use(new LocalStrategy(account.authenticate()));
+
+// Load JWT
+var opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
+opts.secretOrKey = 'secretkey43565674567473';
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    accounts.findOne({id: jwt_payload.id}, function(err, user) {
+        if (err) {
+            return done(err, false);
+        }
+        if (user) {
+            done(null, user);
+        } else {
+            done(null, false);
+        }
+    });
+}));
+
 passport.serializeUser(function(user, done) {
     done(null, user.id)
 })

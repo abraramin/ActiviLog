@@ -2,14 +2,20 @@ import { login as UserLogin } from '../../api';
 
 export default {
 
-	user: "User object here",
+	profile: {
+		name: "",
+		token: "",
+	},
 
-	fetch() {
-		console.log("Do a fetch load");
+	load() {
+		// Get the Web Token
+		// Check if user is logged in
+		// Download User data
+		// populate profile object
 	},
 
 	saveToken() {
-
+		// Save Web Token on Login
 	},
 
 	getToken() {

@@ -16,12 +16,8 @@ import Activites from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
-// Fetch the Logged In user
-loadUser();
-
-function loadUser() {
-	User.fetch();
-};
+// Fetch currently logged in User
+User.load();
 
 ReactDOM.render(
 	<BrowserRouter>

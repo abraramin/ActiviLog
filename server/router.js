@@ -6,6 +6,7 @@ var client = require('./models/clients');
 var posts = require('./models/posts');
 var activities = require('./models/activities');
 var semester = require('./models/semesters');
+var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
@@ -51,33 +52,52 @@ router.get('/api/check_organization', function(req, res){
     });
 });
 
-router.post('/api/login', passport.authenticate('local'), function(req, res) {
-    res.json({ user: req.user });
+router.post('/api/login', function(req, res) {
+    account.findOne({
+        email: req.body.email
+    }, function(err, user) {
+    if (err) throw err;
+
+    if (!user) {
+        res.send({ success: false, message: 'Authentication failed. User not found.' });
+    } else {
+        // Check if password matches
+        user.comparePassword(req.body.password, function(err, isMatch) {
+        if (isMatch && !err) {
+            // Create token if the password matched and no error was thrown
+            var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
+                expiresIn: 100000 // in seconds
+            });
+            res.json({ success: true, token: 'JWT ' + token });
+        } else {
+            res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+        }
+        });
+    }
+    });
+});
+
+router.get('/api/testauth', passport.authenticate('jwt', { session: false }), function(req, res) {  
+    res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
 router.post('/api/register', function(req, res) {
-    account.register(new account({ username : req.body.username }), req.body.password, function(err, account) {
-        if(err) {
-            res.status(400).send("failure! " + err);
-        };
-
-        passport.authenticate('local')(req, res, function () {
-            res.json({user: req.user });
-        });
+    var userData = {
+        email: req.body.email,
+        password: req.body.password,
+      }
+    account.create(userData, function (err, user) {
+    if (err) {
+        res.send({ success: false, message: 'User could not be created ' + err });
+    } else {
+        return res.redirect('/profile');
+    }
     });
 });
 
 router.get('/api/logout', function(req, res) {
     req.logout();
     res.status(200).send("Logged Out!");
-});
-
-router.post('/api/profile', isLoggedIn, function(req, res) {
-    if(err) {
-        res.status(400).send("failure! " + err);
-    };
-
-    res.status(200).send("Here is the profile data");
 });
 
 router.get('*', function (req, res) {
