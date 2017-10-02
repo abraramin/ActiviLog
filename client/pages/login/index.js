@@ -6,6 +6,8 @@ import validateEmail from '../../common/utilities/validateEmail';
 import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
+require('../../common/styles/styleActivilog.css');
+//import styles from '../../common/styles/styleActivilog.css'
 
 class Login extends React.Component {
 	constructor(props) {
@@ -120,6 +122,13 @@ class Login extends React.Component {
 	}
 
 	render() {
+
+		var styleTest = {
+			background: "magenta",
+			color: "lime",
+			fontFamily: "Arial",
+			fontSize: "40px"
+		};
 		const { 
 			organizationName,
 			organizationValid,
@@ -145,8 +154,8 @@ class Login extends React.Component {
 		}
 
 		return <div>
-			{organizationValid == false && !forgotPassword && <div>
-				<div>
+			{organizationValid == false && !forgotPassword && <div className="welcomepage">
+				<div className="welcomeform">
 					<input
 						type="text"
 						name="organizationName"
@@ -155,14 +164,14 @@ class Login extends React.Component {
 						placeholder={"Organization Name"}
 						disabled={disabled}
 					/>
-					@activilog
+					<p className="welcomeform">@activilog</p>
 				</div>
 				{error.organization && <div className="error">{error.organization}</div>}
 				<div>
-					<button type="button" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
+					<button type="button" className="welcomeform" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
 				</div>
 			</div>}
-			{organizationValid == true && !forgotPassword && <div>
+			{organizationValid == true && !forgotPassword && <div className="loginform">
 				<input
 					type="text"
 					name="emailAddress"
