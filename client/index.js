@@ -5,7 +5,7 @@ import { ACCOUNT_TYPE } from "./common/config"
 import AuthenticatedRoute from "./pages/AuthenticatedRoute"
 
 // Load our User Object
-import User from "./common/models/LoggedInUser"
+import User from "./common/models/User"
 
 // Load our components
 import Dashboard from './pages/dashboard/';
@@ -15,6 +15,13 @@ import Publish from './pages/publish/';
 import Activites from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
+
+// Fetch the Logged In user
+loadUser();
+
+function loadUser() {
+	User.fetch();
+};
 
 ReactDOM.render(
 	<BrowserRouter>

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
-import { check_organization, login } from '../../api';
+import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
 
@@ -75,9 +75,6 @@ class Login extends React.Component {
 	}
 
 	login() {
-		console.log(this.props);
-		this.props;
-
 		let errors = this.state.error;
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
@@ -87,9 +84,7 @@ class Login extends React.Component {
 		}
 		this.setState({error: errors});
 		if (errors.email == "") {
-			login(this.state.username, this.state.password).then(function(res) {
-				console.log(res);
-			});
+			this.props.user.login(this.state.username, this.state.password);
 		}
 	}
 
@@ -158,7 +153,7 @@ class Login extends React.Component {
 				/>
 				{error.email && <div className="error">{error.email}</div>}
 				<input
-					type="text"
+					type="password"
 					name="password"
 					value={password}
 					onChange={this.changeField}

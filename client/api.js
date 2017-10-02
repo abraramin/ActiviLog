@@ -22,7 +22,5 @@ export function login(username, password) {
             username: username,
             password: password,
         })
-    }).then(function(result) {
-        console.log(result.user);
     });
 }
