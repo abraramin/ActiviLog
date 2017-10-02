@@ -75,6 +75,9 @@ class Login extends React.Component {
 	}
 
 	login() {
+		console.log(this.props);
+		this.props;
+
 		let errors = this.state.error;
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
@@ -186,7 +189,8 @@ class Login extends React.Component {
 };
 
 Login.propTypes = {
-	prop: PropTypes.boolean,
+	route: PropTypes.object,
+	user: PropTypes.object,
 };
 
 export default Login;

@@ -4,6 +4,9 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { ACCOUNT_TYPE } from "./common/config"
 import AuthenticatedRoute from "./pages/AuthenticatedRoute"
 
+// Load our User Object
+import User from "./common/models/LoggedInUser"
+
 // Load our components
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
@@ -18,43 +21,43 @@ ReactDOM.render(
 		<Switch>
 			<AuthenticatedRoute
 				exact path="/"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT]}
-				component={Dashboard}
+				render={(props) => <Dashboard user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="/login"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.UNREGISTERED]}
-				component={Login}
+				render={(props) => <Login user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="/register"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.UNREGISTERED]}
-				component={Register}
+				render={(props) => <Register user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="/publish*"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.STUDENT]}
-				component={Publish}
+				render={(props) => <Publish user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="/activites"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-				component={Activites}
+				render={(props) => <Activities user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="/users"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-				component={Users}
+				render={(props) => <Users user={User} />}
 			/>
 			<AuthenticatedRoute
 				path="*"
-				user={null}
+				user={User}
 				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT, ACCOUNT_TYPE.UNREGISTERED]}
 				component={MissingPath}
 			/>
