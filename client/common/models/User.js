@@ -2,27 +2,25 @@ import { login as UserLogin, set_token, fetchUserData } from '../../api';
 
 export default {
 
-	profile: {
-		id: null,
-		fullName: null,
-		email: null,
-		organisationId: null,
-		userType: null,
-		loggedIn: false,
-		token: null,
-	},
+	id: null,
+	fullName: null,
+	email: null,
+	organisationId: null,
+	userType: null,
+	loggedIn: false,
+	token: null,
 
 	loadUser() {
 		// User Profile is no longer ready when loading
-		this.profile.ready == false;
+		this.ready == false;
 
 		// Get WebToken from Browser
 		this.getToken();
 
 		// Set endpoints to use token
-		set_token(this.profile.token);
+		set_token(this.token);
 
-		if (this.profile.token == null) {
+		if (this.token == null) {
 			return false;
 		}
 
@@ -36,12 +34,12 @@ export default {
 		}).then(function(result) {
 			if (result && result.success == true) {
 				// Update User Profile Object
-				self.profile.id = result.user.id;
-				self.profile.fullName = result.user.fullName;
-				self.profile.email = result.user.email;
-				self.profile.organisationId = result.user.organisationId;
-				self.profile.userType = result.user.userType;
-				self.profile.loggedIn = true;
+				self.id = result.user.id;
+				self.fullName = result.user.fullName;
+				self.email = result.user.email;
+				self.organisationId = result.user.organisationId;
+				self.userType = result.user.userType;
+				self.loggedIn = true;
 
 				// Return success
 				return true;
@@ -60,7 +58,7 @@ export default {
 	},
 
 	clearProfile() {
-		this.profile.id = null;
+		this.id = null;
 		this.fullName = null;
 		this.email = null;
 		this.organisationId = null;
@@ -79,11 +77,11 @@ export default {
 	},
 
 	getToken() {
-		if (this.profile.token != null && JSON.parse(localStorage.getItem("token")) != this.profile.token) {
+		if (this.token != null && JSON.parse(localStorage.getItem("token")) != this.token) {
 			this.clearToken();
-			this.saveToken(this.profile.token);
+			this.saveToken(this.token);
 		}
-		this.profile.token = JSON.parse(localStorage.getItem("token"));
+		this.token = JSON.parse(localStorage.getItem("token"));
 	},
 
 	clearToken() {

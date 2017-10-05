@@ -15,17 +15,17 @@ class RedirectRoute extends React.Component {
 		} = this.props;
 
 		// Show register page if user is not logged in
-		if (path == "/register" && (user.profile.token == null && user.profile.loggedIn == false)) {
+		if (path == "/register" && (user.token == null && user.loggedIn == false)) {
 			return <Route {...this.props} />;
 		}
 
 		// Redirect if user is not logged in and tries to access restricted page
-		if (path !== "/login" && (user.profile.token == null && user.profile.loggedIn == false)) {
+		if (path !== "/login" && (user.token == null && user.loggedIn == false)) {
 			return <Redirect to='/login'/>;
 		}
 
 		// Redirect if we have a token
-		if ((path == "/login" || path == "/register") && (user.profile.token != null)) {
+		if ((path == "/login" || path == "/register") && (user.token != null)) {
 			return <Redirect to='/'/>;
 		}
 
