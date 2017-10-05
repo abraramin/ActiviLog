@@ -1,7 +1,7 @@
 // API
 // Contains all the Endpoints the user account makes to the back-end server
 
-let token = "";
+let token = null;
 
 // Set User Web Token
 export function set_token(val) {
@@ -41,7 +41,7 @@ export function login(email, password, organizationName) {
 }
 
 // Fetch Logged In User Data
-export function fetchUserData(webToken) {
+export function fetchUserData() {
     return fetch('/api/fetch_user/', {
         method: 'GET',
         headers: {

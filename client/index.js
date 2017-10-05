@@ -16,7 +16,7 @@ import Activites from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
-// Fetch currently logged in User
+// Load user if browser already logged in
 User.loadUser();
 
 ReactDOM.render(

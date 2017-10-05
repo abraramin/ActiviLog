@@ -21,6 +21,16 @@ function hasRole(role) {
     }
 }
 
+function visitor() {
+    return function (req, res, next) {
+        if (req.user == null) {
+            next();
+        } else {
+            res.send(403);
+        }
+    }
+}
+
 // Validate Characters for strange inputs
 function validateCharacters(val) {
     if (/^[a-zA-Z()]+$/.test(val) && val != "") {
@@ -51,7 +61,7 @@ router.get('/api/check_organization', function(req, res){
     });
 });
 
-router.post('/api/login', function(req, res) {
+router.post('/api/login', visitor(), function(req, res) {
     client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
         if (organization != null) {
             const orgId = organization._id.toString();
@@ -85,14 +95,21 @@ router.post('/api/login', function(req, res) {
 });
 
 router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
-    res.send('It worked! User id is: ' + req.user._id + '.');
+    const userData = {
+        id: req.user._id,
+        fullName: req.user.fullName,
+        email: req.user.email,
+        organizationId: req.user.organizationId,
+        userType: req.user.userType,
+    }
+    res.json({ success: true, user: userData });
 });
 
 router.get('/api/bleh', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
-router.post('/api/register', function(req, res) {
+router.post('/api/register', visitor(), function(req, res) {
     var userData = {
         email: req.body.email,
         password: req.body.password,

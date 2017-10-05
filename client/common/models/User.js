@@ -1,34 +1,92 @@
-import { login as UserLogin, set_token } from '../../api';
+import { login as UserLogin, set_token, fetchUserData } from '../../api';
 
 export default {
 
 	profile: {
+		id: null,
+		fullName: null,
+		email: null,
+		organisationId: null,
+		userType: null,
 		loggedIn: false,
-		name: "",
-		token: "",
+		token: null,
 	},
 
 	loadUser() {
-		// Get the Web Token
-		// Check if user is logged in
+		// Get WebToken from Browser
+		this.getToken();
+
+		// Set endpoints to use token
+		set_token(this.profile.token);
+
+		if (this.profile.token == null) {
+			return false;
+		}
+
 		// Download User data
-		// populate profile object
-		// Return value for redirect
+		let self = this;
+		const load = fetchUserData().then(response => response.json()).then(function(result) {
+			if (result.success == true) {
+				// Update User Profile Object
+				self.profile.id = result.user.id;
+				self.profile.fullName = result.user.fullName;
+				self.profile.email = result.user.email;
+				self.profile.organisationId = result.user.organisationId;
+				self.profile.userType = result.user.userType;
+				self.profile.loggedIn = true;
+
+				// Return success
+				return true;
+			} else {
+				return false;
+			}
+		});
+
+		if (load == false) {
+			this.clearToken();
+			this.clearProfile();
+			return false;
+		}
 
 		return true;
 	},
 
+	clearProfile() {
+		this.profile.id = null;
+		this.fullName = null;
+		this.email = null;
+		this.organisationId = null;
+		this.userType = null;
+		this.loggedIn = false;
+		this.token = null;
+	},
+
 	saveToken(token) {
-		this.profile.token = token;
-		// Save Web Token on Login
+		localStorage.setItem("token", JSON.stringify(token));
+		if (JSON.parse(localStorage.getItem("token")) == token) {
+			return true;
+		} else {
+			return false;
+		}
 	},
 
 	getToken() {
-
+		if (this.profile.token != null && JSON.parse(localStorage.getItem("token")) != this.profile.token) {
+			this.clearToken();
+			this.saveToken(this.profile.token);
+		}
+		this.profile.token = JSON.parse(localStorage.getItem("token"));
 	},
 
-	isLoggedIn() {
-
+	clearToken() {
+		if (JSON.parse(localStorage.getItem("token")) !== null) {
+			localStorage.removeItem("token");
+		}
+		if (JSON.parse(localStorage.getItem("token")) !== null) {
+			return false;
+		} else {
+			return true;
+		}
 	},
 
 	login(email, password, organizationName) {
@@ -41,13 +99,17 @@ export default {
 					message: "User information could not be loaded"
 				}
 			}
-			
 			// Save the token in internal browser storage
-			self.saveToken(result.token);
-
+			const tokenSaved = self.saveToken(result.token);
+			if (tokenSaved == false) {
+				return {
+					success: false,
+					message: "Token could not be saved"
+				}
+			}
 			// Fetch User Data
-			const ready = self.loadUser();
-			if (ready == true) {
+			const userLoaded = self.loadUser();
+			if (userLoaded == true) {
 				return {
 					success: true,
 				}
@@ -64,11 +126,7 @@ export default {
 	logout() {
 
 	},
-
-	hasFeature() {
-
-	},
-
+	
 	hasRole() {
 
 	},
