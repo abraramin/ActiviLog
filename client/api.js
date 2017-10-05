@@ -25,7 +25,7 @@ export function check_organization(organization) {
 }
 
 // Account Login
-export function login(username, password, organizationName) {
+export function login(email, password, organizationName) {
     return fetch('/api/login/', {
         method: 'POST',
         headers: {
@@ -33,9 +33,9 @@ export function login(username, password, organizationName) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: username,
-            password: password,
-            organization: organizationName,
+            'email': email,
+            'password': password,
+            'organization': organizationName
         })
     });
 }

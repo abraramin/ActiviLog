@@ -17,7 +17,7 @@ import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
 // Fetch currently logged in User
-User.load();
+User.loadUser();
 
 ReactDOM.render(
 	<BrowserRouter>
