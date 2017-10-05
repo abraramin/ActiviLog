@@ -1,4 +1,5 @@
 import { login as UserLogin, set_token, fetchUserData } from '../../api';
+import { saveToken, getToken, clearToken } from '../utilities/tokenStorage'
 
 export default {
 
@@ -15,7 +16,7 @@ export default {
 		this.ready == false;
 
 		// Get WebToken from Browser
-		this.getToken();
+		this.token = getToken();
 
 		// Set endpoints to use token
 		set_token(this.token);
@@ -44,58 +45,33 @@ export default {
 				// Return success
 				return true;
 			} else {
+				this.token = null;
+				clearToken();
 				return false;
 			}
 		});
 
 		if (load == false) {
-			this.clearToken();
-			this.clearProfile();
 			return false;
 		}
 
 		return true;
 	},
 
-	clearProfile() {
-		this.id = null;
-		this.fullName = null;
-		this.email = null;
-		this.organisationId = null;
-		this.userType = null;
-		this.loggedIn = false;
-		this.token = null;
-	},
-
-	saveToken(token) {
-		localStorage.setItem("token", JSON.stringify(token));
-		if (JSON.parse(localStorage.getItem("token")) == token) {
-			return true;
-		} else {
-			return false;
-		}
-	},
-
-	getToken() {
-		if (this.token != null && JSON.parse(localStorage.getItem("token")) != this.token) {
-			this.clearToken();
-			this.saveToken(this.token);
-		}
-		this.token = JSON.parse(localStorage.getItem("token"));
-	},
-
-	clearToken() {
-		if (JSON.parse(localStorage.getItem("token")) !== null) {
-			localStorage.removeItem("token");
-		}
-		if (JSON.parse(localStorage.getItem("token")) !== null) {
-			return false;
-		} else {
-			return true;
-		}
-	},
-
 	login(email, password, organizationName) {
+		// Construct empty response message
+		const response = {
+			success: false,
+			message: "",
+		}
+
+		// Return message if user data could not be fetched
+		if (this.token != null) {
+			response.success = true;
+			response.message = "User is already logged in";
+			return response;
+		}
+
 		let self = this;
 		return UserLogin(email, password, organizationName).then(response => response.json()).then(function(result) {
 			// Return fail message if login not successful
@@ -106,7 +82,7 @@ export default {
 				}
 			}
 			// Save the token in internal browser storage
-			const tokenSaved = self.saveToken(result.token);
+			const tokenSaved = saveToken(result.token);
 			if (tokenSaved == false) {
 				return {
 					success: false,
@@ -130,11 +106,9 @@ export default {
 	},
 
 	logout() {
-
-	},
-	
-	hasRole() {
-
+		// Clear Tokens and Refresh the Page
+		clearToken();
+		window.location.href = "/";
 	},
 
 	forgotPassword() {
