@@ -14,7 +14,7 @@ class MissingPath extends React.Component {
 };
 
 MissingPath.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default MissingPath;

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const passportLocalValidator = require('passport-local-mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
 
@@ -12,15 +12,6 @@ var enumUserType = {
 
 var accountSchema = new Schema
 ({
-	
-    _id:{Number},
-
-    username: {
-      type: String,
-      unique:true,
-      require:true
-    },
-
     email: {
       type: String,
       require:true,
@@ -43,32 +34,37 @@ var accountSchema = new Schema
       require:true
     },
 
-
-    organisationID:{
-      type:Number,
+    organisationId:{
+      type:String,
       require: true
     },
 
     userType:{type:String, require:true, enum:enumUserType},
-
-    dateJoined:{
-      type:Date,
-      require: true
-    }
+},{
+  timestamps: true,
 });
 
-accountSchema.plugin(passportLocalValidator);
-accountSchema.plugin(uniqueValidator);
 
 // generating a hash
-accountSchema.methods.generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
+accountSchema.pre('save', function (next) {
+  var user = this;
+  bcrypt.hash(user.password, 10, function (err, hash){
+    if (err) {
+      return next(err);
+    }
+    user.password = hash;
+    next();
+  })
+});
 
 // checking if password is valid
-accountSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.local.password);
+accountSchema.methods.comparePassword = function(pw, cb) {
+  bcrypt.compare(pw, this.password, function(err, isMatch) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
+  });
 };
-
 
 module.exports = mongoose.model('Accounts', accountSchema);

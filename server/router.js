@@ -6,19 +6,29 @@ var client = require('./models/clients');
 var posts = require('./models/posts');
 var activities = require('./models/activities');
 var semester = require('./models/semesters');
+var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
-// Logged In User Function
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated()) {
-        return next();
+// Check user Level
+function hasRole(role) {
+    return function (req, res, next) {
+        if (role.indexOf(req.user.userType) !== -1) {
+            next();
+        } else {
+            res.status(403).json({ success: false, message: "You are not authorized to make this request" })
+        }
     }
+}
 
-    // if they aren't redirect them to the home page
-    res.status(400).send("Not Logged In!");
+function visitor() {
+    return function (req, res, next) {
+        if (req.user == null) {
+            next();
+        } else {
+            res.status(403).json({ success: false, message: "You are not authorized to make this request" });
+        }
+    }
 }
 
 // Validate Characters for strange inputs
@@ -44,40 +54,74 @@ router.get('/api/check_organization', function(req, res){
     }
     client.findOne({ 'clientSubdomain': org }).exec(function(err, response) {
         if (response != null) {
-            res.status(200).json({ valid: true });
+            res.status(200).json({ valid: true});
         } else {
             res.status(200).json({ valid: false, msg: "Please enter a valid organization name" });
         }
     });
 });
 
-router.post('/api/login', passport.authenticate('local'), function(req, res) {
-    res.json({ user: req.user });
+router.post('/api/login', visitor(), function(req, res) {
+    client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
+        if (organization != null) {
+            const orgId = organization._id.toString();
+            account.findOne({
+                email: req.body.email,
+                organizationId: orgId,
+            }, function(err, user) {
+            if (err) throw err;
+        
+            if (!user) {
+                res.send({ success: false, message: 'Authentication failed. User not found.' });
+            } else {
+                // Check if password matches
+                user.comparePassword(req.body.password, function(err, isMatch) {
+                if (isMatch && !err) {
+                    // Create token if the password matched and no error was thrown
+                    var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
+                        expiresIn: 100000 // in seconds
+                    });
+                    res.json({ success: true, token: 'JWT ' + token });
+                } else {
+                    res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                }
+                });
+            }
+            });
+        } else {
+            res.send({ success: false, message: 'Authentication failed. Organization Could not be found' });
+        }
+    });
 });
 
-router.post('/api/register', function(req, res) {
-    account.register(new account({ username : req.body.username }), req.body.password, function(err, account) {
-        if(err) {
-            res.status(400).send("failure! " + err);
-        };
+router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
+    const userData = {
+        id: req.user._id,
+        fullName: req.user.fullName,
+        email: req.user.email,
+        organizationId: req.user.organizationId,
+        userType: req.user.userType,
+    }
+    res.json({ success: true, user: userData });
+});
 
-        passport.authenticate('local')(req, res, function () {
-            res.json({user: req.user });
-        });
+router.post('/api/register', visitor(), function(req, res) {
+    var userData = {
+        email: req.body.email,
+        password: req.body.password,
+      }
+    account.create(userData, function (err, user) {
+    if (err) {
+        res.send({ success: false, message: 'User could not be created ' + err });
+    } else {
+        return res.redirect('/profile');
+    }
     });
 });
 
 router.get('/api/logout', function(req, res) {
     req.logout();
     res.status(200).send("Logged Out!");
-});
-
-router.post('/api/profile', isLoggedIn, function(req, res) {
-    if(err) {
-        res.status(400).send("failure! " + err);
-    };
-
-    res.status(200).send("Here is the profile data");
 });
 
 router.get('*', function (req, res) {

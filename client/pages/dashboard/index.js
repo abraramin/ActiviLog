@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
 };
 
 Dashboard.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default Dashboard;

@@ -14,7 +14,7 @@ class Publish extends React.Component {
 };
 
 Publish.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default Publish;

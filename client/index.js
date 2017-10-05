@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ACCOUNT_TYPE } from "./common/config"
-import AuthenticatedRoute from "./pages/AuthenticatedRoute"
+import RedirectRoute from "./pages/RedirectRoute"
+
+// Load our User Object
+import User from "./common/models/User"
 
 // Load our components
 import Dashboard from './pages/dashboard/';
@@ -13,49 +16,44 @@ import Activites from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
+User.loadUser();
+
 ReactDOM.render(
 	<BrowserRouter>
 		<Switch>
-			<AuthenticatedRoute
+			<RedirectRoute
 				exact path="/"
-				user={null}
-				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT]}
-				component={Dashboard}
+				user={User}
+				render={(props) => <Dashboard user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="/login"
-				user={null}
-				role={[ACCOUNT_TYPE.UNREGISTERED]}
-				component={Login}
+				user={User}
+				render={(props) => <Login user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="/register"
-				user={null}
-				role={[ACCOUNT_TYPE.UNREGISTERED]}
-				component={Register}
+				user={User}
+				render={(props) => <Register user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="/publish*"
-				user={null}
-				role={[ACCOUNT_TYPE.STUDENT]}
-				component={Publish}
+				user={User}
+				render={(props) => <Publish user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="/activites"
-				user={null}
-				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-				component={Activites}
+				user={User}
+				render={(props) => <Activities user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="/users"
-				user={null}
-				role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-				component={Users}
+				user={User}
+				render={(props) => <Users user={User} />}
 			/>
-			<AuthenticatedRoute
+			<RedirectRoute
 				path="*"
-				user={null}
-				role={[ACCOUNT_TYPE.ADMINISTRATOR, ACCOUNT_TYPE.STUDENT, ACCOUNT_TYPE.UNREGISTERED]}
+				user={User}
 				component={MissingPath}
 			/>
 		</Switch>

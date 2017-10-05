@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
-import { check_organization, login } from '../../api';
+import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
 
@@ -16,13 +16,15 @@ class Login extends React.Component {
 			organizationValid: false,
 			emailAddress: "",
 			password: "",
-			register: false,
 			forgotPassword: false,
 			loading: false,
+			register: false,
+			loggedIn: false,
 			error: {
 				organization: null,
 				email: null,
 				password: null,
+				login: null,
 			}
 		};
 
@@ -69,25 +71,34 @@ class Login extends React.Component {
                 return;
             }
 		}).catch(function(err) {
-			console.log(err);
             self.setState({ loading: false });
 		});
 	}
 
 	login() {
+		this.setState({ loading: true });
 		let errors = this.state.error;
+		errors.login = "";
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
 			errors.email = "Please enter a valid email address";
 		} else {
 			errors.email = "";
 		}
-		this.setState({error: errors});
 		if (errors.email == "") {
-			login(this.state.username, this.state.password).then(function(res) {
-				console.log(res);
+			let self = this;
+			this.props.user.login(this.state.emailAddress, this.state.password, this.state.organizationName).then(function(result) {
+				if (result.success == true) {
+					self.setState({ loggedIn: true });
+				} else {
+					errors.login = "Sorry, we could not log you in. Please check your email and password."
+					self.setState({ loading: false });
+				}
 			});
+		} else {
+			this.setState({ loading: false });
 		}
+		this.setState({error: errors});
 	}
 
 	register() {
@@ -117,6 +128,7 @@ class Login extends React.Component {
 			emailAddress,
 			password,
 			register,
+			loggedIn,
 			forgotPassword,
 			error,
 			disabled
@@ -124,6 +136,10 @@ class Login extends React.Component {
 
 		if (register) {
 			return <Redirect to='/register'/>;
+		}
+
+		if (loggedIn) {
+			return <Redirect to='/'/>;
 		}
 
 		return <div>
@@ -155,7 +171,7 @@ class Login extends React.Component {
 				/>
 				{error.email && <div className="error">{error.email}</div>}
 				<input
-					type="text"
+					type="password"
 					name="password"
 					value={password}
 					onChange={this.changeField}
@@ -163,6 +179,7 @@ class Login extends React.Component {
 					disabled={disabled}
 				/>
 				{error.password && <div className="error">{error.password}</div>}
+				{error.login && <div className="error">{error.login}</div>}
 				<button type="button" onClick={this.login} disabled={disabled}>Login</button>
 				<button type="button" onClick={this.register} disabled={disabled}>Register</button>
 
@@ -186,7 +203,8 @@ class Login extends React.Component {
 };
 
 Login.propTypes = {
-	prop: PropTypes.boolean,
+	route: PropTypes.object,
+	user: PropTypes.object,
 };
 
 export default Login;
