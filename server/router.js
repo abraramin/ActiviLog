@@ -44,7 +44,7 @@ router.get('/api/check_organization', function(req, res){
     }
     client.findOne({ 'clientSubdomain': org }).exec(function(err, response) {
         if (response != null) {
-            res.status(200).json({ valid: true });
+            res.status(200).json({ valid: true});
         } else {
             res.status(200).json({ valid: false, msg: "Please enter a valid organization name" });
         }
@@ -52,31 +52,43 @@ router.get('/api/check_organization', function(req, res){
 });
 
 router.post('/api/login', function(req, res) {
-    account.findOne({
-        email: req.body.email
-    }, function(err, user) {
-    if (err) throw err;
-
-    if (!user) {
-        res.send({ success: false, message: 'Authentication failed. User not found.' });
-    } else {
-        // Check if password matches
-        user.comparePassword(req.body.password, function(err, isMatch) {
-        if (isMatch && !err) {
-            // Create token if the password matched and no error was thrown
-            var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
-                expiresIn: 100000 // in seconds
+    client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
+        if (organization != null) {
+            const orgId = organization._id.toString();
+            account.findOne({
+                email: req.body.email,
+                organizationId: orgId,
+            }, function(err, user) {
+            if (err) throw err;
+        
+            if (!user) {
+                res.send({ success: false, message: 'Authentication failed. User not found.' });
+            } else {
+                // Check if password matches
+                user.comparePassword(req.body.password, function(err, isMatch) {
+                if (isMatch && !err) {
+                    // Create token if the password matched and no error was thrown
+                    var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
+                        expiresIn: 100000 // in seconds
+                    });
+                    res.json({ success: true, token: 'JWT ' + token });
+                } else {
+                    res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                }
+                });
+            }
             });
-            res.json({ success: true, token: 'JWT ' + token });
         } else {
-            res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+            res.send({ success: false, message: 'Authentication failed. Organization Could not be found' });
         }
-        });
-    }
     });
 });
 
-router.get('/api/testauth', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
+router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
+    res.send('It worked! User id is: ' + req.user._id + '.');
+});
+
+router.get('/api/bleh', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
     res.send('It worked! User id is: ' + req.user._id + '.');
 });
 

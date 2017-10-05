@@ -1,3 +1,17 @@
+// API
+// Contains all the Endpoints the user account makes to the back-end server
+
+let token = "";
+
+// Set User Web Token
+export function set_token(val) {
+    if (typeof val === 'string') {
+        token = val;
+    } else {
+        return null;
+    }
+}
+
 // Check Organization
 export function check_organization(organization) {
     return fetch('/api/check_organization/', {
@@ -11,7 +25,7 @@ export function check_organization(organization) {
 }
 
 // Account Login
-export function login(username, password) {
+export function login(username, password, organizationName) {
     return fetch('/api/login/', {
         method: 'POST',
         headers: {
@@ -21,6 +35,19 @@ export function login(username, password) {
         body: JSON.stringify({
             username: username,
             password: password,
+            organization: organizationName,
         })
+    });
+}
+
+// Fetch Logged In User Data
+export function fetchUserData(webToken) {
+    return fetch('/api/fetch_user/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
     });
 }

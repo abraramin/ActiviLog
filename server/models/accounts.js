@@ -34,7 +34,7 @@ var accountSchema = new Schema
       require:true
     },
 
-    organisationID:{
+    organisationId:{
       type:String,
       require: true
     },

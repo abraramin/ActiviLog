@@ -69,7 +69,6 @@ class Login extends React.Component {
                 return;
             }
 		}).catch(function(err) {
-			console.log(err);
             self.setState({ loading: false });
 		});
 	}
@@ -84,7 +83,7 @@ class Login extends React.Component {
 		}
 		this.setState({error: errors});
 		if (errors.email == "") {
-			this.props.user.login(this.state.username, this.state.password);
+			this.props.user.login(this.state.username, this.state.password, this.state.organizationName);
 		}
 	}
 
