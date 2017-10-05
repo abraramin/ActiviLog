@@ -13,6 +13,9 @@ export default {
 	},
 
 	loadUser() {
+		// User Profile is no longer ready when loading
+		this.profile.ready == false;
+
 		// Get WebToken from Browser
 		this.getToken();
 
@@ -25,8 +28,13 @@ export default {
 
 		// Download User data
 		let self = this;
-		const load = fetchUserData().then(response => response.json()).then(function(result) {
-			if (result.success == true) {
+		const load = fetchUserData().then(function(response) {
+			if (response.status != 401) {
+				return response.json()
+			}
+			return null;
+		}).then(function(result) {
+			if (result && result.success == true) {
 				// Update User Profile Object
 				self.profile.id = result.user.id;
 				self.profile.fullName = result.user.fullName;

@@ -16,7 +16,7 @@ function hasRole(role) {
         if (role.indexOf(req.user.userType) !== -1) {
             next();
         } else {
-            res.send(403);
+            res.status(403).json({ success: false, message: "You are not authorized to make this request" })
         }
     }
 }
@@ -26,7 +26,7 @@ function visitor() {
         if (req.user == null) {
             next();
         } else {
-            res.send(403);
+            res.status(403).json({ success: false, message: "You are not authorized to make this request" });
         }
     }
 }
@@ -103,10 +103,6 @@ router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), 
         userType: req.user.userType,
     }
     res.json({ success: true, user: userData });
-});
-
-router.get('/api/bleh', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
-    res.send('It worked! User id is: ' + req.user._id + '.');
 });
 
 router.post('/api/register', visitor(), function(req, res) {
