@@ -7,9 +7,6 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import { ACCOUNT_TYPE } from "./common/config"
 import RedirectRoute from "./pages/RedirectRoute"
 
-// Load our User Object
-import User from "./common/models/User"
-
 // Load our components
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
@@ -18,6 +15,8 @@ import Publish from './pages/publish/';
 import Activites from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
+
+import Loading from "./common/components/Loading"
 
 import { login as userLogin, set_token, fetchUserData } from './api';
 import { saveToken, getToken, clearToken } from './common/utilities/tokenStorage'
@@ -36,6 +35,7 @@ class App extends React.Component {
 				loggedIn: false,
 				token: null,
 			},
+			loading: false,
 			error: {
 				login: "",
 			}
@@ -64,6 +64,7 @@ class App extends React.Component {
 		set_token(userData.token);
 
 		// Load User data
+		this.setState({loading: true});
 		let self = this;
 		const load = fetchUserData().then(function(response) {
 			if (response.status != 401) {
@@ -81,12 +82,12 @@ class App extends React.Component {
 				userData.userType = result.user.userType;
 				userData.loggedIn = true;
 
-				self.setState({user: userData});
+				self.setState({user: userData, loading: false});
 			} else {
 				clearToken();
 				userData.token = null;
 				
-				self.setState({user: userData});
+				self.setState({user: userData, loading: false,});
 			}
 		});
 	}
@@ -137,8 +138,13 @@ class App extends React.Component {
 	render() {
 		const {
 			user,
+			loading,
 			error,
 		} = this.state;
+
+		if (loading == true) {
+			return <Loading />;
+		}
 
 		return <div>
 			<BrowserRouter>
