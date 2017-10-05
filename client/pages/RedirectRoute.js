@@ -12,6 +12,7 @@ class RedirectRoute extends React.Component {
 		const {
 			path,
 			user,
+			role,
 		} = this.props;
 
 		// Show register page if user is not logged in
@@ -24,10 +25,12 @@ class RedirectRoute extends React.Component {
 			return <Redirect to='/login'/>;
 		}
 
-		// Redirect if we have a token
-		if ((path == "/login" || path == "/register") && (user.token != null)) {
+		// Redirect if incorrect role
+		if (role != null && role.indexOf(user.userType) == -1) {
 			return <Redirect to='/'/>;
-		}
+		} else {
+			return <Route {...this.props} />;
+		};
 
 		return <Route {...this.props} />;
 	};
@@ -35,6 +38,7 @@ class RedirectRoute extends React.Component {
 
 RedirectRoute.propTypes = {
 	user: PropTypes.object,
+	role: PropTypes.oneOfType([PropTypes.array]),
 };
 
 export default RedirectRoute;

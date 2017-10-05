@@ -86,15 +86,13 @@ class Login extends React.Component {
 			errors.email = "";
 		}
 		if (errors.email == "") {
-			let self = this;
-			this.props.user.login(this.state.emailAddress, this.state.password, this.state.organizationName).then(function(result) {
-				if (result.success == true) {
-					self.setState({ loggedIn: true });
-				} else {
-					errors.login = "Sorry, we could not log you in. Please check your email and password."
-					self.setState({ loading: false });
-				}
-			});
+			const properties = {
+				email: this.state.emailAddress,
+				password: this.state.password,
+				organizationName: this.state.organizationName,
+			};
+			this.props.login(properties);
+			this.setState({ loading: false });
 		} else {
 			this.setState({ loading: false });
 		}
@@ -133,6 +131,10 @@ class Login extends React.Component {
 			error,
 			disabled
 		} = this.state;
+
+		const {
+			loginError,
+		} = this.props;
 
 		if (register) {
 			return <Redirect to='/register'/>;
@@ -179,7 +181,7 @@ class Login extends React.Component {
 					disabled={disabled}
 				/>
 				{error.password && <div className="error">{error.password}</div>}
-				{error.login && <div className="error">{error.login}</div>}
+				{loginError && <div className="error">{loginError}</div>}
 				<button type="button" onClick={this.login} disabled={disabled}>Login</button>
 				<button type="button" onClick={this.register} disabled={disabled}>Register</button>
 
@@ -204,7 +206,8 @@ class Login extends React.Component {
 
 Login.propTypes = {
 	route: PropTypes.object,
-	user: PropTypes.object,
+	login: PropTypes.func,
+	loginError: PropTypes.string,
 };
 
 export default Login;

@@ -2,5 +2,5 @@ export const ACCOUNT_TYPE = {
 	"UNREGISTERED": 0,
 	"ADMINISTRATOR": 1,
 	"SUPERVISOR": 2,
-	"STUDENT": 3,
+	"USER": 3,
 }
