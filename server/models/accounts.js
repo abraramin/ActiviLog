@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 var Schema = mongoose.Schema;
 
 var enumUserType = {
-    values: ["user", "supervisor", "admin"],
+    values: [0, 1, 2, 3, 4],
     message: '{VALUE} is not a valid ActiviLog user type.'
 };
 
@@ -39,7 +39,7 @@ var accountSchema = new Schema
       require: true
     },
 
-    userType:{type:String, require:true, enum:enumUserType},
+    userType:{type:Number, require:true, enum:enumUserType},
 },{
   timestamps: true,
 });

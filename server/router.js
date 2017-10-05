@@ -10,6 +10,13 @@ var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
+const ACCOUNT_TYPE = {
+    UNREGISTERED: 0,
+    ADMINISTRATOR: 1,
+    SUPERVISOR: 2,
+    USER: 3,
+};
+
 // Check user Level
 function hasRole(role) {
     return function (req, res, next) {
@@ -94,7 +101,7 @@ router.post('/api/login', visitor(), function(req, res) {
     });
 });
 
-router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole(["user", "admin"]), function(req, res) {  
+router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER, ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {  
     const userData = {
         id: req.user._id,
         fullName: req.user.fullName,

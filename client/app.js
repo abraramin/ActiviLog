@@ -12,7 +12,7 @@ import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
 import Publish from './pages/publish/';
-import Activites from './pages/activities/';
+import Activities from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
@@ -31,7 +31,7 @@ class App extends React.Component {
 				fullName: null,
 				email: null,
 				organisationId: null,
-				userType: null,
+				userType: 0,
 				loggedIn: false,
 				token: null,
 			},
@@ -44,6 +44,7 @@ class App extends React.Component {
 		this.loadUser = this.loadUser.bind(this);
 		this.login = this.login.bind(this);
 		this.logout = this.logout.bind(this);
+		this.register = this.register.bind(this);
 		this.forgotPassword = this.forgotPassword.bind(this);
 	}
 
@@ -67,7 +68,7 @@ class App extends React.Component {
 		this.setState({loading: true});
 		let self = this;
 		const load = fetchUserData().then(function(response) {
-			if (response.status != 401) {
+			if (response.status != 401 || response.status != 403) {
 				return response.json()
 			} else {
 			return false;
@@ -135,6 +136,10 @@ class App extends React.Component {
 
 	}
 
+	register() {
+		
+	}
+
 	render() {
 		const {
 			user,
@@ -152,31 +157,37 @@ class App extends React.Component {
 					<RedirectRoute
 						exact path="/"
 						user={user}
+						role={[ACCOUNT_TYPE.USER, ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Dashboard user={user} />}
 					/>
 					<RedirectRoute
 						path="/login"
 						user={user}
+						role={[ACCOUNT_TYPE.UNREGISTERED]}
 						render={(props) => <Login login={this.login} loginError={error.login} />}
 					/>
 					<RedirectRoute
 						path="/register"
 						user={user}
+						role={[ACCOUNT_TYPE.UNREGISTERED]}
 						render={(props) => <Register user={user} />}
 					/>
 					<RedirectRoute
-						path="/publish*"
+						path="/publish"
 						user={user}
+						role={[ACCOUNT_TYPE.USER]}
 						render={(props) => <Publish user={user} />}
 					/>
 					<RedirectRoute
-						path="/activites"
+						path="/activities"
 						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Activities user={user} />}
 					/>
 					<RedirectRoute
 						path="/users"
 						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Users user={user} />}
 					/>
 					<RedirectRoute
