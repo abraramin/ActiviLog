@@ -14,7 +14,7 @@ class Activites extends React.Component {
 };
 
 Activites.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default Activites;

@@ -14,7 +14,7 @@ class Register extends React.Component {
 };
 
 Register.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default Register;

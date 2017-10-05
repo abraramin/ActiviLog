@@ -14,7 +14,7 @@ class Users extends React.Component {
 };
 
 Users.propTypes = {
-	prop: PropTypes.boolean,
+	user: PropTypes.object,
 };
 
 export default Users;
