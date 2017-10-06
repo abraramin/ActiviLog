@@ -152,61 +152,73 @@ class Login extends React.Component {
 			return <Redirect to='/'/>;
 		}
 
-		return <div>
-			{organizationValid == false && !forgotPassword && <div className="welcomepage">
-				<div className="welcomeform">
-					<input
-						type="text"
-						name="organizationName"
-						value={organizationName}
-						onChange={this.changeField}
-						placeholder={"Organization Name"}
-						disabled={disabled}
-					/>
-					<p className="welcomeform">@activilog</p>
+		return <div id="authenticate" className="color-wrap">
+			<div className="container">
+				<div className="logo">
+					<img src={require('../../common/images/logo_text.png')} />
 				</div>
-				{error.organization && <div className="error">{error.organization}</div>}
-				<div>
-					<button type="button" className="welcomeform" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
-				</div>
-			</div>}
-			{organizationValid == true && !forgotPassword && <div className="loginform">
-				<input
-					type="text"
-					name="emailAddress"
-					value={emailAddress}
-					onChange={this.changeField}
-					placeholder={"Email Address"}
-					disabled={disabled}
-				/>
-				{error.email && <div className="error">{error.email}</div>}
-				<input
-					type="password"
-					name="password"
-					value={password}
-					onChange={this.changeField}
-					placeholder={"Password"}
-					disabled={disabled}
-				/>
-				{error.password && <div className="error">{error.password}</div>}
-				{loginError && <div className="error">{loginError}</div>}
-				<button type="button" onClick={this.login} disabled={disabled}>Login</button>
-				<button type="button" onClick={this.register} disabled={disabled}>Register</button>
+				<div className="modal">
+					{organizationValid == false && !forgotPassword &&
+					<div>
+						<div className="organization_input">
+							<div className="title">
+								<h2>Welcome.</h2>
+								<p>Enter your <b>Organization Name</b> to get started.</p>
+							</div>
+							<input
+								type="text"
+								name="organizationName"
+								value={organizationName}
+								onChange={this.changeField}
+								placeholder={"Organization Name"}
+								disabled={disabled}
+							/>
+							<span className="address">@activilog</span>
+						</div>
+						{error.organization && <div className="error">{error.organization}</div>}
+						<div>
+							<button type="button" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
+						</div>
+					</div>}
+					{organizationValid == true && !forgotPassword && <div className="loginform">
+						<input
+							type="text"
+							name="emailAddress"
+							value={emailAddress}
+							onChange={this.changeField}
+							placeholder={"Email Address"}
+							disabled={disabled}
+						/>
+						{error.email && <div className="error">{error.email}</div>}
+						<input
+							type="password"
+							name="password"
+							value={password}
+							onChange={this.changeField}
+							placeholder={"Password"}
+							disabled={disabled}
+						/>
+						{error.password && <div className="error">{error.password}</div>}
+						{loginError && <div className="error">{loginError}</div>}
+						<button type="button" onClick={this.login} disabled={disabled}>Login</button>
+						<button type="button" onClick={this.register} disabled={disabled}>Register</button>
 
-				<span className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</span>
-			</div>}
-			{forgotPassword && <div>
-				<input
-					type="text"
-					name="emailAddress"
-					value={emailAddress}
-					onChange={this.changeField}
-					placeholder={"Email Address"}
-					disabled={disabled}
-				/>
-				{error.email && <div className="error">{error.email}</div>}
-				<button type="button" onClick={this.resetPassword} disabled={disabled}>Reset Password</button>
-			</div>}
+						<span className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</span>
+					</div>}
+					{forgotPassword && <div>
+						<input
+							type="text"
+							name="emailAddress"
+							value={emailAddress}
+							onChange={this.changeField}
+							placeholder={"Email Address"}
+							disabled={disabled}
+						/>
+						{error.email && <div className="error">{error.email}</div>}
+						<button type="button" onClick={this.resetPassword} disabled={disabled}>Reset Password</button>
+					</div>}
+				</div>
+			</div>
 			<LoginFooter />
 		</div>;
 	};
