@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
-import Collapsible from 'react-collapsible';
 
 class Dashboard extends React.Component {
 	constructor(props) {
@@ -46,18 +45,17 @@ class Dashboard extends React.Component {
 		return <div> 
 			{loggedIn && AccType == "admin" && <div>
 				<div>
-					<img src="activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 
+					<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 
 				</div>
 				<div>
-					<img src="records.png" alt="VIEW RECORDS" onClick={this.records}/> 
+					<img src="../../common/images/Records.png" alt="VIEW RECORDS" onClick={this.records}/> 
 				</div>
 				<div>
-					<img src="users.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
+					<img src="../../common/images/Users.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
 				</div>
 			</div>}
 			{loggedIn && AccType == "student" && <div> 
-				<ActivityList activities={this.state.activites} />//TODO Activities List from Mockup Template
-				//Make new class called ActivityList for Dynamically listing activities and making them expandable using react-collapsible.
+				return <Redirect to='/activities'/>;
 			</div>}
 		</div>;
 	};
