@@ -163,7 +163,7 @@ class Login extends React.Component {
 						<div className="organization_input">
 							<div className="title">
 								<h2>Welcome.</h2>
-								<p>Enter your <b>Organization Name</b> to get started.</p>
+								<p>Enter your <strong>Organization Name</strong> to get started.</p>
 							</div>
 							<input
 								type="text"
@@ -181,6 +181,9 @@ class Login extends React.Component {
 						</div>
 					</div>}
 					{organizationValid == true && !forgotPassword && <div className="loginform">
+						<div className="title">
+							<h2>Login to your Account</h2>
+						</div>
 						<input
 							type="text"
 							name="emailAddress"
@@ -200,10 +203,11 @@ class Login extends React.Component {
 						/>
 						{error.password && <div className="error">{error.password}</div>}
 						{loginError && <div className="error">{loginError}</div>}
-						<button type="button" onClick={this.login} disabled={disabled}>Login</button>
-						<button type="button" onClick={this.register} disabled={disabled}>Register</button>
-
-						<span className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</span>
+						<div className="enter">
+							<button type="button" className="submit width50" onClick={this.login} disabled={disabled}>Login</button>
+							<button type="button" className="register width50" onClick={this.register} disabled={disabled}>Register</button>
+						</div>
+						<p className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</p>
 					</div>}
 					{forgotPassword && <div>
 						<input
