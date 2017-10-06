@@ -1,0 +1,54 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+
+/*#header {
+	width: 100%;
+	height: 50px;
+  background-color: #000080;
+}*/
+
+#navbar-heading{
+  color: #F8F8FF;
+  font-family: arial;
+  font-size: 20px;
+}
+
+
+
+
+#home-logo{
+  background: url(../images/header/nav_bar_home.png) no-repeat;
+  width:30px;
+  height:30px;
+  padding: 5px;
+  align: middle;
+}
+
+
+#logout-button{
+  background-color: Red;
+  color: Salmon;
+  float: right;
+}
