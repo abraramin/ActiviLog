@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
 		const {
 			user,
 		} = this.props;
-		
+	
 		return <div> 
 			{user.loggedIn && user.userType == ACCOUNT_TYPE.ADMINISTRATOR || ACCOUNT_TYPE.SUPERVISOR && <div>
 				<div>

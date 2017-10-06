@@ -6,8 +6,7 @@ import validateEmail from '../../common/utilities/validateEmail';
 import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
-require('../../common/styles/styleActivilog.css');
-//import styles from '../../common/styles/styleActivilog.css'
+require('../../common/styles/style.css');
 
 class Login extends React.Component {
 	constructor(props) {

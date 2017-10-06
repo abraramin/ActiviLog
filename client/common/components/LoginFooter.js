@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-require('../styles/styleActivilog.css');
+require('../styles/style.css');
 
 class LoginFooter extends React.Component {
 	render() {
