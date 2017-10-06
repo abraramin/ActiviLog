@@ -31,6 +31,11 @@ $ npm run dev
 ```
 
 ## Deploy on Heroku
+Add remote
+```
+$ heroku git:remote -a activilog
+```
+
 By default heroku installs production dependencies only. [To install the devDependencies disable production mode](https://devcenter.heroku.com/articles/nodejs-support)
 ```
 $ heroku config:set NPM_CONFIG_PRODUCTION=false
