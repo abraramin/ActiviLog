@@ -8,6 +8,8 @@ import { ACCOUNT_TYPE } from "./common/config"
 import RedirectRoute from "./pages/RedirectRoute"
 
 // Load our components
+import Header from "./common/components/Header"
+
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
@@ -152,6 +154,7 @@ class App extends React.Component {
 		}
 
 		return <div>
+			<Header user={user} />
 			<BrowserRouter>
 				<Switch>
 					<RedirectRoute
