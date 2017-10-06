@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
 		} = this.props;
 		
 		return <div> 
-			{user.loggedIn && user.userType == ACCOUNT_TYPE.ADMINISTRATOR || user.userType == ACCOUNT_TYPE.SUPERVISOR && <div>
+			{user.loggedIn && (user.userType == ACCOUNT_TYPE.ADMINISTRATOR || user.userType == ACCOUNT_TYPE.SUPERVISOR) && <div>
 				<div>
 					<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 
 				</div>
@@ -40,7 +40,7 @@ class Dashboard extends React.Component {
 					<img src="../../common/images/Records.png" alt="VIEW RECORDS" onClick={this.records}/> 
 				</div>
 				<div>
-					<img src="../../common/images/Users.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
+					<img src="../../common/images/User.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
 				</div>
 			</div>}
 			{user.loggedIn && user.userType == ACCOUNT_TYPE.USER && <div>
