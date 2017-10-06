@@ -2,15 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
 
+import { ACCOUNT_TYPE } from "./common/config"
+
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		
 		this.state = {
-			loggedIn: false, //TODO get from session info.
-			AccType: "", //TODO get from session info.
-			Activities: {
-				//loaded from activities list
+			user: {
+				id: null,
+				fullName: null,
+				email: null,
+				organisationId: null,
+				userType: ACC.UNREGISTERED,
+				loggedIn: false,
+				token: null,
 			}
 		};
 		
@@ -33,9 +39,7 @@ class Dashboard extends React.Component {
 	
 	render() {
 		const {
-			loggedIn,
-			AccType, 
-			Activities
+			user, 
 		} = this.state;
 		
 		if (!loggedIn) {
@@ -43,7 +47,7 @@ class Dashboard extends React.Component {
 		}
 		
 		return <div> 
-			{loggedIn && AccType == "admin" && <div>
+			{loggedIn && AccType == ACCOUNT_TYPE.ADMINISTRATOR || ACCOUNT_TYPE.SUPERVISOR && <div>
 				<div>
 					<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 
 				</div>
@@ -54,7 +58,7 @@ class Dashboard extends React.Component {
 					<img src="../../common/images/Users.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
 				</div>
 			</div>}
-			{loggedIn && AccType == "student" && <div> 
+			{loggedIn && AccType == ACCOUNT_TYPE.USER && <div> 
 				return <Redirect to='/activities'/>;
 			</div>}
 		</div>;
