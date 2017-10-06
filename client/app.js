@@ -68,8 +68,8 @@ class App extends React.Component {
 		this.setState({loading: true});
 		let self = this;
 		const load = fetchUserData().then(function(response) {
-			if (response.status != 401 || response.status != 403) {
-				return response.json()
+			if (response.status == 200) {
+				return response.json();
 			} else {
 			return false;
 			}
