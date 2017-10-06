@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
+import Collapsible from "react-collapsible";
 
 import { ACCOUNT_TYPE } from "../../common/config";
 
@@ -14,22 +15,22 @@ class Dashboard extends React.Component {
 	}
 
 	activities() {
-		return <Redirect to='/activities'/>; //URL to view activities as admin
+		return this.props.history.push('/activities'); //URL to view activities as admin
 	}
 	
 	records () {
-		return <Redirect to='/records'/>; //URL to view records as admin
+		return this.props.history.push('/records'); //URL to view records as admin
 	}
 	
 	users () {
-		return <Redirect to='/users'/>; //URL to view user accounts as admin
+		return this.props.history.push('/user'); //URL to view user accounts as admin
 	}
 	
 	render() {
 		const {
 			user,
 		} = this.props;
-	
+		
 		return <div> 
 			{user.loggedIn && user.userType == ACCOUNT_TYPE.ADMINISTRATOR || ACCOUNT_TYPE.SUPERVISOR && <div>
 				<div>
@@ -40,6 +41,11 @@ class Dashboard extends React.Component {
 				</div>
 				<div>
 					<img src="../../common/images/Users.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
+				</div>
+			</div>}
+			{user.loggedIn && user.userType == ACCOUNT_TYPE.USER && <div>
+				<div>
+					STUDENT DASH //Dynamic Activity List using Collapsible
 				</div>
 			</div>}
 		</div>;
