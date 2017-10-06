@@ -177,7 +177,7 @@ class Login extends React.Component {
 						</div>
 						{error.organization && <div className="error">{error.organization}</div>}
 						<div>
-							<button type="button" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
+							<button type="button" className="submit" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
 						</div>
 					</div>}
 					{organizationValid == true && !forgotPassword && <div className="loginform">

@@ -49,13 +49,15 @@ input[type=text]:focus {
     border: 2px solid #555;
 }
 
-input[type=button] {
+.submit {
     border: none;
     color: white;
     padding: 16px 32px;
     text-decoration: none;
-    margin: 4px 2px;
-    cursor: pointer;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#428be5;
+	width: 100%;
 }
 
 /* Authentication CSS */
