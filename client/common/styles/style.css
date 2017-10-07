@@ -182,13 +182,16 @@ input[type=text]:focus, input[type=password]:focus {
 	border-radius: 3px;
 }
 
+#dashboard .pill a {
+	text-align: center;
+	text-decoration: none;
+	color: #333;
+}
+
 #dashboard .pill a:hover {
 	background-color: #F3F3F3;
 }
 
-#dashboard .pill p a {
-	text-align:center;
+#dashboard .pill p {
 	margin-top: 30px;
-	text-decoration: none;
-	color: #333;
 }

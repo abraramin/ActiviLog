@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
 						<div className="pill">
 							<Link to={{pathname: '/users'}}>
 								<img src="../../common/images/User.png" alt="MANAGE ACCOUNTS"/> 
-								<p>Create & Manage User Accounts</p>
+								<p>Create & Manage Users</p>
 							</Link>
 						</div>
 					</div>
