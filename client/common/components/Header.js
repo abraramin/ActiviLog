@@ -31,7 +31,7 @@ class Header extends React.Component {
 			<div>
 				<ul>
 					<div className="logo"><Link to={{pathname: '/'}}>
-						<img src={require('../images/logo_text.png')} />
+						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
 					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
 					<li><span><Link to={{pathname: '/publish'}}>Publish</Link></span></li>
@@ -45,7 +45,7 @@ class Header extends React.Component {
 			<div>
 				<ul>
 					<div className="logo"><Link to={{pathname: '/'}}>
-						<img src={require('../images/logo_text.png')} />
+						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
 					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
 					<li><span><Link to={{pathname: '/records'}}>Records</Link></span></li>
