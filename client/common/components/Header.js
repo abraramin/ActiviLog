@@ -33,9 +33,24 @@ class Header extends React.Component {
 					<div className="logo"><Link to={{pathname: '/'}}>
 						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
-					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
-					<li><span><Link to={{pathname: '/publish'}}>Publish</Link></span></li>
-					<li id={"logout-button"}><span><a onClick={this.props.logout}>Logout</a></span></li>
+					<li>
+						<Link to={{pathname: '/'}}>
+							<img src={require('../images/menu_home.png')} />
+							<span>Home</span>
+						</Link>
+					</li>
+					<li>
+						<Link to={{pathname: '/publish'}}>
+							<img src={require('../images/menu_add.png')} />
+							<span>Publish</span>
+						</Link>
+					</li>
+					<li className={"logout-button"}>
+						<a onClick={this.props.logout}>
+							<img src={require('../images/menu_logout.png')} />
+							<span>Logout</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 			</div>;
@@ -47,11 +62,36 @@ class Header extends React.Component {
 					<div className="logo"><Link to={{pathname: '/'}}>
 						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
-					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
-					<li><span><Link to={{pathname: '/records'}}>Records</Link></span></li>
-					<li><span><Link to={{pathname: '/activities'}}>Activities</Link></span></li>
-					<li><span><Link to={{pathname: '/users'}}>Accounts</Link></span></li>
-					<li className={"logout-button"}><span><a onClick={this.props.logout}>Logout</a></span></li>
+					<li>
+						<Link to={{pathname: '/'}}>
+							<img src={require('../images/menu_home.png')} />
+							<span>Home</span>
+						</Link>
+					</li>
+					<li>
+						<Link to={{pathname: '/records'}}>
+							<img src={require('../images/menu_records.png')} />
+							<span>Records</span>
+						</Link>
+					</li>
+					<li>
+						<Link to={{pathname: '/activities'}}>
+							<img src={require('../images/menu_activities.png')} />
+							<span>Activities</span>
+						</Link>
+					</li>
+					<li>
+						<Link to={{pathname: '/users'}}>
+							<img src={require('../images/menu_accounts.png')} />
+							<span>Accounts</span>
+						</Link>
+					</li>
+					<li className={"logout-button"}>
+						<a onClick={this.props.logout}>
+							<img src={require('../images/menu_logout.png')} />
+							<span>Logout</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 			</div>;
