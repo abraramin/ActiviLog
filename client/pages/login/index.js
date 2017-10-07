@@ -80,13 +80,19 @@ class Login extends React.Component {
 		this.setState({ loading: true });
 		let errors = this.state.error;
 		errors.login = "";
+		errors.password = "";
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
 			errors.email = "Please enter a valid email address";
 		} else {
 			errors.email = "";
 		}
-		if (errors.email == "") {
+		if (this.state.password.trim() == "") {
+			errors.password = "Please enter a password";
+		} else {
+			errors.password = "";
+		}
+		if (errors.email == "" && errors.password == "") {
 			const properties = {
 				email: this.state.emailAddress,
 				password: this.state.password,

@@ -27,12 +27,9 @@ html, body {
 }
 
 .error {
-	padding: 20px;
-    background-color: #f44336; /* Red */
-	color: white;
+	color: red;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	border-radius: 3px;
 }
 
 .width50 {

@@ -1,9 +1,14 @@
+#header {
+	width: 100%;
+	height: 50px;
+  background-color: #428be5;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
 }
 
 li {
@@ -16,18 +21,12 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    cursor: pointer;
 }
 
 li a:hover {
-    background-color: #111;
+    background-color: #2E61A0;
 }
-
-
-/*#header {
-	width: 100%;
-	height: 50px;
-  background-color: #000080;
-}*/
 
 #navbar-heading{
   color: #F8F8FF;
@@ -35,11 +34,7 @@ li a:hover {
   font-size: 20px;
 }
 
-
-
-
-#home-logo{
-  background: url(../images/header/nav_bar_home.png) no-repeat;
+.home-logo{
   width:30px;
   height:30px;
   padding: 5px;
@@ -47,8 +42,6 @@ li a:hover {
 }
 
 
-#logout-button{
-  background-color: Red;
-  color: Salmon;
+.logout-button{
   float: right;
 }

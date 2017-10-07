@@ -154,7 +154,7 @@ class App extends React.Component {
 		}
 
 		return <div>
-			<Header user={user} />
+			<Header user={user} logout={this.logout} />
 			<BrowserRouter>
 				<Switch>
 					<RedirectRoute

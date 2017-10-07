@@ -58,12 +58,11 @@ users () {
 			return <div id={"header"}>
 			<div>
 				<ul>
-					<li><a>Activilog</a></li>
 					<li><a>Home</a></li>
 					<li><a>Record</a></li>
 					<li><a>Activities</a></li>
 					<li><a>Accounts</a></li>
-					<li id={"logout-button"}><a onClick={this.props.logout}>Logout</a></li>
+					<li className={"logout-button"}><a onClick={this.props.logout}>Logout</a></li>
 				</ul>
 			</div>
 			</div>;
@@ -74,7 +73,7 @@ users () {
 
 Header.propTypes = {
 	user: PropTypes.object,
-	logout: PropTypes.function
+	logout: PropTypes.func,
 };
 
 export default Header;
