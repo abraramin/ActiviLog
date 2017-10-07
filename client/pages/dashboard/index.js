@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Collapsible from "react-collapsible";
 
 import { ACCOUNT_TYPE } from "../../common/config";
@@ -8,42 +8,49 @@ import { ACCOUNT_TYPE } from "../../common/config";
 class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
-		
-		this.activities = this.activities.bind(this);
-		this.records = this.records.bind(this);
-		this.users = this.users.bind(this);	
-	}
-
-	activities() {
-		return this.props.history.push('/activities'); //URL to view activities as admin
-	}
-	
-	records () {
-		return this.props.history.push('/records'); //URL to view records as admin
-	}
-	
-	users () {
-		return this.props.history.push('/user'); //URL to view user accounts as admin
 	}
 	
 	render() {
 		const {
 			user,
 		} = this.props;
+
+		const displayAdmin = (user.loggedIn && (user.userType == ACCOUNT_TYPE.ADMINISTRATOR || user.userType == ACCOUNT_TYPE.SUPERVISOR));
+		const displayUser = user.loggedIn && user.userType == ACCOUNT_TYPE.USER;
 		
-		return <div>
-			{user.loggedIn && (user.userType == ACCOUNT_TYPE.ADMINISTRATOR || user.userType == ACCOUNT_TYPE.SUPERVISOR) && <div>
-				<div>
-					<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 
+		return <div id="dashboard">
+			{displayAdmin && <div className="page">
+				<div className="welcome">
+					Welcome <strong>{user.fullName}</strong>
 				</div>
-				<div>
-					<img src="../../common/images/Records.png" alt="VIEW RECORDS" onClick={this.records}/> 
-				</div>
-				<div>
-					<img src="../../common/images/User.png" alt="MANAGE ACCOUNTS" onClick={this.users}/> 
+				<div className="box">
+					<div className="container">
+						<div className="pill">
+							<Link to={{pathname: '/records'}}>
+								<img src="../../common/images/Records.png" alt="VIEW RECORDS"/> 
+								<p>View Student Records</p>
+							</Link>
+						</div>
+					</div>
+					<div className="container">
+						<div className="pill">
+							<Link to={{pathname: '/activities'}}>
+								<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" /> 
+								<p>View & Update Activities</p>
+							</Link>
+						</div>
+					</div>
+					<div className="container">
+						<div className="pill">
+							<Link to={{pathname: '/users'}}>
+								<img src="../../common/images/User.png" alt="MANAGE ACCOUNTS"/> 
+								<p>Create & Manage User Accounts</p>
+							</Link>
+						</div>
+					</div>
 				</div>
 			</div>}
-			{user.loggedIn && user.userType == ACCOUNT_TYPE.USER && <div>
+			{displayUser && <div>
 				<div>
 					STUDENT DASH //Dynamic Activity List using Collapsible
 				</div>

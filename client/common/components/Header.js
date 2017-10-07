@@ -50,7 +50,7 @@ class Header extends React.Component {
 					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
 					<li><span><Link to={{pathname: '/records'}}>Records</Link></span></li>
 					<li><span><Link to={{pathname: '/activities'}}>Activities</Link></span></li>
-					<li><span><Link to={{pathname: '/users'}}>Users</Link></span></li>
+					<li><span><Link to={{pathname: '/users'}}>Accounts</Link></span></li>
 					<li className={"logout-button"}><span><a onClick={this.props.logout}>Logout</a></span></li>
 				</ul>
 			</div>

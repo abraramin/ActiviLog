@@ -36,6 +36,19 @@ html, body {
 	width: 50% !important;
 }
 
+.page {
+	margin-top: 30px;
+	width: 800px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.box {
+	width: 100%;
+	border: 1px solid #F3F3F3;
+	padding: 15px;
+}
+
 input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
@@ -141,4 +154,41 @@ input[type=text]:focus, input[type=password]:focus {
 	text-align:center;
 	color: #fff;
 	font-size: 12px;
+}
+
+
+
+/* Dashboard CSS */
+#dashboard .welcome {
+	font-size: 26px;
+	text-transform: uppercase;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#dashboard .welcome strong {
+	font-weight: bold;
+}
+
+#dashboard .container {
+	display: inline-block;
+}
+
+#dashboard .pill {
+	width: 200px;
+	text-align:center;
+	padding: 5px;
+	margin: 27px;
+	border-radius: 3px;
+}
+
+#dashboard .pill a:hover {
+	background-color: #F3F3F3;
+}
+
+#dashboard .pill p a {
+	text-align:center;
+	margin-top: 30px;
+	text-decoration: none;
+	color: #333;
 }
