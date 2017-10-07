@@ -210,8 +210,8 @@ class Login extends React.Component {
 						{error.password && <div className="error">{error.password}</div>}
 						{loginError && <div className="error">{loginError}</div>}
 						<div className="enter">
-							<button type="button" className="submit width50" onClick={this.login} disabled={disabled}>Login</button>
-							<button type="button" className="register width50" onClick={this.register} disabled={disabled}>Register</button>
+							<button type="button" className="submit width48 float-left" onClick={this.login} disabled={disabled}>Login</button>
+							<button type="button" className="register width48 float-right" onClick={this.register} disabled={disabled}>Register</button>
 						</div>
 						<p className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</p>
 					</div>}
