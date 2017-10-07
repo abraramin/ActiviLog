@@ -32,6 +32,18 @@ html, body {
 	margin-bottom: 5px;
 }
 
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.width48 {
+	width: 48% !important;
+}
+
 .width50 {
 	width: 50% !important;
 }
@@ -81,7 +93,7 @@ input[type=text]:focus, input[type=password]:focus {
     text-decoration: none;
     margin-top: 10px;
 	cursor: pointer;
-	background-color:red;
+	background-color:#d12121;
 	width: 100%;
 }
 
@@ -137,9 +149,13 @@ input[type=text]:focus, input[type=password]:focus {
 	text-align: center;
 }
 
+#authenticate .modal .loginform .enter {
+	height: 50px;
+}
+
 #authenticate .modal .loginform .forgotPassword {
 	text-align: right;
-	margin-top: 10px;
+	margin-top: 20px;
 	cursor: pointer;
 }
 
