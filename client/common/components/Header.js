@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Link } from 'react-router-dom';
+
 import { ACCOUNT_TYPE } from "../config";
 
 require('../styles/header.css');
@@ -8,23 +10,7 @@ require('../styles/header.css');
 class Header extends React.Component {
 	constructor(props) {
 		super(props);
-
-		this.activities = this.activities.bind(this);
-		this.records = this.records.bind(this);
-		this.users = this.users.bind(this);
 	}
-
-activities() {
-	return <Redirect to='/activities'/>; //URL to view activities as admin
-}
-
-records () {
-	return <Redirect to='/records'/>; //URL to view records as admin
-}
-
-users () {
-	return <Redirect to='/users'/>; //URL to view user accounts as admin
-}
 
 	render() {
 		const {
@@ -40,29 +26,32 @@ users () {
 		const isSupervisor = user.userType == ACCOUNT_TYPE.SUPERVISOR;
 		const isUser = user.userType == ACCOUNT_TYPE.USER;
 
-		if(isUser)
-		{
+		if(isUser) {
 			return <div id={"header"}>
 			<div>
 				<ul>
-					<li><a>Activilog</a></li>
-					<li><a>Home</a></li>
-					<li><a>Add</a></li>
-					<li id={"logout-button"}><a onClick={this.props.logout}>Logout</a></li>
+					<div className="logo"><Link to={{pathname: '/'}}>
+						<img src={require('../images/logo_text.png')} />
+					</Link></div>
+					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
+					<li><span><Link to={{pathname: '/publish'}}>Publish</Link></span></li>
+					<li id={"logout-button"}><span><a onClick={this.props.logout}>Logout</a></span></li>
 				</ul>
 			</div>
 			</div>;
 		}
-		if(isAdmin || isSupervisor)
-		{
+		if(isAdmin || isSupervisor) {
 			return <div id={"header"}>
 			<div>
 				<ul>
-					<li><a>Home</a></li>
-					<li><a>Record</a></li>
-					<li><a>Activities</a></li>
-					<li><a>Accounts</a></li>
-					<li className={"logout-button"}><a onClick={this.props.logout}>Logout</a></li>
+					<div className="logo"><Link to={{pathname: '/'}}>
+						<img src={require('../images/logo_text.png')} />
+					</Link></div>
+					<li><span><Link to={{pathname: '/'}}>Home</Link></span></li>
+					<li><span><Link to={{pathname: '/records'}}>Records</Link></span></li>
+					<li><span><Link to={{pathname: '/activities'}}>Activities</Link></span></li>
+					<li><span><Link to={{pathname: '/users'}}>Users</Link></span></li>
+					<li className={"logout-button"}><span><a onClick={this.props.logout}>Logout</a></span></li>
 				</ul>
 			</div>
 			</div>;
@@ -70,10 +59,10 @@ users () {
 	};
 };
 
-
 Header.propTypes = {
 	user: PropTypes.object,
 	logout: PropTypes.func,
+	path: PropTypes.object,
 };
 
 export default Header;

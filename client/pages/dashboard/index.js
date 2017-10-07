@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
 			user,
 		} = this.props;
 		
-		return <div> 
+		return <div>
 			{user.loggedIn && (user.userType == ACCOUNT_TYPE.ADMINISTRATOR || user.userType == ACCOUNT_TYPE.SUPERVISOR) && <div>
 				<div>
 					<img src="../../common/images/Activities.png" alt="VIEW ACTIVITIES" onClick={this.activities} /> 

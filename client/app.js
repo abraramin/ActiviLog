@@ -14,6 +14,7 @@ import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
 import Publish from './pages/publish/';
+import Records from './pages/records/';
 import Activities from './pages/activities/';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
@@ -153,9 +154,9 @@ class App extends React.Component {
 			return <Loading />;
 		}
 
-		return <div>
-			<Header user={user} logout={this.logout} />
-			<BrowserRouter>
+		return <BrowserRouter>
+			<div>
+				<Header user={user} logout={this.logout} />
 				<Switch>
 					<RedirectRoute
 						exact path="/"
@@ -182,6 +183,12 @@ class App extends React.Component {
 						render={(props) => <Publish user={user} />}
 					/>
 					<RedirectRoute
+						path="/records"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
 						path="/activities"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
@@ -199,8 +206,8 @@ class App extends React.Component {
 						component={MissingPath}
 					/>
 				</Switch>
-			</BrowserRouter>
-		</div>
+			</div>
+		</BrowserRouter>
 	}
 };
 

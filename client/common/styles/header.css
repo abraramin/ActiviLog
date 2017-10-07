@@ -1,21 +1,33 @@
 #header {
 	width: 100%;
-	height: 50px;
+	height: 60px;
   background-color: #428be5;
 }
 
-ul {
+#header ul .logo {
+    float: left;
+}
+
+#header ul .logo img {
+  float: left;
+}
+
+#header ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
 
-li {
+#header li {
     float: left;
 }
 
-li a {
+#header li img {
+
+}
+
+#header li a {
     display: block;
     color: white;
     text-align: center;
@@ -24,17 +36,21 @@ li a {
     cursor: pointer;
 }
 
-li a:hover {
+#header ul .active {
+  background-color: #2E61A0;
+}
+
+#header li a:hover {
     background-color: #2E61A0;
 }
 
-#navbar-heading{
+#header #navbar-heading{
   color: #F8F8FF;
   font-family: arial;
   font-size: 20px;
 }
 
-.home-logo{
+#header .home-logo{
   width:30px;
   height:30px;
   padding: 5px;
@@ -42,6 +58,6 @@ li a:hover {
 }
 
 
-.logout-button{
+#header .logout-button{
   float: right;
 }
