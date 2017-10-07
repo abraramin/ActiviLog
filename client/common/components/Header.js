@@ -22,6 +22,8 @@ class Header extends React.Component {
 			return null;
 		}
 
+		const path = window.location.pathname;
+
 		const isAdmin = user.userType == ACCOUNT_TYPE.ADMINISTRATOR;
 		const isSupervisor = user.userType == ACCOUNT_TYPE.SUPERVISOR;
 		const isUser = user.userType == ACCOUNT_TYPE.USER;
@@ -34,13 +36,13 @@ class Header extends React.Component {
 						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
 					<li>
-						<Link to={{pathname: '/'}}>
+						<Link to={{pathname: '/'}} className={path == "/" ? "active" : ""}>
 							<img src={require('../images/menu_home.png')} />
 							<span>Home</span>
 						</Link>
 					</li>
 					<li>
-						<Link to={{pathname: '/publish'}}>
+						<Link to={{pathname: '/publish'}} className={path == "/publish" ? "active" : ""}>
 							<img src={require('../images/menu_add.png')} />
 							<span>Publish</span>
 						</Link>
@@ -63,25 +65,25 @@ class Header extends React.Component {
 						<img src={require('../images/logo_text_small.png')} />
 					</Link></div>
 					<li>
-						<Link to={{pathname: '/'}}>
+						<Link to={{pathname: '/'}} className={path == "/" ? "active" : ""}>
 							<img src={require('../images/menu_home.png')} />
 							<span>Home</span>
 						</Link>
 					</li>
 					<li>
-						<Link to={{pathname: '/records'}}>
+						<Link to={{pathname: '/records'}} className={path == "/records" ? "active" : ""}>
 							<img src={require('../images/menu_records.png')} />
 							<span>Records</span>
 						</Link>
 					</li>
 					<li>
-						<Link to={{pathname: '/activities'}}>
+						<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
 							<img src={require('../images/menu_activities.png')} />
 							<span>Activities</span>
 						</Link>
 					</li>
 					<li>
-						<Link to={{pathname: '/users'}}>
+						<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
 							<img src={require('../images/menu_accounts.png')} />
 							<span>Accounts</span>
 						</Link>
