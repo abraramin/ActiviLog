@@ -112,6 +112,22 @@ router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), 
     res.json({ success: true, user: userData });
 });
 
+router.get('/api/fetch_posts', function(req, res) {  
+	post.find({ 'posterID': req.header.userID}).exec(function(err, posts) {
+		if (posts != null) {
+			const postData = {
+				title: req.title,
+				desc: req.desc,
+				startTime: req.startTime,
+				endTime: req.endTime,
+			}
+			res.json({success: true, posts: postData});
+		} else {
+			res.send({success: false, message: "Loading Activities Failed. Could not find any in database"})
+		}
+	});
+});
+
 router.post('/api/register', visitor(), function(req, res) {
     var userData = {
         email: req.body.email,
