@@ -23,7 +23,7 @@ class Header extends React.Component {
 			return null;
 		}
 
-		const path = window.location.pathname;
+		const path = window.location.pathname.toString();
 
 		const isAdmin = user.userType == ACCOUNT_TYPE.ADMINISTRATOR;
 		const isSupervisor = user.userType == ACCOUNT_TYPE.SUPERVISOR;
@@ -43,7 +43,7 @@ class Header extends React.Component {
 						</Link>
 					</li>
 					<li>
-						<Link to={{pathname: '/publish'}} className={path == "/publish" ? "active" : ""}>
+						<Link to={{pathname: '/publish'}} className={path.includes("/publish") ? "active" : ""}>
 							<img src={require('../images/menu_add.png')} />
 							<span>Publish</span>
 						</Link>
@@ -73,19 +73,19 @@ class Header extends React.Component {
 								</Link>
 							</li>
 							<li>
-								<Link to={{pathname: '/records'}} className={path == "/records" ? "active" : ""}>
+								<Link to={{pathname: '/records'}} className={path.includes("/records") ? "active" : ""}>
 									<img src={require('../images/menu_records.png')} />
 									<span>Records</span>
 								</Link>
 							</li>
 							<li>
-								<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
+								<Link to={{pathname: '/activities'}} className={path.includes("/activities") ? "active" : ""}>
 									<img src={require('../images/menu_activities.png')} />
 									<span>Activities</span>
 								</Link>
 							</li>
 							<li>
-								<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
+								<Link to={{pathname: '/users'}} className={path.includes("/users") ? "active" : ""}>
 									<img src={require('../images/menu_accounts.png')} />
 									<span>Accounts</span>
 								</Link>
