@@ -6,6 +6,8 @@ import { Link, Switch } from 'react-router-dom';
 
 import { ACCOUNT_TYPE } from "../config";
 
+import Search from "./Search"
+
 require('../styles/header.css');
 
 class Header extends React.Component {
@@ -113,23 +115,7 @@ class Header extends React.Component {
 										<span>Export Records (.xlsx)</span>
 									</a>
 								</li>
-								<li className={"search-button"}>
-									<a>
-										<span>
-												<img src={require('../images/search_button.png')} />
-										</span>
-									</a>
-								</li>
-								<li className={"search-bar"}>
-									<a>
-										<span>
-											<input
-												type="text"
-												placeholder={"Search ActiviLog"}
-											/>
-										</span>
-									</a>
-								</li>
+								<Search />
 							</ul>
 						</div>
 					}/>
@@ -162,6 +148,7 @@ class Header extends React.Component {
 										<span>Add Account</span>
 									</Link>
 								</li>
+								<Search />
 							</ul>
 						</div>
 					}/>

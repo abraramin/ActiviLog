@@ -55,8 +55,6 @@
     padding: 3px 10px 5px 10px;
     box-sizing: border-box;
     height: 50px;
-    font-size: 11px;
-    text-transform: uppercase;
 }
 
 #header ul .active {
@@ -85,8 +83,6 @@
   float: right;
 }
 
-
-
 #sub-header {
 	width: 100%;
 	height: 50px;
@@ -114,8 +110,6 @@
     padding: 0px 10px 0px 10px;
     box-sizing: border-box;
     height: 50px;
-    font-size: 11px;
-    text-transform: uppercase;
     line-height: 50px;
 }
 
@@ -135,10 +129,27 @@
 
 #sub-header .search-bar{
   float: right;
-	padding-bottom: 6px;
+}
+
+#sub-header .search-field{
+  height: 35px;
+  width: 300px;
+  border: 0px;
+  border-radius: 0px;
 }
 
 #sub-header .search-button{
   float: right;
-	padding-top: 7px;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  margin-top: 8px;
+  border: 0px;
+  margin-right: 10px;
+  background-color: #428be5;
+}
+
+#sub-header .search-button img{
+  width: 16px;
+  height: auto;
 }
