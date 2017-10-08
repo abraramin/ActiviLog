@@ -100,18 +100,40 @@ class Header extends React.Component {
 					</div>
 				</div>
 				<Switch>
-					<Route path="/records" render={() => 
+					<Route path="/records" render={() =>
 						<div id={"sub-header"}>
 							<ul>
 								<li>
 									<a>
-										<span>Export Records (.CSV)</span>
+										<span>Export Records (.csv)</span>
+									</a>
+								</li>
+								<li>
+									<a>
+										<span>Export Records (.xlsx)</span>
+									</a>
+								</li>
+								<li className={"search-button"}>
+									<a>
+										<span>
+												<img src={require('../images/search_button.png')} />
+										</span>
+									</a>
+								</li>
+								<li className={"search-bar"}>
+									<a>
+										<span>
+											<input
+												type="text"
+												placeholder={"Search ActiviLog"}
+											/>
+										</span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					}/>
-					<Route path="/activities" render={() => 
+					<Route path="/activities" render={() =>
 						<div id={"sub-header"}>
 							<ul>
 								<li>
@@ -127,7 +149,7 @@ class Header extends React.Component {
 							</ul>
 						</div>
 					}/>
-					<Route path="/users" render={() => 
+					<Route path="/users" render={() =>
 						<div id={"sub-header"}>
 							<ul>
 								<li>
