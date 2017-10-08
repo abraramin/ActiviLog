@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Link } from 'react-router-dom';
+import { Route } from 'react-router';
+import { Link, Switch } from 'react-router-dom';
 
 import { ACCOUNT_TYPE } from "../config";
 
@@ -58,44 +59,91 @@ class Header extends React.Component {
 			</div>;
 		}
 		if(isAdmin || isSupervisor) {
-			return <div id={"header"}>
-			<div>
-				<ul>
-					<div className="logo"><Link to={{pathname: '/'}}>
-						<img src={require('../images/logo_text_small.png')} />
-					</Link></div>
-					<li>
-						<Link to={{pathname: '/'}} className={path == "/" ? "active" : ""}>
-							<img src={require('../images/menu_home.png')} />
-							<span>Home</span>
-						</Link>
-					</li>
-					<li>
-						<Link to={{pathname: '/records'}} className={path == "/records" ? "active" : ""}>
-							<img src={require('../images/menu_records.png')} />
-							<span>Records</span>
-						</Link>
-					</li>
-					<li>
-						<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
-							<img src={require('../images/menu_activities.png')} />
-							<span>Activities</span>
-						</Link>
-					</li>
-					<li>
-						<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
-							<img src={require('../images/menu_accounts.png')} />
-							<span>Accounts</span>
-						</Link>
-					</li>
-					<li className={"logout-button"}>
-						<a onClick={this.props.logout}>
-							<img src={require('../images/menu_logout.png')} />
-							<span>Logout</span>
-						</a>
-					</li>
-				</ul>
-			</div>
+			return <div>
+				<div id={"header"}>
+					<div>
+						<ul>
+							<div className="logo"><Link to={{pathname: '/'}}>
+								<img src={require('../images/logo_text_small.png')} />
+							</Link></div>
+							<li>
+								<Link to={{pathname: '/'}} className={path == "/" ? "active" : ""}>
+									<img src={require('../images/menu_home.png')} />
+									<span>Home</span>
+								</Link>
+							</li>
+							<li>
+								<Link to={{pathname: '/records'}} className={path == "/records" ? "active" : ""}>
+									<img src={require('../images/menu_records.png')} />
+									<span>Records</span>
+								</Link>
+							</li>
+							<li>
+								<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
+									<img src={require('../images/menu_activities.png')} />
+									<span>Activities</span>
+								</Link>
+							</li>
+							<li>
+								<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
+									<img src={require('../images/menu_accounts.png')} />
+									<span>Accounts</span>
+								</Link>
+							</li>
+							<li className={"logout-button"}>
+								<a onClick={this.props.logout}>
+									<img src={require('../images/menu_logout.png')} />
+									<span>Logout</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<Switch>
+					<Route path="/records" render={() => 
+						<div id={"sub-header"}>
+							<ul>
+								<li>
+									<a>
+										<span>Export Records (.CSV)</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					}/>
+					<Route path="/activities" render={() => 
+						<div id={"sub-header"}>
+							<ul>
+								<li>
+									<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
+										<span>Activities List</span>
+									</Link>
+								</li>
+								<li>
+									<Link to={{pathname: '/activities/add'}} className={path == "/activities/add" ? "active" : ""}>
+										<span>Add Activity</span>
+									</Link>
+								</li>
+							</ul>
+						</div>
+					}/>
+					<Route path="/users" render={() => 
+						<div id={"sub-header"}>
+							<ul>
+								<li>
+									<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
+										<span>Account List</span>
+									</Link>
+								</li>
+								<li>
+									<Link to={{pathname: '/users/add'}} className={path == "/users/add" ? "active" : ""}>
+										<span>Add Account</span>
+									</Link>
+								</li>
+							</ul>
+						</div>
+					}/>
+				</Switch>
 			</div>;
 		}
 	};

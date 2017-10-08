@@ -165,43 +165,78 @@ class App extends React.Component {
 						render={(props) => <Dashboard user={user} />}
 					/>
 					<RedirectRoute
-						path="/login"
+						exact path="/login"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
 						render={(props) => <Login login={this.login} loginError={error.login} />}
 					/>
 					<RedirectRoute
-						path="/register"
+						exact path="/register"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
 						render={(props) => <Register user={user} />}
 					/>
 					<RedirectRoute
-						path="/publish"
+						exact path="/publish"
 						user={user}
 						role={[ACCOUNT_TYPE.USER]}
 						render={(props) => <Publish user={user} />}
 					/>
 					<RedirectRoute
-						path="/records"
+						exact path="/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.USER]}
+						render={(props) => <Publish user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/records"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Records user={user} />}
 					/>
 					<RedirectRoute
-						path="/activities"
+						exact path="/records/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/activities"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Activities user={user} />}
 					/>
 					<RedirectRoute
-						path="/users"
+						exact path="/activities/add"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Activities user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/activities/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Activities user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Users user={user} />}
 					/>
 					<RedirectRoute
-						path="*"
+						exact path="/users/add"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Users user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Users user={user} />}
+					/>
+					<RedirectRoute
 						user={user}
 						component={MissingPath}
 					/>
