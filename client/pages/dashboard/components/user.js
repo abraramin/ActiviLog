@@ -20,6 +20,7 @@ class User extends React.Component {
 	loadPosts() {
 		this.setState({loading: true});
 		
+		//Get user post data
 		let self = this;
 		const load = fetchPosts(this.props.user.id).then(function(response) {
 			if (response.status == 200) {
