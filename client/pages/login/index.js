@@ -127,13 +127,6 @@ class Login extends React.Component {
 	}
 
 	render() {
-
-		var styleTest = {
-			background: "magenta",
-			color: "lime",
-			fontFamily: "Arial",
-			fontSize: "40px"
-		};
 		const { 
 			organizationName,
 			organizationValid,
@@ -143,7 +136,7 @@ class Login extends React.Component {
 			loggedIn,
 			forgotPassword,
 			error,
-			disabled
+			loading
 		} = this.state;
 
 		const {
@@ -151,7 +144,8 @@ class Login extends React.Component {
 		} = this.props;
 
 		if (register) {
-			return <Redirect to='/register'/>;
+			const path = ("/register?" + this.state.organizationName).toString();
+			return <Redirect to={path}/>;
 		}
 
 		if (loggedIn) {
@@ -177,13 +171,13 @@ class Login extends React.Component {
 								value={organizationName}
 								onChange={this.changeField}
 								placeholder={"Organization Name"}
-								disabled={disabled}
+								disabled={loading}
 							/>
 							<span className="address">@activilog</span>
 						</div>
 						{error.organization && <div className="error">{error.organization}</div>}
 						<div>
-							<button type="button" className="submit" onClick={this.checkOrganization} disabled={disabled}>Continue</button>
+							<button type="button" className="submit" onClick={this.checkOrganization} disabled={loading}>Continue</button>
 						</div>
 					</div>}
 					{organizationValid == true && !forgotPassword && <div className="loginform">
@@ -196,7 +190,7 @@ class Login extends React.Component {
 							value={emailAddress}
 							onChange={this.changeField}
 							placeholder={"Email Address"}
-							disabled={disabled}
+							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
 						<input
@@ -205,15 +199,15 @@ class Login extends React.Component {
 							value={password}
 							onChange={this.changeField}
 							placeholder={"Password"}
-							disabled={disabled}
+							disabled={loading}
 						/>
 						{error.password && <div className="error">{error.password}</div>}
 						{loginError && <div className="error">{loginError}</div>}
 						<div className="enter">
-							<button type="button" className="submit width48 float-left" onClick={this.login} disabled={disabled}>Login</button>
-							<button type="button" className="register width48 float-right" onClick={this.register} disabled={disabled}>Register</button>
+							<button type="button" className="submit width48 float-left" onClick={this.login} disabled={loading}>Login</button>
+							<button type="button" className="register width48 float-right" onClick={this.register} disabled={loading}>Register</button>
 						</div>
-						<p className="forgotPassword" onClick={this.forgotPassword} disabled={disabled}>Forgot your Password?</p>
+						<p className="forgotPassword" onClick={this.forgotPassword} disabled={loading}>Forgot your Password?</p>
 					</div>}
 					{forgotPassword && <div>
 						<input
@@ -222,10 +216,10 @@ class Login extends React.Component {
 							value={emailAddress}
 							onChange={this.changeField}
 							placeholder={"Email Address"}
-							disabled={disabled}
+							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
-						<button type="button" onClick={this.resetPassword} disabled={disabled}>Reset Password</button>
+						<button type="button" onClick={this.resetPassword} disabled={loading}>Reset Password</button>
 					</div>}
 				</div>
 			</div>
