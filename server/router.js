@@ -47,6 +47,14 @@ function validateCharacters(val) {
     }
 }
 
+function validatePassword(val) {
+    if (/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/.test(val) && val != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Return Server Status
 router.get('/api/status', function(req, res){
     res.status(200).send("Server Running!");
@@ -141,16 +149,21 @@ router.post('/api/register', visitor(), function(req, res) {
                 userType: 3,
                 active: true,
               }
-            account.create(userData, function (err, user) {
-            if (err) {
-                if (err.code == 11000) {
-                    res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
-                } else {
-                res.json({ success: false, message: 'User could not be created ' + err });
-                }
+            
+            if (!validatePassword(req.body.password)) {
+                res.json({ success: false, message: 'Password does not meet the validation requirements' });
             } else {
-                res.json({ success: true, message: 'User account successfully created' });
-            }});
+                account.create(userData, function (err, user) {
+                if (err) {
+                    if (err.code == 11000) {
+                        res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
+                    } else {
+                    res.json({ success: false, message: 'User could not be created ' + err });
+                    }
+                } else {
+                    res.json({ success: true, message: 'User account successfully created' });
+                }});
+            }
         } else {
             res.json({ success: false, message: 'Registration failed. Organization could not be found' });
         }
