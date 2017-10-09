@@ -6,6 +6,7 @@ import validateEmail from '../../common/utilities/validateEmail';
 import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
+import Spinner from '../../common/components/Spinner';
 require('../../common/styles/style.css');
 
 class Login extends React.Component {
@@ -177,12 +178,12 @@ class Login extends React.Component {
 						</div>
 						{error.organization && <div className="error">{error.organization}</div>}
 						<div>
-							<button type="button" className="submit" onClick={this.checkOrganization} disabled={loading}>Continue</button>
+							<button type="button" className="submit" onClick={this.checkOrganization} disabled={loading}>{loading && <Spinner />}Continue</button>
 						</div>
 					</div>}
 					{organizationValid == true && !forgotPassword && <div className="loginform">
 						<div className="title">
-							<h2>Login to your Account</h2>
+							<h2>Account Login</h2>
 						</div>
 						<input
 							type="text"
@@ -204,7 +205,7 @@ class Login extends React.Component {
 						{error.password && <div className="error">{error.password}</div>}
 						{loginError && <div className="error">{loginError}</div>}
 						<div className="enter">
-							<button type="button" className="submit width48 float-left" onClick={this.login} disabled={loading}>Login</button>
+							<button type="button" className="submit width48 float-left" onClick={this.login} disabled={loading}>{loading && <Spinner />}Login</button>
 							<button type="button" className="register width48 float-right" onClick={this.register} disabled={loading}>Register</button>
 						</div>
 						<p className="forgotPassword" onClick={this.forgotPassword} disabled={loading}>Forgot your Password?</p>

@@ -7,6 +7,7 @@ import validateEmail from '../../common/utilities/validateEmail';
 import { check_organization } from '../../api';
 
 import LoginFooter from '../../common/components/LoginFooter';
+import Spinner from '../../common/components/Spinner';
 require('../../common/styles/style.css');
 
 class Register extends React.Component {
@@ -135,7 +136,7 @@ class Register extends React.Component {
 				<div className="modal">
 					<div className="registrationform">
 						<div className="title">
-							<h2>Register</h2>
+							<h2>Account Registration</h2>
 						</div>
 						<input
 							type="text"
@@ -175,7 +176,7 @@ class Register extends React.Component {
 						{error.password && <div className="error">{error.password}</div>}
 						{registerError && <div className="error">{registerError}</div>}
 						<div className="enter">
-							<button type="button" className="register" onClick={this.register} disabled={loading}>Register</button>
+							<button type="button" className="register" onClick={this.register} disabled={loading}>{loading && <Spinner />}Register</button>
 						</div>
 					</div>
 				</div>
