@@ -61,7 +61,7 @@ class Register extends React.Component {
         this.setState({ loading: true });
         let self = this;
         let errors = this.state.error;
-        return check_organization(this.state.organizationName).then(response => response.json()).then(function(result) {
+        return check_organization(this.state.organizationName.toLowerCase()).then(response => response.json()).then(function(result) {
 			if (result.valid == false) {
 				return false;
 			} else {
@@ -179,6 +179,7 @@ class Register extends React.Component {
 							name="password"
 							value={password}
 							onChange={this.changeField}
+							placeholder={"Min 8 characters, 1 letter, 1 number"}
 							disabled={loading}
 						/>
 						{error.password && <div className="error">{error.password}</div>}

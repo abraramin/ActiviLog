@@ -56,7 +56,7 @@ class Login extends React.Component {
         this.setState({ loading: true });
         let self = this;
         let errors = this.state.error;
-        check_organization(this.state.organizationName).then(response => response.json()).then(function(result) {
+        check_organization(this.state.organizationName.toLowerCase()).then(response => response.json()).then(function(result) {
 			if (result.valid == false) {
 				errors.organization = result.msg;
                 self.setState({
@@ -213,7 +213,11 @@ class Login extends React.Component {
 						</div>
 						<p className="forgotPassword" onClick={this.forgotPassword} disabled={loading}>Forgot your Password?</p>
 					</div>}
-					{forgotPassword && <div>
+					{forgotPassword && <div className="forgotform">
+						<div className="title">
+							<h2>Reset Password</h2>
+							<p>Enter your email address to receive a reset link</p>
+						</div>
 						<input
 							type="text"
 							name="emailAddress"
@@ -223,7 +227,7 @@ class Login extends React.Component {
 							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
-						<button type="button" onClick={this.resetPassword} disabled={loading}>Reset Password</button>
+						<button type="button" className="reset" onClick={this.resetPassword} disabled={loading}>Reset Password</button>
 					</div>}
 				</div>
 			</div>
