@@ -40,6 +40,23 @@ export function login(email, password, organizationName) {
     });
 }
 
+// Account Registration
+export function register(fullName, email, password, organizationName) {
+    return fetch('/api/register/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'fullName': fullName,
+            'email': email,
+            'password': password,
+            'organization': organizationName
+        })
+    });
+}
+
 // Fetch Logged In User Data
 export function fetchUserData() {
     return fetch('/api/fetch_user/', {

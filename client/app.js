@@ -21,7 +21,7 @@ import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading"
 
-import { login as userLogin, set_token, fetchUserData } from './api';
+import { login as userLogin, register, set_token, fetchUserData } from './api';
 import { saveToken, getToken, clearToken } from './common/utilities/tokenStorage'
 
 class App extends React.Component {
@@ -141,10 +141,33 @@ class App extends React.Component {
 	}
 
 	register(val) {
-		console.log("we get to the register part");
-		console.log(val);
-
 		const errorData = {...this.state.error};
+
+		// Return if already a login token
+		if (this.state.user.token != null) {
+			errorData.login = "User is currently logged in";
+			this.setState({error: errorData});
+			return;
+		} else {
+			errorData.login = "";
+			this.setState({error: errorData});
+		}
+
+		let self = this;
+		register(val.fullName, val.email, val.password, val.organizationName).then(response => response.json()).then(function(result) {
+			// Return fail message if login not successful
+			if (result.success == false) {
+				if (result.code != null && result.code == 11000) {
+					errorData.register = "An account with this email address already exists.";
+				} else {
+					errorData.register = "Sorry, we could not create an account. Please refresh the page and try again.";
+				}
+				self.setState({error: errorData});
+				return;
+			}
+			alert("Success! Your account has been created. You can now login.");
+			window.location.href = "/login";
+		});
 	}
 
 	render() {

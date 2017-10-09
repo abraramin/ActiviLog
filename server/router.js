@@ -75,11 +75,12 @@ router.post('/api/login', visitor(), function(req, res) {
             account.findOne({
                 email: req.body.email,
                 organizationId: orgId,
+                active: true,
             }, function(err, user) {
             if (err) throw err;
         
             if (!user) {
-                res.send({ success: false, message: 'Authentication failed. User not found.' });
+                res.json({ success: false, message: 'Authentication failed. User not found.' });
             } else {
                 // Check if password matches
                 user.comparePassword(req.body.password, function(err, isMatch) {
@@ -90,13 +91,13 @@ router.post('/api/login', visitor(), function(req, res) {
                     });
                     res.json({ success: true, token: 'JWT ' + token });
                 } else {
-                    res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                    res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
                 }
                 });
             }
             });
         } else {
-            res.send({ success: false, message: 'Authentication failed. Organization Could not be found' });
+            res.json({ success: false, message: 'Authentication failed. Organization Could not be found' });
         }
     });
 });
@@ -123,22 +124,36 @@ router.get('/api/fetch_posts', function(req, res) {
 			}
 			res.json({success: true, posts: postData});
 		} else {
-			res.send({success: false, message: "Loading Activities Failed. Could not find any in database"})
+			res.json({success: false, message: "Loading Activities Failed. Could not find any in database"})
 		}
 	});
 });
 
 router.post('/api/register', visitor(), function(req, res) {
-    var userData = {
-        email: req.body.email,
-        password: req.body.password,
-      }
-    account.create(userData, function (err, user) {
-    if (err) {
-        res.send({ success: false, message: 'User could not be created ' + err });
-    } else {
-        return res.redirect('/profile');
-    }
+    client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
+        if (organization != null) {
+            const orgId = organization._id.toString();
+            var userData = {
+                fullName: req.body.fullName,
+                email: req.body.email,
+                password: req.body.password,
+                organisationId: orgId,
+                userType: 3,
+                active: true,
+              }
+            account.create(userData, function (err, user) {
+            if (err) {
+                if (err.code == 11000) {
+                    res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
+                } else {
+                res.json({ success: false, message: 'User could not be created ' + err });
+                }
+            } else {
+                res.json({ success: true, message: 'User account successfully created' });
+            }});
+        } else {
+            res.json({ success: false, message: 'Registration failed. Organization could not be found' });
+        }
     });
 });
 
