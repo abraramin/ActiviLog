@@ -6,6 +6,7 @@ import validateEmail from '../../common/utilities/validateEmail';
 import validatePassword from '../../common/utilities/validatePassword';
 
 import { check_organization } from '../../api';
+import { Link } from 'react-router-dom';
 
 import LoginFooter from '../../common/components/LoginFooter';
 import Spinner from '../../common/components/Spinner';
@@ -145,46 +146,48 @@ class Register extends React.Component {
 		return <div id="authenticate" className="color-wrap">
 			<div className="container">
 				<div className="logo">
-					<img src={require('../../common/images/logo_text.png')} />
+					<Link to={{pathname: '/'}}>
+						<img src={require('../../common/images/logo_text.png')} />
+					</Link>
 				</div>
 				<div className="modal">
 					<div className="registrationform">
 						<div className="title">
 							<h2>Account Registration</h2>
 						</div>
+						<label>Full Name:</label>
 						<input
 							type="text"
 							name="fullName"
 							value={fullName}
 							onChange={this.changeField}
-							placeholder={"Full Name"}
 							disabled={loading}
 						/>
 						{error.fullName && <div className="error">{error.fullName}</div>}
+						<label>Email Address:</label>
 						<input
 							type="text"
 							name="emailAddress"
 							value={emailAddress}
 							onChange={this.changeField}
-							placeholder={"Email Address"}
 							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
+						<label>Password:</label>
 						<input
 							type="password"
 							name="password"
 							value={password}
 							onChange={this.changeField}
-							placeholder={"Password"}
 							disabled={loading}
 						/>
 						{error.password && <div className="error">{error.password}</div>}
+						<label>Organization Name:</label>
 						<input
 							type="text"
 							name="organizationName"
 							value={organizationName}
 							onChange={this.changeField}
-							placeholder={"Organization Name"}
 							disabled={loading}
 						/>
 						{error.organization && <div className="error">{error.organization}</div>}

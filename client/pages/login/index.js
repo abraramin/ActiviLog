@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
 import { check_organization } from '../../api';
+import { Link } from 'react-router-dom';
 
 import LoginFooter from '../../common/components/LoginFooter';
 import Spinner from '../../common/components/Spinner';
@@ -156,7 +157,9 @@ class Login extends React.Component {
 		return <div id="authenticate" className="color-wrap">
 			<div className="container">
 				<div className="logo">
-					<img src={require('../../common/images/logo_text.png')} />
+					<Link to={{pathname: '/'}}>
+						<img src={require('../../common/images/logo_text.png')} />
+					</Link>
 				</div>
 				<div className="modal">
 					{organizationValid == false && !forgotPassword &&
@@ -185,21 +188,21 @@ class Login extends React.Component {
 						<div className="title">
 							<h2>Account Login</h2>
 						</div>
+						<label>Email Address:</label>
 						<input
 							type="text"
 							name="emailAddress"
 							value={emailAddress}
 							onChange={this.changeField}
-							placeholder={"Email Address"}
 							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
+						<label>Password:</label>
 						<input
 							type="password"
 							name="password"
 							value={password}
 							onChange={this.changeField}
-							placeholder={"Password"}
 							disabled={loading}
 						/>
 						{error.password && <div className="error">{error.password}</div>}
