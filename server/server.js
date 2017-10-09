@@ -11,7 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var JwtStrategy = require('passport-jwt').Strategy;  
 var ExtractJwt = require('passport-jwt').ExtractJwt;  
-var accounts = require('./models/accounts');  
+var accounts = require('./models/accounts');
 
 // IMPORT ROUTER //
 var routes = require('./router');

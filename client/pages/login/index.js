@@ -125,6 +125,11 @@ class Login extends React.Component {
 		} else {
 			errors.email = "";
 		}
+
+		if (errors.email == "") {
+			this.props.forgotPassword(this.state.emailAddress);
+		}
+
 		this.setState({error: errors});
 	}
 
@@ -143,6 +148,7 @@ class Login extends React.Component {
 
 		const {
 			loginError,
+			forgotPasswordError,
 		} = this.props;
 
 		if (register) {
@@ -227,6 +233,7 @@ class Login extends React.Component {
 							disabled={loading}
 						/>
 						{error.email && <div className="error">{error.email}</div>}
+						{loginError && <div className="error">{loginError}</div>}
 						<button type="button" className="reset" onClick={this.resetPassword} disabled={loading}>Reset Password</button>
 					</div>}
 				</div>
@@ -240,6 +247,8 @@ Login.propTypes = {
 	route: PropTypes.object,
 	login: PropTypes.func,
 	loginError: PropTypes.string,
+	forgotPassword: PropTypes.func,
+	forgotPasswordError: PropTypes.string,
 };
 
 export default Login;

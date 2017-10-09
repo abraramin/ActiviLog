@@ -44,6 +44,10 @@ var accountSchema = new Schema
     userType:{type:Number, require:true, enum:enumUserType},
 
     active:{type:Boolean, require:true},
+
+    resetPasswordToken: String,
+    
+    resetPasswordExpires: Date
 },{
   timestamps: true,
 });

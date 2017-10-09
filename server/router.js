@@ -82,7 +82,7 @@ router.post('/api/login', visitor(), function(req, res) {
             const orgId = organization._id.toString();
             account.findOne({
                 email: req.body.email,
-                organizationId: orgId,
+                organisationId: orgId,
                 active: true,
             }, function(err, user) {
             if (err) throw err;
@@ -122,7 +122,7 @@ router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), 
 });
 
 router.get('/api/fetch_posts', function(req, res) {  
-	post.find({ 'posterID': req.header.userID}).exec(function(err, posts) {
+	/*post.find({ 'posterID': req.header.userID}).exec(function(err, posts) {
 		if (posts != null) {
 			const postData = {
 				title: req.title,
@@ -134,7 +134,7 @@ router.get('/api/fetch_posts', function(req, res) {
 		} else {
 			res.json({success: false, message: "Loading Activities Failed. Could not find any in database"})
 		}
-	});
+	});*/
 });
 
 router.post('/api/register', visitor(), function(req, res) {

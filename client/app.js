@@ -42,6 +42,7 @@ class App extends React.Component {
 			error: {
 				login: "",
 				register: "",
+				forgotPassword: "",
 			}
 		};
 
@@ -195,7 +196,7 @@ class App extends React.Component {
 						exact path="/login"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
-						render={(props) => <Login login={this.login} loginError={error.login} />}
+						render={(props) => <Login login={this.login} loginError={error.login} forgotPassword={this.forgotPassword} forgotPasswordError={error.forgotPassword} />}
 					/>
 					<RedirectRoute
 						exact path="/register"
