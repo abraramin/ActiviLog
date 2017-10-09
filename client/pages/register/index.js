@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom';
 import validateCharacters from '../../common/utilities/validateCharacters';
 import validateEmail from '../../common/utilities/validateEmail';
+import validatePassword from '../../common/utilities/validatePassword';
 
 import { check_organization } from '../../api';
 
@@ -16,7 +17,6 @@ class Register extends React.Component {
 
 		this.state = {
 			organizationName: "",
-			organizationValid: false,
 			fullName: "",
 			emailAddress: "",
 			password: "",
@@ -26,7 +26,7 @@ class Register extends React.Component {
 				email: null,
 				password: null,
 				fullName: null,
-				login: null,
+				register: null,
 			}
 		};
 
@@ -36,9 +36,11 @@ class Register extends React.Component {
 	}
 
 	componentDidMount() {
-		const path = window.location.pathname.toString();
+		const path = (location.pathname+location.search).substr(10);
 
-		console.log(path);
+		if (validateCharacters(path)) {
+			this.setState({organizationName: path.toString()});
+		}
 	}
 
 	changeField(evt) {
@@ -58,59 +60,71 @@ class Register extends React.Component {
         this.setState({ loading: true });
         let self = this;
         let errors = this.state.error;
-        check_organization(this.state.organizationName).then(response => response.json()).then(function(result) {
+        return check_organization(this.state.organizationName).then(response => response.json()).then(function(result) {
 			if (result.valid == false) {
-				errors.organization = result.msg;
-                self.setState({
-					error: errors,
-					loading: false
-                });
-                return;
+				return false;
 			} else {
-                errors.organization = "";
-                self.setState({
-					error: errors,
-                    organizationValid: true,
-					loading: false
-                });
-                return;
+				return true;
             }
-		}).catch(function(err) {
-            self.setState({ loading: false });
 		});
 	}
 
 	register() {
 		this.setState({ loading: true });
 		let errors = this.state.error;
-		errors.login = "";
+		errors.register = "";
 		errors.password = "";
 		errors.organization =  "";
 		errors.email = "";
 		errors.fullName = "";
+		// Check valid Full Name
+		if (this.state.fullName.trim() == "") {
+			errors.fullName = "Please enter your name";
+		} else {
+			errors.fullName = "";
+		}
 		// Check Email is Valid
 		if (validateEmail(this.state.emailAddress) == false) {
 			errors.email = "Please enter a valid email address";
 		} else {
 			errors.email = "";
 		}
-		if (this.state.password.trim() == "") {
-			errors.password = "Please enter a password";
+		if (validatePassword(this.state.password) == false) {
+			errors.password = "Please enter a valid password. A valid password contains a minimum of 8 characters, at least one letter, and one number.";
 		} else {
 			errors.password = "";
 		}
-		if (errors.email == "" && errors.password == "") {
-			const properties = {
-				email: this.state.emailAddress,
-				password: this.state.password,
-				organizationName: this.state.organizationName,
-			};
-			this.props.login(properties);
-			this.setState({ loading: false });
+		if (this.state.organizationName.trim() == "") {
+			errors.organization = "Please enter a valid organization";
 		} else {
-			this.setState({ loading: false });
+			errors.organization = "";
 		}
-		this.setState({error: errors});
+		if (errors.fullName !== "" || errors.email !== "" || errors.password !== "" || errors.organization !== "") {
+			this.setState({ loading: false });
+			this.setState({error: errors});
+			return;
+		}
+		const self = this;
+		this.checkOrganization().then(function(outcome) {
+			if (outcome == false) {
+				errors.organization = "Please enter a valid organization";
+			} else {
+				errors.organization = "";
+			}
+			if (errors.fullName == "" && errors.email == "" && errors.password == "" && errors.organization == "") {
+				const properties = {
+					fullName: self.state.fullName,
+					email: self.state.emailAddress,
+					password: self.state.password,
+					organizationName: self.state.organizationName,
+				};
+				self.props.register(properties);
+				self.setState({ loading: false });
+			} else {
+				self.setState({ loading: false });
+			}
+			self.setState({error: errors});
+		})
 	}
 
 	render() {
@@ -146,7 +160,7 @@ class Register extends React.Component {
 							placeholder={"Full Name"}
 							disabled={loading}
 						/>
-						{error.fullname && <div className="error">{error.fullName}</div>}
+						{error.fullName && <div className="error">{error.fullName}</div>}
 						<input
 							type="text"
 							name="emailAddress"
@@ -164,6 +178,7 @@ class Register extends React.Component {
 							placeholder={"Password"}
 							disabled={loading}
 						/>
+						{error.password && <div className="error">{error.password}</div>}
 						<input
 							type="text"
 							name="organizationName"
@@ -172,8 +187,7 @@ class Register extends React.Component {
 							placeholder={"Organization Name"}
 							disabled={loading}
 						/>
-						{error.email && <div className="error">{error.email}</div>}
-						{error.password && <div className="error">{error.password}</div>}
+						{error.organization && <div className="error">{error.organization}</div>}
 						{registerError && <div className="error">{registerError}</div>}
 						<div className="enter">
 							<button type="button" className="register" onClick={this.register} disabled={loading}>{loading && <Spinner />}Register</button>

@@ -41,6 +41,7 @@ class App extends React.Component {
 			loading: false,
 			error: {
 				login: "",
+				register: "",
 			}
 		};
 
@@ -139,8 +140,11 @@ class App extends React.Component {
 
 	}
 
-	register() {
-		
+	register(val) {
+		console.log("we get to the register part");
+		console.log(val);
+
+		const errorData = {...this.state.error};
 	}
 
 	render() {
@@ -174,7 +178,7 @@ class App extends React.Component {
 						exact path="/register"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
-						render={(props) => <Register user={user} />}
+						render={(props) => <Register register={this.register} registerError={error.register} />}
 					/>
 					<RedirectRoute
 						exact path="/publish"
