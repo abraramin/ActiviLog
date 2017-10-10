@@ -38,9 +38,9 @@ var account = require('./models/accounts');
 // Load JWT
 var opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-opts.secretOrKey = 'secretkey43565674567473';
+opts.secretOrKey = 'secretkey4356567';
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    accounts.findOne({id: jwt_payload.id}, function(err, user) {
+    accounts.findOne({_id: jwt_payload._id}, function(err, user) {
         if (err) {
             return done(err, false);
         }
@@ -53,7 +53,7 @@ passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
 }));
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id)
+    done(null, user._id)
 })
 passport.deserializeUser(function(id, done) {
     account.findOne({ _id: id }, function (err, user) {

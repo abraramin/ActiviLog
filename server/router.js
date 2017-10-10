@@ -94,7 +94,7 @@ router.post('/api/login', visitor(), function(req, res) {
                 user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch && !err) {
                     // Create token if the password matched and no error was thrown
-                    var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
+                    var token = jwt.sign(user.toObject(), 'secretkey4356567', {
                         expiresIn: 100000 // in seconds
                     });
                     res.json({ success: true, token: 'JWT ' + token });
