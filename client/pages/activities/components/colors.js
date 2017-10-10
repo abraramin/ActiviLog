@@ -9,7 +9,13 @@ class SelectColor extends React.Component {
 	}
 
 	selectColor(val) {
-		this.props.selectColor(val.target.value);
+		if (this.props.disabled != true) {
+			if (this.props.color == val.target.value) {
+				this.props.selectColor("");
+			} else {
+				this.props.selectColor(val.target.value);
+			};
+		}
 	}
 
 	render() {
@@ -37,6 +43,7 @@ SelectColor.propTypes = {
 	color: PropTypes.string,
 	error: PropTypes.string,
 	selectColor: PropTypes.func,
+	disabled: PropTypes.bool,
 };
 
 export default SelectColor;

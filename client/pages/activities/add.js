@@ -27,7 +27,38 @@ class AddActivity extends React.Component {
 	}
 
 	addActivity() {
+		this.setState({ loading: true });
+		let errors = this.state.error;
+		errors.title = "";
+		errors.description = "";
+		errors.color = "";
+		errors.generic = "";
 
+		// Check fields are not empty
+		if (this.state.title.trim() == "") {
+			errors.title = "Please add an activity title";
+		} else {
+			errors.title = "";
+		}
+		if (this.state.description.trim() == "") {
+			errors.description = "Please enter a description for this activity";
+		} else {
+			errors.description = "";
+		}
+		if (this.state.color.trim() == "") {
+			errors.color = "Please assign a color to this activity";
+		} else {
+			errors.color = "";
+		}
+
+		// Attempt save to database
+		if (errors.title == "" && errors.description == "" && errors.color == "") {
+			//this.props.login(properties);
+			this.setState({ loading: false });
+		} else {
+			this.setState({ loading: false });
+		}
+		this.setState({error: errors});
 	}
 
 	changeField(evt) {
@@ -80,7 +111,7 @@ class AddActivity extends React.Component {
 							{error.description && <div className="error">{error.description}</div>}
 						</div>
 						<div className="input">
-							<SelectColor color={color} error={error.color} selectColor={this.selectColor} />
+							<SelectColor color={color} error={error.color} selectColor={this.selectColor} disabled={loading} />
 						</div>
 						{error.generic && <div className="error">{error.generic}</div>}
 						<div>
