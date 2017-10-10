@@ -12,7 +12,7 @@ var enumUserType = {
 
 var accountSchema = new Schema
 ({
-    id: Schema.Types.ObjectId,
+    _id: Schema.Types.ObjectId,
 
     email: {
       type: String,

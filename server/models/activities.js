@@ -11,21 +11,29 @@ var enumColor = {
 var activitySchema = new Schema
 ({
 
-    _id: {type: Number},
-
-    organisationID: {
-      type: Number,
-      require:true
-    },
+    _id: Schema.Types.ObjectId,
 
     title: {
       type: String,
       require:true
     },
 
-    postDesc:{type:String},
+    description: {
+      type: String,
+      require:true
+    },
 
-    decorColor:{type:String, enum:enumColor}
+    organisationId: {
+      type: String,
+      require:true
+    },
+
+    color:{type:String, enum:enumColor},
+
+    active:{type:Boolean, require:true},
+
+},{
+  timestamps: true,
 });
 
 activitySchema.plugin(uniqueValidator);
