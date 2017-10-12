@@ -208,12 +208,14 @@ router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false 
 });
 
 router.post('/api/delete_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {  
-    const id = req.body.id;
-    activities.findOne({ 
-        '_id': id,
+    const properties = {
+        active: false
+    }
+    activities.findOneAndUpdate({ 
+        '_id': req.body.id,
         'organisationId': req.user.organisationId.toString(),
         active: true,
-    }).remove().exec(function(err, response) {
+    }, properties).exec(function(err, response) {
         if (!err) {
             res.json({ success: true, message: "Activity successfully deleted" });
         } else {
