@@ -97,3 +97,15 @@ export function add_activity(title, description, color) {
         })
     });
 }
+
+// Fetch list of activities
+export function fetch_activities(title, description, color) {
+    return fetch('/api/fetch_activities/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+    });
+}

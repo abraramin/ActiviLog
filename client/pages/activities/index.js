@@ -1,68 +1,69 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import {withRouter} from "react-router-dom";
+import { fetch_activities } from '../../api';
+
+import InnerLoader from '../../common/components/InnerLoader';
+
 const path = '/activities'; //for testing
 
 class Activities extends React.Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
-			activityTitle: "",
-			activityDesc: "",
-			colorPicker: "",
+			loading: false,
+			activities: null,
+			error: false,
 		};
 		
-		this.changeField=this.changeField.bind(this);
+		this.loadActivities = this.loadActivities.bind(this);
 	}
 
-	save() {
-		
+	componentDidMount() {
+		this.loadActivities();
 	}
-	
-	changeField(evt) {
-		this.setState({[evt.target.name]: evt.target.value});
+
+	loadActivities() {
+		let self = this;
+		this.setState({ loading: true });
+		fetch_activities().then(response => response.json()).then(function(result) {
+			if (result.success == true) {
+				console.log(result.message);
+				self.setState({ loading: false });
+			} else {
+				self.setState({ loading: false, error: true });
+			}
+		});
 	}
 	
 	render() {
 		const {
-			activityTitle,
-			activityDesc,
-			colorPicker
+			loading,
+			activities,
+			error,
 		} = this.state;
-		
+
 		return <div className="page">
-				{path == '/activities/add' && <div className="addActivity">
-					<h2>Add New Activity</h2>
-					<div className="activityForm">
-						<input
-							type="text"
-							name="activityTitle"
-							value={activityTitle}
-							onChange={this.changeField}
-							placeholder={"Activity Title"}
-						/>
-							<input
-							type="text"
-							name="activityDesc"
-							value={activityDesc}
-							onChange={this.changeField}
-							placeholder={"Description"}
-						/>
-						<input
-							type="text"
-							name="colorPicker"
-							value={colorPicker}
-							onChange={this.changeField}
-							placeholder={"Color Picker Placeholder"}
-						/>
-						<button type="button">Save</button>
-					</div>
-				</div>}
-				{path == '/activities' && <div className="activityList">
-					<h2>Activities List</h2>
-				</div>}
-		</div>;
+			<div className="header">Activities</div>
+
+			{loading && <InnerLoader />}
+
+			{!loading && error && <div className="text-align-center">
+					<img src={require('../../common/images/info.png')} />
+					<p>There was an error loading the activities list. Please refresh the page and try again.</p>
+			</div>}
+
+			{!loading && activities == null && <div className="text-align-center">
+					<img src={require('../../common/images/info.png')} />
+					<p>You don't yet have any activities. click the 'Add Activity' menu button to get started.</p>
+			</div>}
+			
+			{!loading && activities != null && <div>
+					activities
+			</div>}
+		</div>
 	};
 };
 
@@ -70,4 +71,4 @@ Activities.propTypes = {
 	user: PropTypes.object,
 };
 
-export default Activities;
+export default withRouter(Activities);

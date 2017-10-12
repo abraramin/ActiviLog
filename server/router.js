@@ -175,15 +175,29 @@ router.post('/api/add_activity', passport.authenticate('jwt', { session: false }
         title: req.body.title,
         description: req.body.description,
         color: req.body.color,
-        organisationId: req.user.organisationId,
+        organisationId: req.user.organisationId.toString(),
         active: true,
     }
     activities.create(properties, function (err, response) {
         if (err) {
-            res.json({ success: false, message: 'Activity could not be created', error: err });
+            res.json({ success: false, message: 'Activity could not be created' });
         } else {
             res.json({ success: true, message: 'Activity successfully created' });
-    }});
+        }
+    });
+});
+
+router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    activities.find({
+        organisationId: req.user.organisationId.toString(),
+        active: true,
+    }, function(err, result) {
+        if (err) {
+            res.json({ success: false, message: 'Activities could not be loaded' });
+        } else {
+            res.json({ success: true, message: result });
+        }
+    });
 });
 
 router.get('/api/logout', function(req, res) {

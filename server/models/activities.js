@@ -10,9 +10,6 @@ var enumColor = {
 
 var activitySchema = new Schema
 ({
-
-    _id: Schema.Types.ObjectId,
-
     title: {
       type: String,
       require:true

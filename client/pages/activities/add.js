@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
+import { add_activity } from '../../api';
 
 import SelectColor from './components/colors';
 import Spinner from '../../common/components/Spinner';
-import { add_activity } from '../../api';
 
 class AddActivity extends React.Component {
 	constructor(props) {
@@ -58,6 +59,7 @@ class AddActivity extends React.Component {
 			add_activity(this.state.title, this.state.description, this.state.color).then(response => response.json()).then(function(result) {
 				if (result.success == true) {
 					self.setState({ loading: false });
+					self.props.history.push("/activities");
 				} else {
 					self.setState({ loading: false, error: {generic: "Sorry, something went wrong and we could not create this activity. Please refresh the page and try again."} });
 				}
@@ -134,4 +136,4 @@ AddActivity.propTypes = {
 	user: PropTypes.object,
 };
 
-export default AddActivity;
+export default withRouter(AddActivity);
