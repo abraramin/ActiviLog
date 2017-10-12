@@ -24,15 +24,21 @@ class SelectColor extends React.Component {
 		} = this.props;
 
 		return <div id="color-selector">
-			<label>Color</label>
+			<label>Colour</label>
 			<div className="color">
-				<button value="red" style={{"background": "red"}} className={color == "red" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="blue" style={{"background": "blue"}} className={color == "blue" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="green" style={{"background": "green"}} className={color == "green" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="magenta" style={{"background": "magenta"}} className={color == "magenta" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="yellow" style={{"background": "yellow"}} className={color == "yellow" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="black" style={{"background": "black"}} className={color == "black" ? "active" : ""} onClick={this.selectColor}></button>
-				<button value="cyan" style={{"background": "cyan"}} className={color == "cyan" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Red" style={{"background": "Red"}} className={color == "Red" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Blue" style={{"background": "Blue"}} className={color == "Blue" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Green" style={{"background": "Green"}} className={color == "Green" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Magenta" style={{"background": "Magenta"}} className={color == "Magenta" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Yellow" style={{"background": "Yellow"}} className={color == "Yellow" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Grey" style={{"background": "Grey"}} className={color == "Grey" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Cyan" style={{"background": "Cyan"}} className={color == "Cyan" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="LightCoral" style={{"background": "LightCoral"}} className={color == "LightCoral" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="LightSkyBlue" style={{"background": "LightSkyBlue"}} className={color == "LightSkyBlue" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="MediumPurple" style={{"background": "MediumPurple"}} className={color == "MediumPurple" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="OliveDrab" style={{"background": "OliveDrab"}} className={color == "OliveDrab" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="SaddleBrown" style={{"background": "SaddleBrown"}} className={color == "SaddleBrown" ? "active" : ""} onClick={this.selectColor}></button>
+				<button value="Violet" style={{"background": "Violet"}} className={color == "Violet" ? "active" : ""} onClick={this.selectColor}></button>
 			</div>
 			{this.props.error && <div className="error">{this.props.error}</div>}
 		</div>;

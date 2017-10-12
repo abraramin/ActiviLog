@@ -4,7 +4,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 var Schema = mongoose.Schema;
 
 var enumColor = {
-  values: ['red', 'blue', 'green', 'magenta', 'yellow', 'black', 'cyan'],
+  values: ['Red', 'Blue', 'Green', 'Magenta', 'Yellow', 'Grey', 'Cyan', 'LightCoral', 'LightSkyBlue', 'MediumPurple', 'OliveDrab', 'SaddleBrown', 'Violet'],
   message: '{VALUE} is not a selectable color.'
 }
 
