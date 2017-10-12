@@ -243,7 +243,7 @@ table {
 
 thead {  
 	font-weight: bold;
-	text-align: center;
+	text-align: left;
 	color: #FFF;
 }
 
@@ -257,7 +257,7 @@ thead th {
 
 tbody {  
     background: #FAFAFA;
-    text-align: center;
+    text-align: left;
 }
 
 tr {
@@ -272,7 +272,7 @@ tr:nth-child(even) th { background: #F1F1F1; }
     
 tr:nth-child(odd) th { background: #FEFEFE; }  
 
-tr:hover, td:hover { color: #428be5; font-weight: bold; cursor: pointer }
+tbody tr:hover, tbody td:hover { color: #428be5; font-weight: bold; cursor: pointer }
 
 
 

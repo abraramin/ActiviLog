@@ -82,7 +82,7 @@ class Activities extends React.Component {
 						</thead>
 						<tbody>
 							{activities.map(res => {
-								return <tr key={res.id} value={res.id}>
+								return <tr key={res.id} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
 									<th style={{ "width": "30%" }}>{res.title}</th>
 									<th>{res.description}</th>
 									<th style={{"background": res.color, "width": "10%" }} />
