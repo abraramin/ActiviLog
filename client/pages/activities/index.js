@@ -55,7 +55,7 @@ class Activities extends React.Component {
 			error,
 		} = this.state;
 
-		return <div className="page">
+		return <div className="page width80">
 			<div className="header">Activities</div>
 
 			{loading && <InnerLoader />}
@@ -83,9 +83,9 @@ class Activities extends React.Component {
 						<tbody>
 							{activities.map(res => {
 								return <tr key={res.id} value={res.id}>
-									<th>{res.title}</th>
+									<th style={{ "width": "30%" }}>{res.title}</th>
 									<th>{res.description}</th>
-									<th style={{"background": res.color, "width": "20%" }} />
+									<th style={{"background": res.color, "width": "10%" }} />
 								</tr>
 							})}
 						</tbody>
