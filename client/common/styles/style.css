@@ -1,0 +1,322 @@
+/* Global Properties */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html, body {
+	background-color: rgb(255, 255, 255);
+	font-size: 13px;
+	font-family: Verdana,Geneva,sans-serif;
+	height: 100%;
+	color: #333;
+}
+
+.loading {
+	z-index:9999;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url(../images/loading.gif) no-repeat;
+	background-size: 60px 60px;
+	background-position: center center;
+	background-color:#428be5;
+}
+
+.spinner {
+	width: 16px;
+	height: 16px;
+	background: url(../images/loading.gif) no-repeat;
+	background-size: 16px 16px;
+	background-position: center center;
+	float: left;
+	margin: -4px;
+}
+
+.color-wrap {
+	width: 100%;
+	height: 100%;
+	background-color:#428be5;
+	position: absolute;
+}
+
+.error {
+	color: red;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.width48 {
+	width: 48% !important;
+}
+
+.width50 {
+	width: 50% !important;
+}
+
+.page {
+	margin-top: 30px;
+	width: 800px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.box {
+	width: 100%;
+	border: 1px solid #F3F3F3;
+	padding: 15px;
+}
+
+.box .title {
+	font-size: 24px;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	padding: 20px;
+}
+
+.box .components {
+	padding-top: 20px;
+}
+
+.box .components .input {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#color-selector .colors {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#color-selector button {
+	width: 30px;
+	height: 30px;
+	list-style: none;
+	display: inline-block;
+	margin: 10px;
+	border-radius: 3px;
+	cursor: pointer;
+	border: 3px solid transparent;
+}
+
+#color-selector .active {
+	border: 1px solid #000;
+}
+
+input[type=text], input[type=password] {
+    padding: 12px 20px;
+    margin: 8px 0;
+	box-sizing: border-box;
+	border: 1px solid grey;
+	background-color: #F4F4F4;
+	border-radius: 5px;
+	width: 100%;
+	font-size: 13px;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    border: 2px solid #555;
+}
+
+.submit {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#428be5;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.register {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#d12121;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.reset {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#e08c3d;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+/* Authentication CSS */
+
+#authenticate .container {
+	width: 300px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#authenticate .logo {
+	width: 100%;
+	height: 60px;
+	text-align: center;
+}
+
+#authenticate .modal {
+	background-color: #FFF;
+	border-radius: 5px;
+	padding: 15px;
+}
+
+#authenticate .modal .organization_input {
+	width: 100%;
+}
+
+#authenticate .modal .organization_input input {
+	width: 190px;
+}
+
+#authenticate .modal .organization_input .address {
+	padding-left: 5px;
+	color: #555;
+}
+
+#authenticate .modal .organization_input .title h2 {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+#authenticate .modal .organization_input .title p {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+#authenticate .modal .loginform .title h2, #authenticate .modal .registrationform .title h2, #authenticate .modal .forgotform .title h2 {
+	font-weight: bold;
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+#authenticate .modal .loginform .enter {
+	height: 50px;
+}
+
+#authenticate .modal .loginform .forgotPassword {
+	text-align: right;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+/* Footer CSS */
+#footer {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2E61A0;
+	padding: 10px;
+	text-align:center;
+	color: #fff;
+	font-size: 12px;
+}
+
+/* Dashboard CSS */
+#dashboard .welcome {
+	font-size: 26px;
+	text-transform: uppercase;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#dashboard .welcome strong {
+	font-weight: bold;
+}
+
+#dashboard .container {
+	display: inline-block;
+}
+
+#dashboard .pill {
+	width: 200px;
+	text-align:center;
+	padding: 5px;
+	margin: 27px;
+	border-radius: 3px;
+}
+
+#dashboard .pill a {
+	text-align: center;
+	text-decoration: none;
+	color: #333;
+}
+
+#dashboard .pill a:hover {
+	color: #2E61A0;
+	text-decoration: underline;
+}
+
+#dashboard .pill p {
+	margin-top: 30px;
+}

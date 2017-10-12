@@ -47,6 +47,14 @@ function validateCharacters(val) {
     }
 }
 
+function validatePassword(val) {
+    if (/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$/.test(val) && val != "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // Return Server Status
 router.get('/api/status', function(req, res){
     res.status(200).send("Server Running!");
@@ -74,29 +82,30 @@ router.post('/api/login', visitor(), function(req, res) {
             const orgId = organization._id.toString();
             account.findOne({
                 email: req.body.email,
-                organizationId: orgId,
+                organisationId: orgId,
+                active: true,
             }, function(err, user) {
             if (err) throw err;
         
             if (!user) {
-                res.send({ success: false, message: 'Authentication failed. User not found.' });
+                res.json({ success: false, message: 'Authentication failed. User not found.' });
             } else {
                 // Check if password matches
                 user.comparePassword(req.body.password, function(err, isMatch) {
                 if (isMatch && !err) {
                     // Create token if the password matched and no error was thrown
-                    var token = jwt.sign(user.toObject(), 'secretkey43565674567473', {
+                    var token = jwt.sign(user.toObject(), 'secretkey4356567', {
                         expiresIn: 100000 // in seconds
                     });
                     res.json({ success: true, token: 'JWT ' + token });
                 } else {
-                    res.send({ success: false, message: 'Authentication failed. Passwords did not match.' });
+                    res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
                 }
                 });
             }
             });
         } else {
-            res.send({ success: false, message: 'Authentication failed. Organization Could not be found' });
+            res.json({ success: false, message: 'Authentication failed. Organization Could not be found' });
         }
     });
 });
@@ -112,17 +121,52 @@ router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), 
     res.json({ success: true, user: userData });
 });
 
+router.get('/api/fetch_posts', function(req, res) {  
+	/*post.find({ 'posterID': req.header.userID}).exec(function(err, posts) {
+		if (posts != null) {
+			const postData = {
+				title: req.title,
+				desc: req.desc,
+				startTime: req.startTime,
+				endTime: req.endTime,
+			}
+			res.json({success: true, posts: postData});
+		} else {
+			res.json({success: false, message: "Loading Activities Failed. Could not find any in database"})
+		}
+	});*/
+});
+
 router.post('/api/register', visitor(), function(req, res) {
-    var userData = {
-        email: req.body.email,
-        password: req.body.password,
-      }
-    account.create(userData, function (err, user) {
-    if (err) {
-        res.send({ success: false, message: 'User could not be created ' + err });
-    } else {
-        return res.redirect('/profile');
-    }
+    client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
+        if (organization != null) {
+            const orgId = organization._id.toString();
+            var userData = {
+                fullName: req.body.fullName,
+                email: req.body.email,
+                password: req.body.password,
+                organisationId: orgId,
+                userType: 3,
+                active: true,
+              }
+            
+            if (!validatePassword(req.body.password)) {
+                res.json({ success: false, message: 'Password does not meet the validation requirements' });
+            } else {
+                account.create(userData, function (err, user) {
+                if (err) {
+                    if (err.code == 11000) {
+                        res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
+                    } else {
+                    res.json({ success: false, message: 'User could not be created ' + err });
+                    }
+                } else {
+                    res.json({ success: true, message: 'User account successfully created' });
+                }});
+            }
+        } else {
+            res.json({ success: false, message: 'Registration failed. Organization could not be found' });
+        }
     });
 });
 

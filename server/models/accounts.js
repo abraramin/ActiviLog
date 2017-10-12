@@ -12,6 +12,8 @@ var enumUserType = {
 
 var accountSchema = new Schema
 ({
+    _id: Schema.Types.ObjectId,
+
     email: {
       type: String,
       require:true,
@@ -40,6 +42,12 @@ var accountSchema = new Schema
     },
 
     userType:{type:Number, require:true, enum:enumUserType},
+
+    active:{type:Boolean, require:true},
+
+    resetPasswordToken: String,
+    
+    resetPasswordExpires: Date
 },{
   timestamps: true,
 });

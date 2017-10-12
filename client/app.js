@@ -8,17 +8,21 @@ import { ACCOUNT_TYPE } from "./common/config"
 import RedirectRoute from "./pages/RedirectRoute"
 
 // Load our components
+import Header from "./common/components/Header"
+
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
 import Publish from './pages/publish/';
+import Records from './pages/records/';
 import Activities from './pages/activities/';
+import AddActivity from './pages/activities/add';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading"
 
-import { login as userLogin, set_token, fetchUserData } from './api';
+import { login as userLogin, register, set_token, fetchUserData } from './api';
 import { saveToken, getToken, clearToken } from './common/utilities/tokenStorage'
 
 class App extends React.Component {
@@ -38,6 +42,8 @@ class App extends React.Component {
 			loading: false,
 			error: {
 				login: "",
+				register: "",
+				forgotPassword: "",
 			}
 		};
 
@@ -136,8 +142,34 @@ class App extends React.Component {
 
 	}
 
-	register() {
-		
+	register(val) {
+		const errorData = {...this.state.error};
+
+		// Return if already a login token
+		if (this.state.user.token != null) {
+			errorData.login = "User is currently logged in";
+			this.setState({error: errorData});
+			return;
+		} else {
+			errorData.login = "";
+			this.setState({error: errorData});
+		}
+
+		let self = this;
+		register(val.fullName, val.email, val.password, val.organizationName).then(response => response.json()).then(function(result) {
+			// Return fail message if login not successful
+			if (result.success == false) {
+				if (result.code != null && result.code == 11000) {
+					errorData.register = "An account with this email address already exists.";
+				} else {
+					errorData.register = "Sorry, we could not create an account. Please refresh the page and try again.";
+				}
+				self.setState({error: errorData});
+				return;
+			}
+			alert("Success! Your account has been created. You can now login.");
+			window.location.href = "/login";
+		});
 	}
 
 	render() {
@@ -151,8 +183,9 @@ class App extends React.Component {
 			return <Loading />;
 		}
 
-		return <div>
-			<BrowserRouter>
+		return <BrowserRouter>
+			<div>
+				<Header user={user} logout={this.logout} />
 				<Switch>
 					<RedirectRoute
 						exact path="/"
@@ -161,43 +194,84 @@ class App extends React.Component {
 						render={(props) => <Dashboard user={user} />}
 					/>
 					<RedirectRoute
-						path="/login"
+						exact path="/login"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
-						render={(props) => <Login login={this.login} loginError={error.login} />}
+						render={(props) => <Login login={this.login} loginError={error.login} forgotPassword={this.forgotPassword} forgotPasswordError={error.forgotPassword} />}
 					/>
 					<RedirectRoute
-						path="/register"
+						exact path="/register"
 						user={user}
 						role={[ACCOUNT_TYPE.UNREGISTERED]}
-						render={(props) => <Register user={user} />}
+						render={(props) => <Register register={this.register} registerError={error.register} />}
 					/>
 					<RedirectRoute
-						path="/publish"
+						exact path="/publish"
 						user={user}
 						role={[ACCOUNT_TYPE.USER]}
 						render={(props) => <Publish user={user} />}
 					/>
 					<RedirectRoute
-						path="/activities"
+						exact path="/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.USER]}
+						render={(props) => <Publish user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/records"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/records/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/activities"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Activities user={user} />}
 					/>
 					<RedirectRoute
-						path="/users"
+						exact path="/activities/add"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <AddActivity user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/activities/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Activities user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Users user={user} />}
 					/>
 					<RedirectRoute
-						path="*"
+						exact path="/users/add"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Users user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/edit/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Users user={user} />}
+					/>
+					<RedirectRoute
 						user={user}
 						component={MissingPath}
 					/>
 				</Switch>
-			</BrowserRouter>
-		</div>
+			</div>
+		</BrowserRouter>
 	}
 };
 

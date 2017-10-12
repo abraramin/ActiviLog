@@ -1,3 +1,8 @@
+
+
+
+
+
 /*WELCOME, LOGIN, REGISTER, FORGOTTEN PASSWORD BODY LAYOUT*/
 .homepage{
 	background-color: #3399ff; /*blue background color*/

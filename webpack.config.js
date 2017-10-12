@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: [
     './client/index.js',
-    './common/styles/styleActivilog.css'
+    './common/styles/style.css'
   ],
   entry: './client/index.js',
   output: {
@@ -23,6 +23,17 @@ module.exports = {
     {
         test: /\.css$/,
         loader: 'style-loader!css-loader'
+    },
+    {
+      test: /.*\.(gif|png|jpe?g|svg)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '/common/images/[name].[ext]',
+          }
+        },
+      ]
     }]
 
   }
