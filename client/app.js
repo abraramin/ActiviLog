@@ -17,6 +17,7 @@ import Publish from './pages/publish/';
 import Records from './pages/records/';
 import Activities from './pages/activities/';
 import AddActivity from './pages/activities/add';
+import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
@@ -245,7 +246,7 @@ class App extends React.Component {
 						exact path="/activities/edit/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-						render={(props) => <Activities user={user} />}
+						render={(props) => <EditActivity user={user} />}
 					/>
 					<RedirectRoute
 						exact path="/users"

@@ -121,22 +121,6 @@ router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), 
     res.json({ success: true, user: userData });
 });
 
-router.get('/api/fetch_posts', function(req, res) {  
-	/*post.find({ 'posterID': req.header.userID}).exec(function(err, posts) {
-		if (posts != null) {
-			const postData = {
-				title: req.title,
-				desc: req.desc,
-				startTime: req.startTime,
-				endTime: req.endTime,
-			}
-			res.json({success: true, posts: postData});
-		} else {
-			res.json({success: false, message: "Loading Activities Failed. Could not find any in database"})
-		}
-	});*/
-});
-
 router.post('/api/register', visitor(), function(req, res) {
     client.findOne({ 'clientSubdomain': req.body.organization}).exec().then(function(organization) {
         if (organization != null) {
@@ -166,6 +150,95 @@ router.post('/api/register', visitor(), function(req, res) {
             }
         } else {
             res.json({ success: false, message: 'Registration failed. Organization could not be found' });
+        }
+    });
+});
+
+router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        title: req.body.title,
+        description: req.body.description,
+        color: req.body.color,
+        organisationId: req.user.organisationId.toString(),
+        active: true,
+    }
+    activities.create(properties, function (err, response) {
+        if (err) {
+            res.json({ success: false, message: 'Activity could not be created' });
+        } else {
+            res.json({ success: true, message: 'Activity successfully created' });
+        }
+    });
+});
+
+router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+    activities.paginate({
+        organisationId: req.user.organisationId.toString(),
+        active: true,
+    }, { page: page, limit: pageItems, sort: { _id: 'desc'}}, function(err, result) {
+        if (err) {
+            res.json({ success: false, message: 'Activities could not be loaded' });
+        } else {
+            res.json({ success: true, result: result.docs, total: result.total, page: result.page, limit: result.limit });
+        }
+    });
+});
+
+router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {  
+    const id = req.headers['activityid'];
+    activities.findOne({ 
+        '_id': id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }).exec(function(err, response) {
+        if (!err) {
+            const data = {
+                id: response._id,
+                title: response.title,
+                description: response.description,
+                color: response.color
+            }
+            res.json({ success: true, message: data });
+        } else {
+            res.json({ success: false, message: "Activity could not be loaded" });
+        }
+    });
+});
+
+router.post('/api/delete_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {  
+    const properties = {
+        active: false
+    }
+    activities.findOneAndUpdate({ 
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "Activity successfully deleted" });
+        } else {
+            res.json({ success: false, message: "Activity could not be deleted" });
+        }
+    });
+});
+
+router.post('/api/edit_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {  
+    const properties = {
+        title: req.body.title,
+        description: req.body.description,
+        color: req.body.color,
+    }
+    activities.findOneAndUpdate({ 
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "Activity successfully modified" });
+        } else {
+            res.json({ success: false, message: "Activity could not be modified" });
         }
     });
 });

@@ -72,6 +72,15 @@ html, body {
 	margin: -4px;
 }
 
+.page-spinner {
+	width: 60px;
+	height: 60px;
+	background: url(../images/loading-dark.gif) no-repeat;
+	background-size: 32px 32px;
+	background-position: center center;
+	margin: auto;
+}
+
 .color-wrap {
 	width: 100%;
 	height: 100%;
@@ -85,12 +94,24 @@ html, body {
 	margin-bottom: 5px;
 }
 
+.text-align-center {
+	text-align: center;
+}
+
 .float-left {
 	float: left;
 }
 
 .float-right {
 	float: right;
+}
+
+.width20 {
+	width: 20% !important;
+}
+
+.width30 {
+	width: 30% !important;
 }
 
 .width48 {
@@ -101,16 +122,33 @@ html, body {
 	width: 50% !important;
 }
 
+.width60 {
+	width: 60% !important;
+}
+
+.width80 {
+	width: 80% !important;
+}
+
 .page {
 	margin-top: 30px;
 	width: 800px;
 	margin-left:auto;
 	margin-right:auto;
+	max-width: 1300px;
+}
+
+.page .header {
+	width: 100%;
+	margin-top: 35px;
+	margin-bottom: 35px;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: bold;
 }
 
 .box {
 	width: 100%;
-	border: 1px solid #F3F3F3;
 	padding: 15px;
 }
 
@@ -120,6 +158,7 @@ html, body {
 	text-align: center;
 	width: 100%;
 	padding: 20px;
+	font-weight: bold;
 }
 
 .box .components {
@@ -166,6 +205,8 @@ input[type=text]:focus, input[type=password]:focus {
     border: 2px solid #555;
 }
 
+/* Button Styling */
+
 .submit {
     border: none;
     color: white;
@@ -204,6 +245,83 @@ input[type=text]:focus, input[type=password]:focus {
 	border-radius: 5px;
 	font-size: 14px;
 }
+
+.pagination {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.forward {
+	color: #fff;
+	padding: 10px;
+	background: #428be5;
+	width: 150px;
+	text-align: center;
+	float: right;
+	border: 0px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+.backward {
+	color: #fff;
+	padding: 10px;
+	background: #428be5;
+	width: 150px;
+	text-align: center;
+	float: left;
+	border: 0px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 13px;
+}
+
+/* Table Styling */
+
+table {
+	width: 100%; 
+    border-collapse: 
+	collapse; border-spacing: 0; 
+	border: 1px solid #428be5;
+}
+
+thead {  
+	font-weight: bold;
+	text-align: left;
+	color: #FFF;
+	border: 1px solid #428be5;
+}
+
+thead tr {  
+    background: #428be5 !important;
+}
+
+thead th {  
+    background: #428be5 !important;
+}
+
+tbody {  
+    background: #FAFAFA;
+    text-align: left;
+}
+
+tr {
+	padding: 15px;
+}
+
+th {
+	padding: 15px;
+	border: 1px solid #FFF;
+}
+       
+tr:nth-child(even) th { background: #F1F1F1; }   
+    
+tr:nth-child(odd) th { background: #FEFEFE; }  
+
+tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
+
+
 
 /* Authentication CSS */
 

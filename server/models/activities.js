@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
+const mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -10,9 +11,6 @@ var enumColor = {
 
 var activitySchema = new Schema
 ({
-
-    _id: Schema.Types.ObjectId,
-
     title: {
       type: String,
       require:true
@@ -37,4 +35,5 @@ var activitySchema = new Schema
 });
 
 activitySchema.plugin(uniqueValidator);
+activitySchema.plugin(mongoosePaginate);
 module.exports = mongoose.model('Activities', activitySchema);

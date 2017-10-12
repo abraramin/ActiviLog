@@ -124,7 +124,7 @@ class Header extends React.Component {
 							<ul>
 								<li>
 									<Link to={{pathname: '/activities'}} className={path == "/activities" ? "active" : ""}>
-										<span>Activities List</span>
+										<span>All Activities</span>
 									</Link>
 								</li>
 								<li>
