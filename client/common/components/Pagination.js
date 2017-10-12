@@ -25,8 +25,8 @@ class Pagination extends React.Component {
 		};
 
 		return <div className="pagination">
-			{!disabled && showPrevious && <button type="button" className="backward" onClick={this.backward}>Previous</button>}
-			{!disabled && showNext && <button type="button" className="forward" onClick={this.forward}>Next</button>}
+			{!disabled && showPrevious && <button type="button" className="backward" onClick={() => this.props.changePage("backward")}>Previous</button>}
+			{!disabled && showNext && <button type="button" className="forward" onClick={() => this.props.changePage("forward")}>Next</button>}
 		</div>;
 	};
 };

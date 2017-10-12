@@ -250,6 +250,7 @@ input[type=text]:focus, input[type=password]:focus {
 	border: 0px;
 	border-radius: 3px;
 	cursor: pointer;
+	font-size: 13px;
 }
 
 .backward {
@@ -261,7 +262,8 @@ input[type=text]:focus, input[type=password]:focus {
 	float: left;
 	border: 0px;
 	border-radius: 3px;
-	cursor: pointer,
+	cursor: pointer;
+	font-size: 13px;
 }
 
 /* Table Styling */
@@ -270,12 +272,14 @@ table {
 	width: 100%; 
     border-collapse: 
 	collapse; border-spacing: 0; 
+	border: 1px solid #428be5;
 }
 
 thead {  
 	font-weight: bold;
 	text-align: left;
 	color: #FFF;
+	border: 1px solid #428be5;
 }
 
 thead tr {  
@@ -297,13 +301,14 @@ tr {
 
 th {
 	padding: 15px;
+	border: 1px solid #FFF;
 }
        
 tr:nth-child(even) th { background: #F1F1F1; }   
     
 tr:nth-child(odd) th { background: #FEFEFE; }  
 
-tbody tr:hover, tbody td:hover { color: #428be5; font-weight: bold; cursor: pointer }
+tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 
 

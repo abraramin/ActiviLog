@@ -188,16 +188,18 @@ router.post('/api/add_activity', passport.authenticate('jwt', { session: false }
 });
 
 router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
     activities.paginate({
         organisationId: req.user.organisationId.toString(),
         active: true,
-    }, { page: 1, limit: 10}, function(err, result) {
+    }, { page: page, limit: pageItems, sort: { _id: 'desc'}}, function(err, result) {
         if (err) {
             res.json({ success: false, message: 'Activities could not be loaded' });
         } else {
-            res.json({ success: true, message: result.docs, total: result.total, limit: result.limit });
+            res.json({ success: true, result: result.docs, total: result.total, page: result.page, limit: result.limit });
         }
-      });
+    });
 });
 
 router.get('/api/logout', function(req, res) {

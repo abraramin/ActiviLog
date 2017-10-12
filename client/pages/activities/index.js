@@ -27,20 +27,26 @@ class Activities extends React.Component {
 	}
 
 	componentDidMount() {
-		this.loadActivities();
+		this.loadActivities(this.state.page, this.state.pageItems);
 	}
 
-	changePage(val) {
-		console.log(val);
+	changePage(direction) {
+		if (direction == "forward") {
+			const page = this.state.page + 1;
+			this.loadActivities(page, this.state.pageItems);
+		} else {
+			const page = this.state.page - 1;
+			this.loadActivities(page, this.state.pageItems);
+		}
 	}
 
-	loadActivities() {
+	loadActivities(page, pageItems) {
 		let self = this;
 		this.setState({ loading: true });
-		fetch_activities().then(response => response.json()).then(function(result) {
+		fetch_activities(page, pageItems).then(response => response.json()).then(function(result) {
 			if (result.success == true) {
 				let activities = [];
-				result.message.map(function(result) {
+				result.result.map(function(result) {
 					const values = {
 						id: result._id,
 						title: result.title,
@@ -50,7 +56,7 @@ class Activities extends React.Component {
 					return activities.push(values);
 				});
 				Object.freeze(activities);
-				self.setState({ loading: false, activities: activities });
+				self.setState({ loading: false, activities: activities, page: result.page, totalResults: result.total });
 			} else {
 				self.setState({ loading: false, activities: null, error: true });
 			}
@@ -77,7 +83,7 @@ class Activities extends React.Component {
 				<tbody>
 					{!loading && activities != null && activities.map(res => {
 						return <tr key={res.id} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
-							<th>{res.title}</th>
+							<th style={{"fontWeight": "bold" }}>{res.title}</th>
 							<th>{res.description}</th>
 							<th style={{"background": res.color }} />
 						</tr>
@@ -90,7 +96,7 @@ class Activities extends React.Component {
 					<p>There was an error loading the activities list. Please refresh the page and try again.</p>
 			</div>}
 
-			{!loading && activities == null && <div className="text-align-center">
+			{!loading && !error && activities == null && <div className="text-align-center">
 					<img src={require('../../common/images/info.png')} />
 					<p>You don't yet have any activities. click the 'Add Activity' menu button to get started.</p>
 			</div>}
