@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import SelectColor from './components/colors';
-import { check_organization } from '../../api';
+import Spinner from '../../common/components/Spinner';
+import { add_activity } from '../../api';
 
 class AddActivity extends React.Component {
 	constructor(props) {
@@ -53,8 +54,14 @@ class AddActivity extends React.Component {
 
 		// Attempt save to database
 		if (errors.title == "" && errors.description == "" && errors.color == "") {
-			//this.props.login(properties);
-			this.setState({ loading: false });
+			let self = this;
+			add_activity(this.state.title, this.state.description, this.state.color).then(response => response.json()).then(function(result) {
+				if (result.success == true) {
+					self.setState({ loading: false });
+				} else {
+					self.setState({ loading: false, error: {generic: "Sorry, something went wrong and we could not create this activity. Please refresh the page and try again."} });
+				}
+			});
 		} else {
 			this.setState({ loading: false });
 		}

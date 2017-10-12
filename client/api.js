@@ -80,3 +80,20 @@ export function fetchPosts(user) {
         },
     });
 }
+
+// Add Activity
+export function add_activity(title, description, color) {
+    return fetch('/api/add_activity/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'title': title,
+            'description': description,
+            'color': color
+        })
+    });
+}

@@ -170,6 +170,22 @@ router.post('/api/register', visitor(), function(req, res) {
     });
 });
 
+router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        title: req.body.title,
+        description: req.body.description,
+        color: req.body.color,
+        organisationId: req.user.organisationId,
+        active: true,
+    }
+    activities.create(properties, function (err, response) {
+        if (err) {
+            res.json({ success: false, message: 'Activity could not be created', error: err });
+        } else {
+            res.json({ success: true, message: 'Activity successfully created' });
+    }});
+});
+
 router.get('/api/logout', function(req, res) {
     req.logout();
     res.status(200).send("Logged Out!");
