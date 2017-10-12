@@ -55,6 +55,9 @@ class Activities extends React.Component {
 					}
 					return activities.push(values);
 				});
+				if (activities.length == 0) {
+					activities = null;
+				}
 				Object.freeze(activities);
 				self.setState({ loading: false, activities: activities, page: result.page, totalResults: result.total });
 			} else {
@@ -72,25 +75,8 @@ class Activities extends React.Component {
 
 		return <div className="page width80">
 			<div className="header">Activities</div>
-			{!error && <table>
-				<thead>
-					<tr>
-						<th style={{ "width": "30%" }}>Name</th>
-						<th>Description</th> 
-						<th style={{ "width": "10%" }}>Colour</th>
-					</tr>
-				</thead>
-				<tbody>
-					{!loading && activities != null && activities.map(res => {
-						return <tr key={res.id} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
-							<th style={{"fontWeight": "bold" }}>{res.title}</th>
-							<th>{res.description}</th>
-							<th style={{"background": res.color }} />
-						</tr>
-					})}
-				</tbody>
-			</table>}
 			{loading && <InnerLoader />}
+
 			{!loading && error && <div className="text-align-center">
 					<img src={require('../../common/images/info.png')} />
 					<p>There was an error loading the activities list. Please refresh the page and try again.</p>
@@ -100,7 +86,28 @@ class Activities extends React.Component {
 					<img src={require('../../common/images/info.png')} />
 					<p>You don't yet have any activities. click the 'Add Activity' menu button to get started.</p>
 			</div>}
+
+			{!loading && !error && activities !== null && <div>
+				<table>
+					<thead>
+						<tr>
+							<th style={{ "width": "30%" }}>Name</th>
+							<th>Description</th> 
+							<th style={{ "width": "10%" }}>Colour</th>
+						</tr>
+					</thead>
+					<tbody>
+						{!loading && activities != null && activities.map(res => {
+							return <tr key={res.id} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
+								<th style={{"fontWeight": "bold" }}>{res.title}</th>
+								<th>{res.description}</th>
+								<th style={{"background": res.color }} />
+							</tr>
+						})}
+					</tbody>
+			</table>
 			<Pagination page={this.state.page} pageItems={this.state.pageItems} totalResults={this.state.totalResults} changePage={this.changePage} disabled={loading} />
+			</div>}
 		</div>
 	};
 };
