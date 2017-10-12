@@ -228,6 +228,49 @@ input[type=text]:focus, input[type=password]:focus {
 	font-size: 14px;
 }
 
+/* Table Styling */
+
+table {
+	width: 100%; 
+    border-collapse: 
+	collapse; border-spacing: 0; 
+}
+
+thead {  
+	font-weight: bold;
+	text-align: center;
+	color: #FFF;
+}
+
+thead tr {  
+    background: #428be5 !important;
+}
+
+thead th {  
+    background: #428be5 !important;
+}
+
+tbody {  
+    background: #FAFAFA;
+    text-align: center;
+}
+
+tr {
+	padding: 10px;
+}
+
+th {
+	padding: 10px;
+}
+       
+tr:nth-child(even) th { background: #F1F1F1; }   
+    
+tr:nth-child(odd) th { background: #FEFEFE; }  
+
+tr:hover, td:hover { background: #666 !important; color: #FFF; }
+
+
+
 /* Authentication CSS */
 
 #authenticate .container {

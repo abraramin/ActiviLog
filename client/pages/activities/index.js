@@ -30,10 +30,20 @@ class Activities extends React.Component {
 		this.setState({ loading: true });
 		fetch_activities().then(response => response.json()).then(function(result) {
 			if (result.success == true) {
-				console.log(result.message);
-				self.setState({ loading: false });
+				let activities = [];
+				result.message.map(function(result) {
+					const values = {
+						id: result._id,
+						title: result.title,
+						description: result.description,
+						color: result.color,
+					}
+					return activities.push(values);
+				});
+				Object.freeze(activities);
+				self.setState({ loading: false, activities: activities });
 			} else {
-				self.setState({ loading: false, error: true });
+				self.setState({ loading: false, activities: null, error: true });
 			}
 		});
 	}
@@ -61,7 +71,26 @@ class Activities extends React.Component {
 			</div>}
 			
 			{!loading && activities != null && <div>
-					activities
+				<div>
+					<table>
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Description</th> 
+								<th>Colour</th>
+							</tr>
+						</thead>
+						<tbody>
+							{activities.map(res => {
+								return <tr key={res.id} value={res.id}>
+									<th>{res.title}</th>
+									<th>{res.description}</th>
+									<th style={{"background": res.color, "width": "20%" }} />
+								</tr>
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>}
 		</div>
 	};
