@@ -188,16 +188,16 @@ router.post('/api/add_activity', passport.authenticate('jwt', { session: false }
 });
 
 router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
-    activities.find({
+    activities.paginate({
         organisationId: req.user.organisationId.toString(),
         active: true,
-    }, function(err, result) {
+    }, { page: 1, limit: 10}, function(err, result) {
         if (err) {
             res.json({ success: false, message: 'Activities could not be loaded' });
         } else {
-            res.json({ success: true, message: result });
+            res.json({ success: true, message: result.docs, total: result.total, limit: result.limit });
         }
-    });
+      });
 });
 
 router.get('/api/logout', function(req, res) {
