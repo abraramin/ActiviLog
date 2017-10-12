@@ -98,6 +98,24 @@ export function add_activity(title, description, color) {
     });
 }
 
+// Edit Activity
+export function edit_activity(id, title, description, color) {
+    return fetch('/api/edit_activity/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id,
+            'title': title,
+            'description': description,
+            'color': color
+        })
+    });
+}
+
 // Fetch list of activities
 export function fetch_activities(page, pageItems) {
     return fetch('/api/fetch_activities/', {
@@ -109,5 +127,33 @@ export function fetch_activities(page, pageItems) {
             'page': page,
             'pageItems': pageItems
         },
+    });
+}
+
+// Fetch single activity
+export function fetch_activity(id) {
+    return fetch('/api/fetch_activity/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            'activityId': id,
+        },
+    });
+}
+
+// Delete Activity
+export function delete_activity(id) {
+    return fetch('/api/delete_activity/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id
+        })
     });
 }

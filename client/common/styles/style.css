@@ -106,12 +106,24 @@ html, body {
 	float: right;
 }
 
+.width20 {
+	width: 20% !important;
+}
+
+.width30 {
+	width: 30% !important;
+}
+
 .width48 {
 	width: 48% !important;
 }
 
 .width50 {
 	width: 50% !important;
+}
+
+.width60 {
+	width: 60% !important;
 }
 
 .width80 {
@@ -137,7 +149,6 @@ html, body {
 
 .box {
 	width: 100%;
-	border: 1px solid #F3F3F3;
 	padding: 15px;
 }
 
