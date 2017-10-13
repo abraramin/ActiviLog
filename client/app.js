@@ -22,6 +22,7 @@ import Users from './pages/users/';
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading"
+import Notifications, {notify} from 'react-notify-toast';
 
 import { login as userLogin, register, set_token, fetchUserData } from './api';
 import { saveToken, getToken, clearToken } from './common/utilities/tokenStorage'
@@ -186,6 +187,7 @@ class App extends React.Component {
 
 		return <BrowserRouter>
 			<div>
+				<Notifications />
 				<Header user={user} logout={this.logout} />
 				<Switch>
 					<RedirectRoute

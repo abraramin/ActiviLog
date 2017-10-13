@@ -1,3 +1,6 @@
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 // API
 // Contains all the Endpoints the user account makes to the back-end server
 

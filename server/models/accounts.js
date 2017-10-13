@@ -12,8 +12,6 @@ var enumUserType = {
 
 var accountSchema = new Schema
 ({
-    _id: Schema.Types.ObjectId,
-
     email: {
       type: String,
       require:true,
