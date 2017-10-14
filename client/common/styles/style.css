@@ -402,6 +402,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 /* Dashboard CSS */
 #dashboard .welcome {
+	color: white;
 	font-size: 26px;
 	text-transform: uppercase;
 	padding-top: 15px;
@@ -437,4 +438,252 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 #dashboard .pill p {
 	margin-top: 30px;
+}
+
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px)
+{
+	
+.error {
+	color: red;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 2em;
+	margin-left: 25px;
+}
+	
+
+	
+	/* Authentication CSS */
+
+#authenticate .container {
+	position: fixed;
+	width: 85vw;
+	left: 50%;
+	top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#authenticate .logo {
+	width: 100%;
+	text-align: center;
+}
+
+#authenticate .modal {
+	background-color: #FFF;
+	border-radius: 5px;
+	padding: 15px;
+}
+
+#authenticate .modal .organization_input {
+	width: 100%;
+}
+
+#authenticate .modal .organization_input input {
+	margin-bottom: 25px;
+	margin-left: 25px;
+	height: 2.6em;
+	width: 70%;
+	font-size: 3.0em;
+}
+
+#authenticate .modal .organization_input .address {
+	padding-left: 15px;
+	font-size: 2.5em;
+	color: #555;
+}
+
+#authenticate .modal .submit {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#428be5;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 3.5em;
+}
+
+#authenticate .modal .organization_input .title h2 {
+	font-weight: bold;
+	font-size: 3.5em;
+	margin-bottom: 15px;
+	margin-top: 18px;
+	margin-left: 25px;
+}
+
+#authenticate .modal .organization_input .title p {
+	margin-top: 25px;
+	margin-bottom: 18px;
+	margin-left: 25px;
+	font-size: 2.4em;
+}
+
+#authenticate .modal .loginform .title h2, #authenticate .modal .registrationform .title h2, #authenticate .modal .forgotform .title h2 {
+	font-weight: bold;
+	font-size: 3.5em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+
+}
+
+#authenticate .modal .loginform .enter {
+	width: 80%;
+	font-size: 2.2em;
+	height: 12px;
+}
+
+#authenticate .modal .loginform .forgotPassword {
+	text-align: right;
+	margin-top: 20px;
+	cursor: pointer;
+}
+	
+#authenticate .modal .loginform label {
+	font-size: 2.4em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+	margin-left: 25px;
+}
+
+#authenticate .modal .loginform .submit {
+	border: none;
+    color: white;
+    padding: 16px 64px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#428be5;
+	width: 100%;
+	border-radius: 15px;
+	font-size: 2em;
+	margin-left: 25px;
+}
+
+#authenticate .modal .loginform .register {
+	border: none;
+    color: white;
+    padding: 16px 64px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#d12121;
+	width: 100%;
+	border-radius: 15px;
+	font-size: 2em;
+}
+	
+#authenticate .modal .loginform .forgotPassword {
+	font-size: 2.0m;
+	text-align: left;
+	margin-top: 40px;
+	cursor: pointer;
+}	
+
+#authenticate .modal .loginform	.width48 {
+	width: 46% !important;
+}
+
+#authenticate .modal .loginform	.float-left {
+	float: left;
+}
+
+#authenticate .modal .loginform	.float-right {
+	float: right;
+}
+	
+#authenticate .modal .loginform input {
+	margin-top: 20px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	height: 2.4em;
+	font-size: 2.5em;
+	width: 90%;
+}	
+
+#authenticate .modal .registrationform input {
+	margin-top: 20px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	height: 2.4em;
+	font-size: 2.5em;
+	width: 90%;
+}	
+
+#authenticate .modal .registrationform label {
+	font-size: 2.4em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+	margin-left: 25px;
+}
+
+#authenticate .modal .registrationform .register {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#d12121;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 3.5em;
+}
+
+#authenticate .modal .forgotform input {
+	margin-top: 20px;
+	margin-bottom: 25px;
+	margin-left: 25px;
+	height: 2.4em;
+	font-size: 2.5em;
+	width: 95%;
+}	
+
+#authenticate .modal .forgotform label {
+	font-size: 2.4em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+	margin-left: 25px;
+}
+
+#authenticate .modal .forgotform p {
+	margin-top: 25px;
+	margin-bottom: 18px;
+	margin-left: 25px;
+	font-size: 2.4em;
+}
+
+
+#authenticate .modal .forgotform .reset {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 10px;
+	cursor: pointer;
+	background-color:#e08c3d;
+	width: 100%;
+	border-radius: 5px;
+	font-size: 3.5em;
+}
+
+/* Footer CSS */
+#footer {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2E61A0;
+	padding: 10px;
+	text-align:center;
+	color: #fff;
+	font-size: 2.2em;
+	
+}
+
 }
