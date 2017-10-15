@@ -6,6 +6,7 @@ import { fetch_activities } from '../../api';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Spinner from '../../common/components/Spinner';
+import {notify} from 'react-notify-toast';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -76,32 +77,43 @@ class Publish extends React.Component {
 		let errors = this.state.error;
 		errors.title = "";
 		errors.description = "";
-		errors.color = "";
-		errors.generic = "";
+		errors.date = "";
+		errors.activity = "";
+		errors.discipline = "";
 
 		// Check fields are not empty
 		if (this.state.title.trim() == "") {
-			errors.title = "Please add an activity title";
+			errors.title = "Please add a title for this post";
 		} else {
 			errors.title = "";
 		}
 		if (this.state.description.trim() == "") {
-			errors.description = "Please enter a description for this activity";
+			errors.description = "Please enter a description for this post";
 		} else {
 			errors.description = "";
 		}
-		if (this.state.color.trim() == "") {
-			errors.color = "Please assign a color to this activity";
+		if (this.state.date == "" || !moment(this.state.date).isValid()) {
+			errors.date = "Please enter a valid date";
 		} else {
-			errors.color = "";
+			errors.date = "";
 		}
-
+		if (this.state.activities !== null && this.state.activity.trim() == "") {
+			errors.activity = "Please select an activity from the menu";
+		} else {
+			errors.activity = "";
+		}
+		if (this.state.discipline.trim() == "") {
+			errors.discipline = "Please enter a discipline";
+		} else {
+			errors.discipline = "";
+		}
 		// Attempt save to database
-		if (errors.title == "" && errors.description == "" && errors.color == "") {
+		if (errors.title == "" && errors.description == "" && errors.date == "" && errors.activity == "" && errors.discipline == "") {
 			let self = this;
 			edit_activity(this.state.id, this.state.title, this.state.description, this.state.color).then(response => response.json()).then(function(result) {
 				if (result.success == true) {
-					self.props.history.push("/activities");
+					notify.show('Post has successfully been published');
+					self.props.history.push("/");
 				} else {
 					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not save your changes. Please refresh the page and try again."} });
 				}

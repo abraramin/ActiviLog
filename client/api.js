@@ -57,8 +57,6 @@ export function register(fullName, email, password, organizationName) {
     });
 }
 
-
-
 // Account Creation
 export function create_account(fullName, email, password) {
     return fetch('/api/create_account/', {
@@ -75,11 +73,6 @@ export function create_account(fullName, email, password) {
         })
     });
 }
-
-
-
-
-
 
 // Fetch Logged In User Data
 export function fetchUserData() {
