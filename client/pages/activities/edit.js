@@ -5,6 +5,7 @@ import { fetch_activity, edit_activity, delete_activity } from '../../api';
 
 import SelectColor from './components/colors';
 import Spinner from '../../common/components/Spinner';
+import {notify} from 'react-notify-toast';
 
 class EditActivity extends React.Component {
 	constructor(props) {
@@ -103,6 +104,7 @@ class EditActivity extends React.Component {
 			let self = this;
 			edit_activity(this.state.id, this.state.title, this.state.description, this.state.color).then(response => response.json()).then(function(result) {
 				if (result.success == true) {
+					notify.show('Activity has successfully been updated');
 					self.props.history.push("/activities");
 				} else {
 					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not save your changes. Please refresh the page and try again."} });
