@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema
 ({
-    posterID: {
+    userID: {
       type: Number,
       require:true
     },
@@ -14,7 +14,7 @@ var postSchema = new Schema
       require:true
     },
 
-    loc:{type:String, require:true},
+    location:{type:String, require:true},
 
     startTime:{type:Date, require:true},
 

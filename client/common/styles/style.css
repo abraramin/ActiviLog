@@ -106,12 +106,24 @@ html, body {
 	float: right;
 }
 
+.marginr14 {
+	margin-right: 14px;
+}
+
 .width20 {
 	width: 20% !important;
 }
 
+.width24 {
+	width: 24% !important;
+}
+
 .width30 {
 	width: 30% !important;
+}
+
+.width40 {
+	width: 40% !important;
 }
 
 .width48 {
@@ -240,6 +252,26 @@ textarea {
 
 .date {
 	width: 400px !important;
+}
+
+.time_picker_container, .time_picker_preview {
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	transition: none;
+	-webkit-transition: none !important;
+	background-color: #F4F4F4 !important;
+	height: 40px !important;
+	margin: 8px 0;
+}
+
+.time_picker_preview {
+	border: 1px solid grey !important;
+	border-radius: 5px !important;
+}
+
+.preview_container {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
 }
 
 /* Button Styling */

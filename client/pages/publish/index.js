@@ -7,8 +7,10 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Spinner from '../../common/components/Spinner';
 import {notify} from 'react-notify-toast';
+import TimePicker from 'react-times';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-times/css/classic/default.css';
 
 class Publish extends React.Component {
 	constructor(props) {
@@ -197,18 +199,40 @@ class Publish extends React.Component {
 						</div>
 
 						<div className="input">
-							<label>Date</label>
-							<DatePicker
-								selected={momentObj}
-								onChange={this.handleDateChange}
-								showTimeSelect
-								dateFormat="LLL"
-								disabled={loading}
-								minDate={moment().add(-2, "days")}
-  								maxDate={moment()}
-								placeholderText="Select a time and date within the past 3 days"
-								className="date"
-							/>
+							<div className="input width50">
+								<label>Date</label>
+								<DatePicker
+									selected={momentObj}
+									onChange={this.handleDateChange}
+									showTimeSelect
+									dateFormat="LLL"
+									disabled={loading}
+									minDate={moment().add(-2, "days")}
+									maxDate={moment()}
+									placeholderText="Day of Month"
+									className="date"
+								/>
+							</div>
+							<div style={{ "height": "75px" }}>
+								<div className="width24 marginr14 float-left">
+									<label>Start Time</label>
+									<TimePicker
+										withoutIcon={true}
+										time="13:05"
+										theme="classic"
+										timeMode="12"
+									/>
+								</div>
+								<div className="width24 float-left">
+									<label>End Time</label>
+									<TimePicker
+										withoutIcon={true}
+										time="13:05"
+										theme="classic"
+										timeMode="12"
+									/>
+								</div>
+							</div>
 							{error.date && <div className="error">{error.date}</div>}
 						</div>
 						{activities && <div className="input width50">
