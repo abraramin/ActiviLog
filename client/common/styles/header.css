@@ -155,3 +155,7 @@
   width: 16px;
   height: auto;
 }
+
+img.sub-header-icon {
+	padding-top: 10px;
+}

@@ -19,9 +19,10 @@ import Activities from './pages/activities/';
 import AddActivity from './pages/activities/add';
 import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
+import AddUser from './pages/users/add';
 import MissingPath from './pages/MissingPath';
 
-import Loading from "./common/components/Loading"
+import Loading from "./common/components/Loading";
 import Notifications, {notify} from 'react-notify-toast';
 
 import { login as userLogin, register, set_token, fetchUserData } from './api';
@@ -60,7 +61,7 @@ class App extends React.Component {
 		this.loadUser();
 	}
 
-	loadUser() {		
+	loadUser() {
 		const userData = {...this.state.user};
 
 		// Get WebToken from Browser
@@ -95,7 +96,7 @@ class App extends React.Component {
 			} else {
 				clearToken();
 				userData.token = null;
-				
+
 				self.setState({user: userData, loading: false,});
 			}
 		});
@@ -255,6 +256,12 @@ class App extends React.Component {
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Users user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/add"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <AddUser user={user} />}
 					/>
 					<RedirectRoute
 						exact path="/users/add"

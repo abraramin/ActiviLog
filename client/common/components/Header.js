@@ -129,7 +129,7 @@ class Header extends React.Component {
 								</li>
 								<li>
 									<Link to={{pathname: '/activities/add'}} className={path == "/activities/add" ? "active" : ""}>
-										<span>Add Activity</span>
+										<span><img src={require('../images/round-add-button.png')} />  Add Activity</span>
 									</Link>
 								</li>
 							</ul>
@@ -145,7 +145,7 @@ class Header extends React.Component {
 								</li>
 								<li>
 									<Link to={{pathname: '/users/add'}} className={path == "/users/add" ? "active" : ""}>
-										<span>Add Account</span>
+										<span> <img src={require('../images/add-user-button.png')}/> Add Account</span>
 									</Link>
 								</li>
 								<Search />

@@ -57,6 +57,30 @@ export function register(fullName, email, password, organizationName) {
     });
 }
 
+
+
+// Account Creation
+export function create_account(fullName, email, password) {
+    return fetch('/api/create_account/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'fullName': fullName,
+            'email': email,
+            'password': password,
+        })
+    });
+}
+
+
+
+
+
+
 // Fetch Logged In User Data
 export function fetchUserData() {
     return fetch('/api/fetch_user/', {
@@ -130,6 +154,8 @@ export function fetch_activities(page, pageItems) {
     });
 }
 
+
+
 // Fetch single activity
 export function fetch_activity(id) {
     return fetch('/api/fetch_activity/', {
@@ -142,6 +168,7 @@ export function fetch_activity(id) {
         },
     });
 }
+
 
 // Delete Activity
 export function delete_activity(id) {
@@ -157,3 +184,19 @@ export function delete_activity(id) {
         })
     });
 }
+
+// Fetch list of user
+export function fetch_users(page, pageItems) {
+    return fetch('/api/fetch_users/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems
+        },
+    });
+}
+
+
