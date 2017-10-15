@@ -94,8 +94,20 @@ export function fetchPosts(user) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
 			'Authorization': token,
-			'userID': user,
         },
+    });
+}
+
+//Publish a User's Individual Post
+export function publish_post(properties) {
+    return fetch('/api/publish_post/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+			'Authorization': token,
+        },
+        body: JSON.stringify(properties),
     });
 }
 

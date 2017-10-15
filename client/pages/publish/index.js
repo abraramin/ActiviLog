@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import { fetch_activities } from '../../api';
+import { fetch_activities, publish_post } from '../../api';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -16,10 +16,14 @@ class Publish extends React.Component {
 	constructor(props) {
 		super(props);
 
+		const dateToday = moment().format();
+
 		this.state = {
 			title: "",
 			description: "",
-			date: "",
+			date: dateToday,
+			startTime: "07:00",
+			endTime: "08:30",
 			activity: "",
 			discipline: "",
 			location: "",
@@ -44,6 +48,8 @@ class Publish extends React.Component {
 		this.changeField = this.changeField.bind(this);
 		this.selectActivity = this.selectActivity.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
+		this.onStartTimeChange = this.onStartTimeChange.bind(this);
+		this.onEndTimeChange = this.onEndTimeChange.bind(this);
 	}
 
 	componentDidMount() {
@@ -99,6 +105,14 @@ class Publish extends React.Component {
 		} else {
 			errors.date = "";
 		}
+		// Check the two times
+		const beginningTime = moment(this.state.startTime, 'h:mm');
+		const endTime = moment(this.state.endTime, 'h:mm');
+		if (beginningTime.isBefore(endTime) == false) {
+			errors.date = "Please ensure your start and end times are correct";
+		} else {
+			errors.date = "";
+		}
 		if (this.state.activities !== null && this.state.activity.trim() == "") {
 			errors.activity = "Please select an activity from the menu";
 		} else {
@@ -109,15 +123,33 @@ class Publish extends React.Component {
 		} else {
 			errors.discipline = "";
 		}
+
 		// Attempt save to database
 		if (errors.title == "" && errors.description == "" && errors.date == "" && errors.activity == "" && errors.discipline == "") {
+			// Construct the final date objects
+			const bt = moment(this.state.startTime, 'h:mm');
+			const et = moment(this.state.endTime, 'h:mm');
+			const startTime = moment(this.state.date).set('hours', bt.get('hours')).set('minutes', bt.get('minutes')).toISOString();
+			const endTime = moment(this.state.date).set('hours', et.get('hours')).set('minutes', et.get('minutes')).toISOString();
+
+			const properties = {
+				title: this.state.title,
+				description: this.state.description,
+				activity: this.state.activity,
+				discipline: this.state.discipline,
+				location: this.state.location,
+				startTime: startTime,
+				endTime: endTime,
+				notes: this.state.notes,
+			}
+		
 			let self = this;
-			edit_activity(this.state.id, this.state.title, this.state.description, this.state.color).then(response => response.json()).then(function(result) {
+			publish_post(properties).then(response => response.json()).then(function(result) {
 				if (result.success == true) {
 					notify.show('Post has successfully been published');
 					self.props.history.push("/");
 				} else {
-					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not save your changes. Please refresh the page and try again."} });
+					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not publish your post. Please refresh the page and try again."} });
 				}
 			});
 		} else {
@@ -143,11 +175,21 @@ class Publish extends React.Component {
 		this.setState({date: dateString});
 	}
 
+	onStartTimeChange(time) {
+		this.setState({startTime: time});
+	}
+
+	onEndTimeChange(time) {
+		this.setState({endTime: time});
+	}
+
 	render() {
 		const { 
 			title,
 			description,
 			date,
+			startTime,
+			endTime,
 			activity,
 			discipline,
 			location,
@@ -204,13 +246,12 @@ class Publish extends React.Component {
 								<DatePicker
 									selected={momentObj}
 									onChange={this.handleDateChange}
-									showTimeSelect
-									dateFormat="LLL"
 									disabled={loading}
 									minDate={moment().add(-2, "days")}
 									maxDate={moment()}
 									placeholderText="Day of Month"
 									className="date"
+									dateFormat="DD/MM/YY"
 								/>
 							</div>
 							<div style={{ "height": "75px" }}>
@@ -218,18 +259,18 @@ class Publish extends React.Component {
 									<label>Start Time</label>
 									<TimePicker
 										withoutIcon={true}
-										time="13:05"
+										time={startTime}
 										theme="classic"
-										timeMode="12"
+										onTimeChange={this.onStartTimeChange}
 									/>
 								</div>
 								<div className="width24 float-left">
 									<label>End Time</label>
 									<TimePicker
 										withoutIcon={true}
-										time="13:05"
+										time={endTime}
 										theme="classic"
-										timeMode="12"
+										onTimeChange={this.onEndTimeChange}
 									/>
 								</div>
 							</div>
@@ -239,7 +280,7 @@ class Publish extends React.Component {
 							<label>Activity</label>
 							<select disabled={loading} onChange={this.selectActivity}>
 								<option key={0} name={""}>
-									Select an activity from the drop-down list
+									Select an activity
 								</option>
 								{activities.map(function(result) {
 									return <option key={result.id} value={result.id} name={result.id}>

@@ -154,6 +154,29 @@ router.post('/api/register', visitor(), function(req, res) {
     });
 });
 
+router.post('/api/publish_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const properties = {
+        title: req.body.title,
+        description: req.body.description,
+        activity: req.body.activity,
+        discipline: req.body.discipline,
+        location: req.body.location,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        notes: req.body.notes,
+        userId: req.user._id.toString(),
+        clientId: req.user.organisationId.toString(),
+        active: true,
+    }
+    posts.create(properties, function (err, response) {
+        if (err) {
+            res.json({ success: false, message: 'Post could not be created' });
+        } else {
+            res.json({ success: true, message: 'Post successfully created' });
+        }
+    });
+});
+
 router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {  
     const id = req.headers['userID'];
 	var data = [];

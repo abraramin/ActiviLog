@@ -148,7 +148,6 @@ class Header extends React.Component {
 										<span> <img src={require('../images/add-user-button.png')}/> Add Account</span>
 									</Link>
 								</li>
-								<Search />
 							</ul>
 						</div>
 					}/>
