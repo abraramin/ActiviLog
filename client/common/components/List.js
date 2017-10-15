@@ -53,8 +53,11 @@ class List extends React.Component {
 						<tbody>
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
 								return <tr key={i}>
-									<th>{item.startTime.toTimeString()}</th>
-									<th>{item.desc}</th>
+									<th>{item.startTime.toTimeString().substring(0, 5)}</th>
+									<th>
+										<h1>{item.title}</h1>
+										<p1>{item.desc}</p1>
+									</th>
 								</tr>
 							})}
 						</tbody>

@@ -9,36 +9,11 @@ import { fetchPosts } from '../../../api';
 class User extends React.Component {
 	constructor(props) {
 		super(props);
-		
-		const d = new Date();
-		
+
 		this.state = {
 			loading: false,
 			postData: null,
 			error: false,
-			test: {
-	0: {
-		title: 'title1',
-		desc: 'asdfgghh',
-		startTime: d,
-		endTime: d,
-		date: [d.toDateString()]
-	}, 
-	1: {
-		title: 'test',
-		desc: 'students do shit',
-		startTime: d,
-		endTime: d,
-		date: [d.toDateString()]
-	}, 
-	2:	{
-		title: 'aps',
-		desc: 'shiz',
-		startTime: d,
-		endTime: d,
-		date: [d.toDateString()]
-	},
-},
 		}
 		
 		this.loadPosts = this.loadPosts.bind(this);
@@ -83,7 +58,6 @@ class User extends React.Component {
 			loading,
 			postData,
 			error,
-			test,
 		} = this.state;  
 		
 		return <div className="page">
@@ -103,10 +77,6 @@ class User extends React.Component {
 			
 			{!loading && !error && postData != null && <div>
 				<List posts={this.state.postData} />
-			</div>}
-			
-			{!loading && !error && <div>
-				<List post={test} />
 			</div>}
 		</div>;
 	};
