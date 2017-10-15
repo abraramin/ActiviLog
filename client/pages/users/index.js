@@ -6,6 +6,8 @@ import { fetch_users } from '../../api';
 import InnerLoader from '../../common/components/InnerLoader';
 import Pagination from '../../common/components/Pagination';
 
+require('../../common/styles/style.css');
+
 class Users extends React.Component {
 	constructor(props) {
 		super(props);
@@ -47,7 +49,8 @@ class Users extends React.Component {
 					const values = {
 						id: result._id,
 						fullName: result.fullName,
-						emailAddress: result.emailAddress,
+						email: result.email,
+						userType: result.userType,
 					}
 					return users.push(values);
 				});
@@ -68,7 +71,7 @@ class Users extends React.Component {
 			users,
 			error,
 		} = this.state;
-
+		console.log(users);
 		return <div className="page width80">
 			<div className="header">User List</div>
 			{loading && <InnerLoader />}
@@ -83,7 +86,6 @@ class Users extends React.Component {
 					<p>You don't yet have users.. click the 'Add User' menu button to get started.</p>
 			</div>}
 
-			<p> {this.users} </p>
 
 			{!loading && !error && users !== null && <div>
 				<table>
@@ -91,15 +93,20 @@ class Users extends React.Component {
 						<tr>
 							<th style={{ "width": "12%" }}>Full Name</th>
 							<th style={{ "width": "12%" }}>Email Address</th>
-							<th style={{"width" : "12%"}}>Action</th>
+							<th style={{ "width": "12%" }}>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						{!loading && users != null && users.map(res => {
-							<tr key={res.id}>
+							return <tr key={res.id}>
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
-								<th>{res.emailAddress}</th>
-								<th>Delete Account</th>
+								<th>{res.email}</th>
+								{res.userType === 3 &&<th onClick={() => this.props.history.push("user/edit/" + res.id)} style={{ "color": "Red" }}>
+									<button type="button">Edit Account</button>
+								</th>}
+								{res.userType !== 3 &&<th>
+									N/A
+								</th>}
 							</tr>
 						})}
 					</tbody>

@@ -709,6 +709,13 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	font-size: 3.5em;
 }
 
+
+.edit_button
+{
+	background-color: green;
+	color: yellow;
+}
+
 /* Footer CSS */
 #footer {
 	position: fixed;
