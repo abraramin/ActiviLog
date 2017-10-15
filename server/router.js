@@ -228,7 +228,7 @@ router.post('/api/add_activity', passport.authenticate('jwt', { session: false }
     });
 });
 
-router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+router.get('/api/fetch_activities', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER, ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
     const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
     activities.paginate({
