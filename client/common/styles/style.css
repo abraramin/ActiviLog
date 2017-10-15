@@ -207,6 +207,12 @@ html, body {
 	border: 1px solid #000;
 }
 
+.pageNotFound {
+	text-align: center;
+	padding: 30px;
+	font-size: 22px;
+}
+
 input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
