@@ -115,6 +115,10 @@
     line-height: 50px;
 }
 
+#sub-header li img {
+  vertical-align: middle;
+}
+
 #sub-header ul .active {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
