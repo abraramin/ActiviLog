@@ -93,13 +93,14 @@ export function fetchUserData() {
     });
 }
 
-//Fetch Logged In User's Post Data **********DOUBLE CHECK**************
+//Fetch Logged In User's Post Data 
 export function fetchPosts(user) {
     return fetch('/api/fetch_posts/', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+			'Authorization': token,
 			'userID': user,
         },
     });

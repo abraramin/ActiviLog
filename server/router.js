@@ -154,8 +154,29 @@ router.post('/api/register', visitor(), function(req, res) {
     });
 });
 
-
-
+router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {  
+    const id = req.headers['userID'];
+	var data = [];
+    posts.find({ 
+        'posterID': id,
+    }).exec(function(err, response) {
+        if (!err) {
+			for(var i=0; i < response.length; i++){
+				var val = {
+					title: response[i].title,
+					desc: response[i].description,
+					startTime: response[i].startTime,
+					endTime: response[i].endTime,
+				}
+				data[i]=val;
+			}
+			
+            res.json({ success: true, posts: data });
+        } else {
+            res.json({ success: false, message: "Activity could not be loaded" });
+        }
+    });
+});
 
 router.post('/api/create_account', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
             var userData = {
