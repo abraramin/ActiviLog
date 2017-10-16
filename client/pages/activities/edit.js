@@ -42,7 +42,7 @@ class EditActivity extends React.Component {
 	loadActivity() {
 		this.setState({ loading: true });
 		const id = document.location.pathname.toString().substr(17);
-		self = this;
+		let self = this;
 		fetch_activity(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
 				self.setState({ 
@@ -62,7 +62,7 @@ class EditActivity extends React.Component {
 	deleteActivity() {
 		this.setState({ loading: true, deleting: true });
 		const id = this.state.id;
-		self = this;
+		let self = this;
 		delete_activity(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
 				self.props.history.push("/activities");

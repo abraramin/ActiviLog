@@ -58,7 +58,7 @@ class Publish extends React.Component {
 
 	loadActivities() {
 		this.setState({ loading: true });
-		self = this;
+		let self = this;
 		fetch_activities(1, 10000).then(response => response.json()).then(function(result) {
 			if (result.success) {
 				let activities = [];
