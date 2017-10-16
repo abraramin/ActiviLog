@@ -33,12 +33,13 @@ class User extends React.Component {
 				let postData = [];
 				
 				result.posts.map(function(post) {
+					
 					const values = {
 						title: post.title,
 						desc: post.desc,
-						startTime: post.startTime,
-						endTime: post.endTime,
-						date: [response[i].startTime.toDateString()],
+						startTime: new Date(post.startTime),
+						endTime: new Date(post.endTime),
+						date: new Date(post.startTime),
 					}
 					return postData.push(values);
 				});

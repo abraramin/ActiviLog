@@ -8,7 +8,6 @@ class List extends React.Component {
 		
 		this.state = {
 			loading: false,
-			postData: null,
 			error: false,
 			posts: [],
 		}
@@ -20,9 +19,9 @@ class List extends React.Component {
 	sortPosts() {	
 		this.setState({loading: true});
 		
-		var data = this.props.post;
+		var data = this.props.posts;
 		var sorted = _.groupBy(data, function(item) {
-			return item.date;
+			return (item.date).toDateString();
 		});
 		
 		this.setState({loading: false, posts: sorted});
@@ -35,7 +34,6 @@ class List extends React.Component {
 	render() {
 		const {
 			loading,
-			postData,
 			error,
 			posts,
 		} = this.state;

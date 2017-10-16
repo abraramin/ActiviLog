@@ -181,7 +181,8 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
     const id = req.headers['userID'];
 	var data = [];
     posts.find({ 
-        'posterID': id,
+        'userID': id,
+		'active': true,
     }).exec(function(err, response) {
         if (!err) {
 			for(var i=0; i < response.length; i++){
