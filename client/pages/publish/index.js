@@ -106,8 +106,9 @@ class Publish extends React.Component {
 			errors.date = "";
 		}
 		// Check the two times
-		const beginningTime = moment(this.state.startTime, 'h:mm');
-		const endTime = moment(this.state.endTime, 'h:mm');
+		const beginningTime = moment(this.state.startTime, 'hh:mm');
+		const endTime = moment(this.state.endTime, 'hh:mm');
+
 		if (beginningTime.isBefore(endTime) == false) {
 			errors.date = "Please ensure your start and end times are correct";
 		} else {
@@ -127,8 +128,8 @@ class Publish extends React.Component {
 		// Attempt save to database
 		if (errors.title == "" && errors.description == "" && errors.date == "" && errors.activity == "" && errors.discipline == "") {
 			// Construct the final date objects
-			const bt = moment(this.state.startTime, 'h:mm');
-			const et = moment(this.state.endTime, 'h:mm');
+			const bt = moment(this.state.startTime, 'hh:mm');
+			const et = moment(this.state.endTime, 'hh:mm');
 			const startTime = moment(this.state.date).set('hours', bt.get('hours')).set('minutes', bt.get('minutes')).toISOString();
 			const endTime = moment(this.state.date).set('hours', et.get('hours')).set('minutes', et.get('minutes')).toISOString();
 
@@ -211,6 +212,16 @@ class Publish extends React.Component {
 			momentObj = moment(dateObj);
 		}
 
+		let startmer = "AM";
+		if (parseInt(startTime.substr(0, 2)) >= 12) {
+			startmer = "PM"
+		}
+
+		let endmer = "AM";
+		if (parseInt(endTime.substr(0, 2)) >= 12) {
+			endmer = "PM"
+		}
+
 		return <div className="page">
 			<div className="box">
 					<div className="title">Add New Entry</div>
@@ -261,6 +272,7 @@ class Publish extends React.Component {
 										withoutIcon={true}
 										time={startTime}
 										theme="classic"
+										meridiem={startmer}
 										onTimeChange={this.onStartTimeChange}
 									/>
 								</div>
@@ -270,6 +282,7 @@ class Publish extends React.Component {
 										withoutIcon={true}
 										time={endTime}
 										theme="classic"
+										meridiem={endmer}
 										onTimeChange={this.onEndTimeChange}
 									/>
 								</div>
