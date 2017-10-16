@@ -131,14 +131,14 @@ class App extends React.Component {
 				return;
 			}
 			// Fetch User Data
-			window.location.href = "/";
+			document.location.href = "/";
 		});
 	}
 
 	logout() {
 		// Clear Tokens and Refresh the Page
 		clearToken();
-		window.location.href = "/";
+		document.location.href = "/";
 	}
 
 	forgotPassword() {
@@ -171,7 +171,7 @@ class App extends React.Component {
 				return;
 			}
 			alert("Success! Your account has been created. You can now login.");
-			window.location.href = "/login";
+			document.location.href = "/login";
 		});
 	}
 

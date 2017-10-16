@@ -25,7 +25,7 @@ class Header extends React.Component {
 			return null;
 		}
 
-		const path = window.location.pathname.toString();
+		const path = document.location.pathname.toString();
 
 		const isAdmin = user.userType == ACCOUNT_TYPE.ADMINISTRATOR;
 		const isSupervisor = user.userType == ACCOUNT_TYPE.SUPERVISOR;

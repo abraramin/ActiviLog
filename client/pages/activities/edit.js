@@ -41,7 +41,7 @@ class EditActivity extends React.Component {
 
 	loadActivity() {
 		this.setState({ loading: true });
-		const id = window.location.pathname.toString().substr(17);
+		const id = document.location.pathname.toString().substr(17);
 		self = this;
 		fetch_activity(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
