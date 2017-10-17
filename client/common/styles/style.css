@@ -541,6 +541,13 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 #authenticate .logo {
 	width: 100%;
 	text-align: center;
+	margin-bottom: "10%";
+	transform: translate(0, -100%);
+}
+
+#authenticate .logo img{
+	width: 60%;
+	text-align: center;
 }
 
 #authenticate .modal {
@@ -627,7 +634,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 #authenticate .modal .loginform .submit {
 	border: none;
     color: white;
-    padding: 16px 64px;
+    padding: 16px 32px;
     text-decoration: none;
     margin-top: 10px;
 	cursor: pointer;
@@ -641,7 +648,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 #authenticate .modal .loginform .register {
 	border: none;
     color: white;
-    padding: 16px 64px;
+    padding: 16px 32px;
     text-decoration: none;
     margin-top: 10px;
 	cursor: pointer;
@@ -651,24 +658,12 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	font-size: 2em;
 }
 	
-#authenticate .modal .loginform .forgotPassword {
-	font-size: 2.0m;
-	text-align: left;
-	margin-top: 40px;
-	cursor: pointer;
-}	
+
 
 #authenticate .modal .loginform	.width48 {
-	width: 46% !important;
+	width: 48% !important;
 }
 
-#authenticate .modal .loginform	.float-left {
-	float: left;
-}
-
-#authenticate .modal .loginform	.float-right {
-	float: right;
-}
 	
 #authenticate .modal .loginform input {
 	margin-top: 20px;
@@ -766,6 +761,156 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	color: #fff;
 	font-size: 2.2em;
 	
+}
+
+/* Dashboard CSS */
+#dashboard .welcome {
+	color: black;
+	font-size: 3.5em;
+	text-transform: uppercase;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+#dashboard .logo img{
+	width: 50%;
+}
+
+
+#dashboard .welcome strong {
+	font-weight: bold;
+}
+
+#dashboard .container {
+	display: inline-block;
+	text-align: center;
+}
+
+#dashboard .pill {
+	width: 320px;
+	text-align:center;
+	padding: 5px;
+	margin: 27px;
+	border-radius: 3px;
+}
+
+#dashboard .pill a {
+	text-align: center;
+	text-decoration: none;
+	color: #333;
+}
+
+#dashboard .pill a:hover {
+	color: #2E61A0;
+	text-decoration: underline;
+}
+
+#dashboard .pill p {
+	margin-top: 20px;
+	font-size: 3em;
+}
+
+#dashboard .pill img {
+	height: 200px;
+	margin-top: 20px;
+}
+
+/* Form inputs */
+
+.page {
+	width: 800px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-left:auto;
+	margin-right:auto;
+	max-width: 1300px;
+}
+
+.page .header {
+	width: 100%;
+	margin-top: 35px;
+	margin-bottom: 35px;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.box {
+	width: 100%;
+	padding: 15px;
+}
+
+.box .title {
+	font-size: 3em;
+	text-transform: uppercase;
+	text-align: center;
+	width: 100%;
+	padding: 20px;
+	font-weight: bold;
+}
+
+.box .components {
+	padding-top: 20px;
+}
+
+.box .components input {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	height: 2.8em;
+	font-size: 2.8em;
+	width: 100%;
+}
+
+.box .components select {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	height: 2.8em;
+	font-size: 2.5em;
+}
+
+.box .components option {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-size: 1.3em;
+}
+
+.box .components .input label {
+	display: block;
+	font-size: 2.8em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+}
+
+.box .components .submit {
+	border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 25px;
+	cursor: pointer;
+	background-color:#428be5;
+	width: 100%;
+	border-radius: 15px;
+	font-size: 3em;
+	height: 2.7em;
+}
+
+
+#color-selector .colors {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#color-selector button {
+	width: 75px;
+	height: 75px;
+	list-style: none;
+	display: inline-block;
+	margin: 15px;
+	border-radius: 3px;
+	cursor: pointer;
+	border: 3px solid transparent;
 }
 
 }
