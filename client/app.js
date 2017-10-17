@@ -20,6 +20,7 @@ import AddActivity from './pages/activities/add';
 import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
 import AddUser from './pages/users/add';
+import EditUser from './pages/users/edit'
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading";
@@ -264,16 +265,10 @@ class App extends React.Component {
 						render={(props) => <AddUser user={user} />}
 					/>
 					<RedirectRoute
-						exact path="/users/add"
-						user={user}
-						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-						render={(props) => <Users user={user} />}
-					/>
-					<RedirectRoute
 						exact path="/users/edit/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
-						render={(props) => <Users user={user} />}
+						render={(props) => <EditUser user={user} />}
 					/>
 					<RedirectRoute
 						user={user}

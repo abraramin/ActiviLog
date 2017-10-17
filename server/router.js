@@ -177,10 +177,10 @@ router.post('/api/publish_post', passport.authenticate('jwt', { session: false }
     });
 });
 
-router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {  
+router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const id = req.headers['userID'];
 	var data = [];
-    posts.find({ 
+    posts.find({
         'userID': id,
 		'active': true,
     }).exec(function(err, response) {
@@ -194,7 +194,7 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
 				}
 				data[i]=val;
 			}
-			
+
             res.json({ success: true, posts: data });
         } else {
             res.json({ success: false, message: "Activity could not be loaded" });
@@ -307,6 +307,32 @@ router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false 
     });
 });
 
+
+
+router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const id = req.headers['userid'];
+    account.findOne({
+        '_id': id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }).exec(function(err, response) {
+        if (!err) {
+            const data = {
+                id: response._id,
+                fullName: response.fullName,
+                email: response.email,
+            }
+            res.json({ success: true, message: data });
+        } else {
+            res.json({ success: false, message: err });
+        }
+    });
+});
+
+
+
+
+
 router.post('/api/delete_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {
         active: false
@@ -342,6 +368,49 @@ router.post('/api/edit_activity', passport.authenticate('jwt', { session: false 
         }
     });
 });
+
+
+
+router.post('/api/edit_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        fullName: req.body.fullName,
+        email: req.body.email,
+    }
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully modified" });
+        } else {
+            res.json({ success: false, message: "User could not be modified at this time. :/" });
+        }
+    });
+});
+
+
+
+
+router.post('/api/delete_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        active: false
+    }
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully deleted" });
+        } else {
+            res.json({ success: false, message: "User could not be deleted" });
+        }
+    });
+});
+
+
+
 
 router.get('/api/logout', function(req, res) {
     req.logout();

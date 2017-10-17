@@ -86,7 +86,7 @@ export function fetchUserData() {
     });
 }
 
-//Fetch Logged In User's Post Data 
+//Fetch Logged In User's Post Data
 export function fetchPosts(user) {
     return fetch('/api/fetch_posts/', {
         method: 'GET',
@@ -176,6 +176,19 @@ export function fetch_activity(id) {
 }
 
 
+// Fetch single user
+export function fetch_single_user(id) {
+    return fetch('/api/fetch_single_user/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            'userId' : id,
+        },
+    });
+}
+
 // Delete Activity
 export function delete_activity(id) {
     return fetch('/api/delete_activity/', {
@@ -206,3 +219,37 @@ export function fetch_users(page, pageItems) {
 }
 
 
+// Edit User
+export function edit_user(id, fullName, email) {
+    return fetch('/api/edit_user/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id,
+            'fullName': fullName,
+            'email': email
+        })
+    });
+}
+
+
+
+
+// Delete User
+export function delete_user(id) {
+    return fetch('/api/delete_user/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id
+        })
+    });
+}

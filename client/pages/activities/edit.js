@@ -46,6 +46,7 @@ class EditActivity extends React.Component {
 		fetch_activity(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
 				self.setState({
+					id: result.message.id,
 					title: result.message.title,
 					description: result.message.description,
 					color: result.message.color,
@@ -58,6 +59,26 @@ class EditActivity extends React.Component {
 		});
 	}
 
+
+	loadActivity() {
+	this.setState({ loading: true });
+	const id = document.location.pathname.toString().substr(17);
+	let self = this;
+	fetch_activity(id).then(response => response.json()).then(function(result) {
+		if (result.success) {
+			self.setState({
+				id: result.message.id,
+				title: result.message.title,
+				description: result.message.description,
+				color: result.message.color,
+				header: result.message.title,
+				loading: false
+			});
+		} else {
+			self.props.history.push("/activities");
+		}
+	});
+}
 
 	deleteActivity() {
 		this.setState({ loading: true, deleting: true });
