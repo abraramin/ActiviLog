@@ -98,7 +98,7 @@ class Login extends React.Component {
 			const properties = {
 				email: this.state.emailAddress,
 				password: this.state.password,
-				organizationName: this.state.organizationName,
+				organizationName: this.state.organizationName.toLowerCase(),
 			};
 			this.props.login(properties);
 			this.setState({ loading: false });
