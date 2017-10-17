@@ -81,7 +81,7 @@ class AddActivity extends React.Component {
 	}
 
 	render() {
-		const { 
+		const {
 			title,
 			description,
 			color,
@@ -95,7 +95,9 @@ class AddActivity extends React.Component {
 
 		return <div className="page">
 			<div className="box">
-					<div className="title">Add New Activity</div>
+					<div className="title">
+									<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/activities")}/> &nbsp; Add New Activity</p>
+					</div>
 					<div className="components">
 						<div className="input">
 							<label>Title</label>

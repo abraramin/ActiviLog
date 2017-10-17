@@ -101,11 +101,11 @@ class Users extends React.Component {
 							return <tr key={res.id}>
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
 								<th>{res.email}</th>
-								{res.userType === 3 &&<th onClick={() => this.props.history.push("user/edit/" + res.id)} style={{ "color": "Red" }}>
+								{res.userType === 3 &&<th onClick={() => this.props.history.push("users/edit/" + res.id)}>
 									<button type="button">Edit Account</button>
 								</th>}
 								{res.userType !== 3 &&<th>
-									N/A
+									Action Unavailable
 								</th>}
 							</tr>
 						})}

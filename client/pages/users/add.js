@@ -46,7 +46,7 @@ class AddUser extends React.Component {
 			errors.emailAddress = "";
 		}
 		if (validateEmail(this.state.emailAddress) == false) {
-			errors.emailAddress = "Please enter a valid email address";
+			errors.emailAddress = "Please enter a valid email address e.g. jane.citizen@activilog.example.com";
 		} else {
 			errors.emailAddress = "";
 		}
@@ -88,7 +88,9 @@ class AddUser extends React.Component {
 
 		return <div className="page">
 			<div className="box">
-					<div className="title">Add New User</div>
+					<div className="title">
+								<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Add New User</p>
+					</div>
 					<div className="components">
 						<div className="input">
 							<label>Full Name</label>
@@ -110,7 +112,7 @@ class AddUser extends React.Component {
 								value={emailAddress}
 								onChange={this.changeField}
 								disabled={loading}
-								placeholder="jane.citizen@example.com"
+								placeholder="jane.citizen@activilog.example.com"
 							/>
 							{error.emailAddress && <div className="error">{error.emailAddress}</div>}
 						</div>

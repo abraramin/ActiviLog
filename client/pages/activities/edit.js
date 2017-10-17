@@ -45,8 +45,7 @@ class EditActivity extends React.Component {
 		let self = this;
 		fetch_activity(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
-				self.setState({ 
-					id: result.message.id,
+				self.setState({
 					title: result.message.title,
 					description: result.message.description,
 					color: result.message.color,
@@ -58,6 +57,7 @@ class EditActivity extends React.Component {
 			}
 		});
 	}
+
 
 	deleteActivity() {
 		this.setState({ loading: true, deleting: true });
@@ -125,7 +125,7 @@ class EditActivity extends React.Component {
 	}
 
 	render() {
-		const { 
+		const {
 			title,
 			description,
 			color,
@@ -142,7 +142,9 @@ class EditActivity extends React.Component {
 
 		return <div className="page">
 			<div className="box">
-					<div className="title">Edit {header}</div>
+					<div className="title">
+									<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/activities")}/> &nbsp; Edit {header}</p>
+					</div>
 					<div className="components">
 						<div className="input">
 							<label>Title</label>
