@@ -73,10 +73,10 @@ html, body {
 }
 
 .page-spinner {
-	width: 60px;
-	height: 60px;
+	width: 100px;
+	height: 100px;
 	background: url(../images/loading-dark.gif) no-repeat;
-	background-size: 32px 32px;
+	background-size: 100px 100px;
 	background-position: center center;
 	margin: auto;
 }
@@ -140,6 +140,10 @@ html, body {
 
 .width80 {
 	width: 80% !important;
+}
+
+.width100 {
+	width: 100% !important;
 }
 
 .page {
@@ -748,10 +752,20 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 }
 
 
-.edit_button
-{
-	background-color: green;
-	color: yellow;
+.editbutton {
+	background-color: #4CAF50;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.editbutton p img {
+	vertical-align: text-top;
 }
 
 /* Footer CSS */

@@ -51,7 +51,8 @@ class List extends React.Component {
 						<tbody>
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
 								return <tr key={i}>
-									<th>{item.startTime.toTimeString().substring(0, 5)}</th>
+									{console.log(item.startTime)}
+									<th>{item.startTime.toLocaleString([], { hour12: true})}</th>
 									<th>
 										<h1>{item.title}</h1>
 										<p1>{item.desc}</p1>

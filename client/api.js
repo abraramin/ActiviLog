@@ -119,6 +119,21 @@ export function publish_post(properties) {
     });
 }
 
+// Fetch list of user posts for the records page
+export function fetch_records(page, pageItems) {
+    return fetch('/api/fetch_records/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems
+        },
+    });
+}
+
 	
 // Add Activity
 export function add_activity(title, description, color) {

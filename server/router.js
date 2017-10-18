@@ -229,6 +229,21 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
             }
   });
 
+  router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+    posts.paginate({
+        clientId: req.user.organisationId.toString(),
+        active: true,
+    }, { page: page, limit: pageItems, sort: { userId: 'desc', startTime: 'desc'}}, function(err, result) {
+        if (err) {
+            res.json({ success: false, message: 'Post Records could not be loaded' });
+        } else {
+            res.json({ success: true, result: result.docs, total: result.total, page: result.page, limit: result.limit });
+        }
+    });
+});
+
 
 router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {

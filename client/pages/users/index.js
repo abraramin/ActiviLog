@@ -71,9 +71,8 @@ class Users extends React.Component {
 			users,
 			error,
 		} = this.state;
-		console.log(users);
 		return <div className="page width80">
-			<div className="header">User Accounts</div>
+			<div className="header">Accounts</div>
 			{loading && <InnerLoader />}
 
 			{!loading && error && <div className="text-align-center">
@@ -102,9 +101,9 @@ class Users extends React.Component {
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
 								<th>{res.email}</th>
 								{res.userType === 3 &&<th>
-									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "18px", "cursor": "pointer"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
-											<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
-								  	</button>
+									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "16px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
+									<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
+							  		</button>
 								</th>}
 								{res.userType !== 3 &&<th>
 								</th>}
