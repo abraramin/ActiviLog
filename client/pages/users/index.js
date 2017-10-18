@@ -73,7 +73,7 @@ class Users extends React.Component {
 		} = this.state;
 		console.log(users);
 		return <div className="page width80">
-			<div className="header">User List</div>
+			<div className="header">User Accounts</div>
 			{loading && <InnerLoader />}
 
 			{!loading && error && <div className="text-align-center">
@@ -91,9 +91,9 @@ class Users extends React.Component {
 				<table>
 					<thead>
 						<tr>
-							<th style={{ "width": "12%" }}>Full Name</th>
-							<th style={{ "width": "12%" }}>Email Address</th>
-							<th style={{ "width": "12%" }}>Action</th>
+							<th style={{ "width": "30%" }}>Full Name</th>
+							<th>Email Address</th>
+							<th style={{ "width": "10%" }}>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -101,15 +101,12 @@ class Users extends React.Component {
 							return <tr key={res.id}>
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
 								<th>{res.email}</th>
-								{res.userType === 3 &&<th onClick={() => this.props.history.push("users/edit/" + res.id)}>
-									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "18px"}}>
+								{res.userType === 3 &&<th>
+									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "18px", "cursor": "pointer"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
 											<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
-								  </button>
+								  	</button>
 								</th>}
 								{res.userType !== 3 &&<th>
-									<div style={{"color": "#2F4F4F", "fontSize": "16px"}}>
-										<p>Action Unavailable</p>
-									</div>
 								</th>}
 							</tr>
 						})}

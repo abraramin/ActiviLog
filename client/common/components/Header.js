@@ -140,7 +140,7 @@ class Header extends React.Component {
 							<ul>
 								<li>
 									<Link to={{pathname: '/users'}} className={path == "/users" ? "active" : ""}>
-										<span>Account List</span>
+										<span>All Accounts</span>
 									</Link>
 								</li>
 								<li>

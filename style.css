@@ -319,8 +319,6 @@ tr:nth-child(even) th { background: #F1F1F1; }
     
 tr:nth-child(odd) th { background: #FEFEFE; }  
 
-tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
-
 
 
 /* Authentication CSS */

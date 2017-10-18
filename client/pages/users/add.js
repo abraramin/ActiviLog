@@ -13,7 +13,7 @@ class AddUser extends React.Component {
 		this.state = {
 			fullName: "",
 			emailAddress: "",
-			password: "Password1",
+			password: "",
 			loading: false,
 			error: {
 				email: null,
@@ -70,6 +70,8 @@ class AddUser extends React.Component {
 
 
 	changeField(evt) {
+		console.log(evt.target.value);
+
 		this.setState({[evt.target.name]: evt.target.value});
 	}
 
@@ -119,12 +121,11 @@ class AddUser extends React.Component {
 						<div className="input">
 							<label>Password</label>
 							<input
-								type="text"
+								type="password"
 								name="password"
-								value="Password1"
+								value={password}
 								onChange={this.changeField}
 								disabled={loading}
-								readOnly
 							/>
 							{error.password && <div className="error">{error.password}</div>}
 						</div>
