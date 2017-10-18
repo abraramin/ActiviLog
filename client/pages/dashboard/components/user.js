@@ -78,14 +78,14 @@ class User extends React.Component {
 		return <div className="page">
 			{loading && <InnerLoader />}
 
-			{!loading && error && <div className="error">
+			{!loading && error && <div className="error text-align-center">
 				<img src={require('../../../common/images/info.png')} />
 				<p>There was an error loading the posts. Please refresh the page and try again.</p>
 			</div>}
 			
-			{!loading && !error && postData == null && <div>
+			{!loading && !error && postData == null && <div className="text-align-center">
 				<img src={require('../../../common/images/info.png')} />
-				<p>No posts were found. Click publish to get started</p>
+				<p>No posts were found. Click publish to get started.</p>
 			</div>}
 			
 			{!loading && !error && postData != null && <div>
