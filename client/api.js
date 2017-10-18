@@ -19,6 +19,7 @@ export function check_organization(organization) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'organization': organization,
         },
     });
@@ -31,6 +32,7 @@ export function login(email, password, organizationName) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
         },
         body: JSON.stringify({
             'email': email,
@@ -47,6 +49,7 @@ export function register(fullName, email, password, organizationName) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
         },
         body: JSON.stringify({
             'fullName': fullName,
@@ -64,6 +67,7 @@ export function create_account(fullName, email, password) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
@@ -81,6 +85,7 @@ export function fetchUserData() {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
     });
@@ -93,6 +98,7 @@ export function fetchPosts(user) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
 			'Authorization': token,
 			'userID': user,
         },
@@ -106,6 +112,7 @@ export function publish_post(properties) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
 			'Authorization': token,
         },
         body: JSON.stringify(properties),
@@ -120,6 +127,7 @@ export function add_activity(title, description, color) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
@@ -137,6 +145,7 @@ export function edit_activity(id, title, description, color) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
@@ -155,6 +164,7 @@ export function fetch_activities(page, pageItems) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
             'page': page,
             'pageItems': pageItems
@@ -171,6 +181,7 @@ export function fetch_activity(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
             'activityId': id,
         },
@@ -185,6 +196,7 @@ export function fetch_single_user(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
             'userId' : id,
         },
@@ -198,6 +210,7 @@ export function delete_activity(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
@@ -213,6 +226,7 @@ export function fetch_users(page, pageItems) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
             'page': page,
             'pageItems': pageItems
@@ -228,6 +242,7 @@ export function edit_user(id, fullName, email) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
@@ -245,6 +260,7 @@ export function delete_user(id) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
             'Authorization': token,
         },
         body: JSON.stringify({
