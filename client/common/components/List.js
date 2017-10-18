@@ -58,7 +58,7 @@ class List extends React.Component {
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
 								return <tr key={i} onClick={() => this.props.history.push("/edit/" + item.id)}
 									style={{ "cursor" : "pointer" }}>
-									<th>{moment(item.startTime).format("h:mm a")}</th>
+									<th style={{ "width" : "14%" }}>{moment(item.startTime).format("h:mm a")}</th>
 									<th style={{"background": item.color }}>
 										<strong>{item.title}</strong> : {item.desc}
 									</th>
