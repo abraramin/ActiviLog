@@ -24,6 +24,12 @@ class List extends React.Component {
 			return (item.date).toDateString();
 		});
 		
+		{Object.keys(sorted).map((i) => {
+			sorted[i] = _.sortBy(sorted[i], function(item) {
+				return (item.startTime);
+			});
+		})}
+		
 		this.setState({loading: false, posts: sorted});
 	}
 	
