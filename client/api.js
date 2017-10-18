@@ -99,8 +99,7 @@ export function fetchPosts(user) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
-			'Authorization': token,
-			'userID': user,
+			'Authorization': token
         },
     });
 }
@@ -213,7 +212,6 @@ export function fetch_single_user(id) {
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
             'Authorization': token,
-            'userId' : id,
         },
     });
 }

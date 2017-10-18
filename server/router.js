@@ -177,10 +177,11 @@ router.post('/api/publish_post', passport.authenticate('jwt', { session: false }
 });
 
 router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
-    const id = req.headers['userID'];
-	var data = [];
+    const id = req.user._id.toString();
+    var data = [];
     posts.find({
-        $and:[{'userID': id},
+        $and:[{'userId': id},
+            {'clientId': req.user.organisationId.toString()},
 			{'active': true}]
     }).sort({'startTime': -1}).exec(function(err, response) {
         if (!err) {
@@ -318,9 +319,8 @@ router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false 
 
 
 router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
-    const id = req.headers['userid'];
     account.findOne({
-        '_id': id,
+        '_id': req.user._id,
         'organisationId': req.user.organisationId.toString(),
         active: true,
     }).exec(function(err, response) {
