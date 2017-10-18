@@ -23,7 +23,7 @@ class List extends React.Component {
 		
 		var data = this.props.posts;
 		var sorted = _.groupBy(data, function(item) {
-			const dateString = moment(item.date).format('dddd, D MM');
+			const dateString = moment(item.date).format('dddd, DD MMM');
 			return dateString;
 		});
 		
