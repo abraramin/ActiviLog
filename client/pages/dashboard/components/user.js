@@ -76,9 +76,6 @@ class User extends React.Component {
 		} = this.state;  
 		
 		return <div className="page">
-			<div className="welcome">
-				Welcome <strong>{this.props.user.fullName}</strong>
-			</div>
 			{loading && <InnerLoader />}
 
 			{!loading && error && <div className="error">
@@ -92,9 +89,6 @@ class User extends React.Component {
 			</div>}
 			
 			{!loading && !error && postData != null && <div>
-				<div>
-					<button type="button" onClick={this.openClose}>Open/Close</button>
-				</div>
 				<List posts={this.state.postData} openAll={this.state.openAll} />
 			</div>}
 		</div>;

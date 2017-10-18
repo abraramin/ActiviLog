@@ -23,7 +23,8 @@ class List extends React.Component {
 		
 		var data = this.props.posts;
 		var sorted = _.groupBy(data, function(item) {
-			return (item.date).toDateString();
+			const dateString = moment(item.date).format('dddd, D MM');
+			return dateString;
 		});
 		
 		{Object.keys(sorted).map((i) => {
@@ -48,20 +49,24 @@ class List extends React.Component {
 
 		return <div>
 			{Object.keys(this.state.posts).map((e) => {
-				return <Collapsible trigger={e} key={e} open={this.props.openAll}>
+				return <div className="box">
+					<div className="header">
+						{e}
+					</div>
 					<table>
 						<tbody>
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
-								return <tr key={i} onClick={() => this.props.history.push("/edit/" + item.id)}>
+								return <tr key={i} onClick={() => this.props.history.push("/edit/" + item.id)}
+									style={{ "cursor" : "pointer" }}>
 									<th>{moment(item.startTime).format("h:mm a")}</th>
 									<th style={{"background": item.color }}>
-										<b>{item.title}</b> : {item.desc}
+										<strong>{item.title}</strong> : {item.desc}
 									</th>
 								</tr>
 							})}
 						</tbody>
 					</table>
-				</Collapsible>
+				</div>
 			})}
 		</div>
 	};
