@@ -104,6 +104,35 @@ export function fetchPosts(user) {
     });
 }
 
+//Fetches a Single User Post
+export function fetch_single_post(id) {
+    return fetch('/api/fetch_single_post/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+			'Authorization': token
+        },
+    });
+}
+
+//Deletes a Logged In User's Post
+export function delete_post(id) {
+    return fetch('/api/delete_post/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+			'Authorization': token
+        },
+		body: JSON.stringify({
+            'id': id
+        })
+    });
+}
+
 //Publish a User's Individual Post
 export function publish_post(properties) {
     return fetch('/api/publish_post/', {

@@ -52,6 +52,7 @@ class List extends React.Component {
 							<tr>
 								<th>Time</th>
 								<th>Description</th> 
+								<th>Action</th> 
 							</tr>
 						</thead>
 						<tbody>
@@ -61,6 +62,9 @@ class List extends React.Component {
 									<th>
 										<h1>{item.title}</h1>
 										<p1>{item.desc}</p1>
+									</th>
+									<th>
+										<button onClick={() => this.props.history.push("/edit/" + res.id)}>Edit</button>
 									</th>
 								</tr>
 							})}
