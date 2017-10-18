@@ -46,6 +46,7 @@ class User extends React.Component {
 				result.posts.map(function(post) {
 					
 					const values = {
+						id: post.id,
 						title: post.title,
 						desc: post.desc,
 						startTime: new Date(post.startTime),
