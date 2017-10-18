@@ -9,8 +9,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -20,7 +20,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-article, aside, details, figcaption, figure,
+article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -355,28 +355,28 @@ textarea {
 /* Table Styling */
 
 table {
-	width: 100%;
-    border-collapse:
-	collapse; border-spacing: 0;
+	width: 100%; 
+    border-collapse: 
+	collapse; border-spacing: 0; 
 	border: 1px solid #428be5;
 }
 
-thead {
+thead {  
 	font-weight: bold;
 	text-align: left;
 	color: #FFF;
 	border: 1px solid #428be5;
 }
 
-thead tr {
+thead tr {  
     background: #428be5 !important;
 }
 
-thead th {
+thead th {  
     background: #428be5 !important;
 }
 
-tbody {
+tbody {  
     background: #FAFAFA;
     text-align: left;
 }
@@ -389,10 +389,10 @@ th {
 	padding: 15px;
 	border: 1px solid #FFF;
 }
-
-tr:nth-child(even) th { background: #F1F1F1; }
-
-tr:nth-child(odd) th { background: #FEFEFE; }
+       
+tr:nth-child(even) th { background: #F1F1F1; }   
+    
+tr:nth-child(odd) th { background: #FEFEFE; }  
 
 tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
@@ -477,7 +477,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 /* Dashboard CSS */
 #dashboard .welcome {
-	color: white;
+	color: black;
 	font-size: 26px;
 	text-transform: uppercase;
 	padding-top: 15px;
@@ -522,13 +522,16 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	color: red;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 2em;
+	font-size: 2.2em !important;
 	margin-left: 25px;
 }
 
+	
+/* welcome page*/
 
 
-	/* Authentication CSS */
+	
+/* Authentication CSS */
 
 #authenticate .container {
 	position: fixed;
@@ -563,7 +566,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 #authenticate .modal .organization_input input {
 	margin-bottom: 25px;
 	margin-left: 25px;
-	height: 2.6em;
+	height: 3.0em;
 	width: 70%;
 	font-size: 3.0em;
 }
@@ -622,7 +625,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	margin-top: 20px;
 	cursor: pointer;
 }
-
+	
 #authenticate .modal .loginform label {
 	font-size: 2.4em;
 	margin-top: 10px;
@@ -657,14 +660,14 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	border-radius: 15px;
 	font-size: 2em;
 }
-
+	
 
 
 #authenticate .modal .loginform	.width48 {
 	width: 48% !important;
 }
 
-
+	
 #authenticate .modal .loginform input {
 	margin-top: 20px;
 	margin-bottom: 25px;
@@ -672,7 +675,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	height: 2.4em;
 	font-size: 2.5em;
 	width: 90%;
-}
+}	
 
 #authenticate .modal .registrationform input {
 	margin-top: 20px;
@@ -681,7 +684,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	height: 2.4em;
 	font-size: 2.5em;
 	width: 90%;
-}
+}	
 
 #authenticate .modal .registrationform label {
 	font-size: 2.4em;
@@ -711,7 +714,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	height: 2.4em;
 	font-size: 2.5em;
 	width: 95%;
-}
+}	
 
 #authenticate .modal .forgotform label {
 	font-size: 2.4em;
@@ -760,12 +763,20 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	text-align:center;
 	color: #fff;
 	font-size: 2.2em;
-
+	
 }
 
 /* Dashboard CSS */
 #dashboard .welcome {
 	color: black;
+	font-size: 3.5em;
+	text-transform: uppercase;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+#dashboard .page List{
+	color: red;
 	font-size: 3.5em;
 	text-transform: uppercase;
 	padding-top: 25px;
@@ -840,6 +851,16 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	padding: 15px;
 }
 
+.box .components .error {
+	font-size: 1.3em;
+	color: red;
+}
+
+.box .components .input .error {
+	font-size: 1.0em;
+	color: red;
+}
+
 .box .title {
 	font-size: 3em;
 	text-transform: uppercase;
@@ -865,7 +886,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	margin-top: 10px;
 	margin-bottom: 5px;
 	height: 2.8em;
-	font-size: 2.5em;
+	font-size: 1em;
 }
 
 .box .components option {
@@ -875,6 +896,14 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 }
 
 .box .components .input label {
+	display: block;
+	font-size: 2.8em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+}
+
+.box .components .input select {
 	display: block;
 	font-size: 2.8em;
 	margin-top: 10px;
@@ -896,6 +925,32 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	height: 2.7em;
 }
 
+.box .components .register {
+	border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 25px;
+	background-color:#d12121;
+	cursor: pointer;
+	width: 100%;
+	border-radius: 15px;
+	font-size: 3em;
+	height: 2.7em;
+}
+
+
+.box .components .input .width24 {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	width: 40% !important;
+	font-size: 2.4em;
+	height: 3.5em !important;
+}
+
+.box .components .input .width24 label{
+	font-size: 1.2em;
+}
 
 #color-selector .colors {
 	padding-top: 10px;
@@ -913,8 +968,40 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	border: 3px solid transparent;
 }
 
-.test {
-	background-color: green;
+
+/* Table Styling */
+
+
+thead {  
+	font-weight: bold;
+	text-align: left;
+	color: #FFF;
+	border: 1px solid #428be5;
+	font-size: 2.2em;
+}
+
+thead tr {  
+    background: #428be5 !important;
+}
+
+thead th {  
+    background: #428be5 !important;
+}
+
+tbody {
+	font-size: 1.4em;
+    background: #FAFAFA;
+    text-align: left;
+}
+
+tr {
+	padding: 15px;
+	
+}
+
+th {
+	padding: 15px;
+	border: 1px solid #FFF;
 }
 
 }
