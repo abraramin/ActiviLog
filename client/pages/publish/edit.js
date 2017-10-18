@@ -17,6 +17,7 @@ class EditPost extends React.Component {
 		const dateToday = moment().format();
 
 		this.state = {
+			id: "",
 			title: "",
 			description: "",
 			startTime: "13:00",
@@ -60,7 +61,7 @@ class EditPost extends React.Component {
 				self.setState({
 					id: result.message.id,
 					title: result.message.title,
-					description: result.message.description,,
+					description: result.message.description,
 					loading: false
 				});
 			} else {
@@ -129,6 +130,7 @@ class EditPost extends React.Component {
 			const endTime = moment(this.state.date).set('hours', et.get('hours')).set('minutes', et.get('minutes')).toISOString();
 
 			const properties = {
+				id: this.state.id,
 				title: this.state.title,
 				description: this.state.description,
 				discipline: this.state.discipline,
@@ -167,6 +169,7 @@ class EditPost extends React.Component {
 
 	render() {
 		const { 
+			id,
 			title,
 			description,
 			startTime,
@@ -276,7 +279,6 @@ class EditPost extends React.Component {
 							/>
 							{error.location && <div className="error">{error.location}</div>}
 						</div>
-
 						<div className="input">
 							<label>Notes</label>
 							<textarea

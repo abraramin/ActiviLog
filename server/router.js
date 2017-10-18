@@ -153,6 +153,71 @@ router.post('/api/register', visitor(), function(req, res) {
     });
 });
 
+router.post('/api/edit_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const properties = {
+        title: response.title,
+		description: response.description,
+		discipline: response.discipline,
+		location: response.location,
+		startTime: response.startTime,
+		endTime: response.endTime,
+		notes: response.notes,
+    }
+    activities.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "Activity successfully modified" });
+        } else {
+            res.json({ success: false, message: "Activity could not be modified" });
+        }
+    });
+});
+
+
+router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const id = req.headers['postid'];
+    posts.findOne({
+        '_id': id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }).exec(function(err, response) {
+        if (!err) {
+            const data = {
+				title: response.title,
+				description: response.description,
+				discipline: response.discipline,
+				location: response.location,
+				startTime: response.startTime,
+				endTime: response.endTime,
+				notes: response.notes,
+            }
+            res.json({ success: true, message: data });
+        } else {
+            res.json({ success: false, message: err });
+        }
+    });
+});
+
+router.post('/api/delete_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const properties = {
+        active: false
+    }
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully deleted" });
+        } else {
+            res.json({ success: false, message: "User could not be deleted" });
+        }
+    });
+});
+
 router.post('/api/publish_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
         title: req.body.title,
@@ -187,6 +252,7 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
         if (!err) {
 			for(var i=0; i < response.length; i++){
 				var val = {
+					id: response[i]._id,
 					title: response[i].title,
 					desc: response[i].description,
 					startTime: response[i].startTime,

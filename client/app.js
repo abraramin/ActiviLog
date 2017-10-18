@@ -13,7 +13,8 @@ import Header from "./common/components/Header"
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
-import Publish from './pages/publish/';
+import Publish from './pages/publish';
+import EditPost from './pages/publish/edit'
 import Records from './pages/records/';
 import Activities from './pages/activities/';
 import AddActivity from './pages/activities/add';
@@ -220,7 +221,7 @@ class App extends React.Component {
 						exact path="/edit/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.USER]}
-						render={(props) => <Publish user={user} />}
+						render={(props) => <EditPost user={user} />}
 					/>
 					<RedirectRoute
 						exact path="/records"

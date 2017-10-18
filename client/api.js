@@ -112,8 +112,23 @@ export function fetch_single_post(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
+			'Authorization': token,
+			'postid': id
+        },
+    });
+}
+
+//Edit a Post *******TODO*******
+export function edit_post(properties) {
+    return fetch('/api/edit_post/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
 			'Authorization': token
         },
+		body: JSON.stringify(properties)
     });
 }
 

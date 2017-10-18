@@ -1,5 +1,6 @@
 import React from "react";
 import Collapsible from "react-collapsible"; 
+import {withRouter} from "react-router-dom";
 import _ from 'lodash';
 
 class List extends React.Component {
@@ -64,7 +65,7 @@ class List extends React.Component {
 										<p1>{item.desc}</p1>
 									</th>
 									<th>
-										<button onClick={() => this.props.history.push("/edit/" + res.id)}>Edit</button>
+										<button onClick={() => this.props.history.push("/edit/" + item.id)}>Edit</button>
 									</th>
 								</tr>
 							})}
@@ -76,4 +77,4 @@ class List extends React.Component {
 	};
 };
 
-export default List;
+export default withRouter(List);
