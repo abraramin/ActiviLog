@@ -4,7 +4,7 @@
 -------------------------------------------
  1.0 Requirements and Installations: 
 -------------------------------------------
-* Please follow section 3.0 and 3.1 in README.txt to install all prerequisite software before proceeding further. 
+* Please follow Section 3.0 and 3.1 in README.txt to install all prerequisite software before proceeding further. 
 -------------------------------------------
  2.0 Building and Running the Project:
 -------------------------------------------
