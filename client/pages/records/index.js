@@ -48,9 +48,17 @@ class Records extends React.Component {
 					console.log(result);
 					const values = {
 						id: result._id,
+						userId: result.user_details._id,
+						fullName: result.user_details.fullName,
+						email: result.user_details.email,
 						title: result.title,
 						description: result.description,
-						color: result.color,
+						startTime: result.startTime,
+						endTime: result.endTime,
+						activity: result.activity_info.title,
+						discipline: result.discipline,
+						location: result.location,
+						notes: result.notes,
 					}
 					return records.push(values);
 				});
@@ -74,7 +82,7 @@ class Records extends React.Component {
 
 		console.log(records);
 
-		return <div className="page width100">
+		return <div className="records width100">
 			<div className="header">Post Records</div>
 			{loading && <InnerLoader />}
 
@@ -92,23 +100,33 @@ class Records extends React.Component {
 				<table>
 					<thead>
 						<tr>
-							<th style={{ "width": "30%" }}>Name</th>
-							<th>Description</th> 
-							<th style={{ "width": "10%" }}>Colour</th>
-							<th style={{ "width": "10%" }}>Action</th>
+							<th style={{ "width": "10%" }}>Name</th>
+							<th style={{ "width": "10%" }}>Email</th> 
+							<th>Title</th>
+							<th>Description</th>
+							<th>Date</th>
+							<th>StartTime</th>
+							<th>EndTime</th>
+							<th>Activity</th>
+							<th>Discipline</th>
+							<th>Location</th>
+							<th style={{ "width": "20%" }}>Notes</th>
 						</tr>
 					</thead>
 					<tbody>
 						{!loading && records != null && records.map(res => {
 							return <tr key={res.id}>
+								<th>{res.fullName}</th>
+								<th>{res.email}</th>
 								<th style={{"fontWeight": "bold" }}>{res.title}</th>
 								<th>{res.description}</th>
-								<th style={{"background": res.color }} />
-								<th>
-									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "16px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("records/edit/" + res.id)}>
-											<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
-								  	</button>
-								</th>
+								<th></th>
+								<th>{res.startTime}</th>
+								<th>{res.endTime}</th>
+								<th>{res.activity}</th>
+								<th>{res.discipline}</th>
+								<th>{res.location}</th>
+								<th>{res.notes}</th>
 							</tr>
 						})}
 					</tbody>

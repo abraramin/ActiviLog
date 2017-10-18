@@ -251,7 +251,8 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
                     as: "user_details"
                 }
             },
-            {   $unwind:"$user_details" },
+            {$unwind:"$user_details" },
+            {$match: { "active": true }},
         ]);
     var options = { page : page, limit : pageItems}
      
