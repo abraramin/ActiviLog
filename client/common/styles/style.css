@@ -332,6 +332,7 @@ textarea {
 .pagination {
 	margin-top: 20px;
 	margin-bottom: 20px;
+	height: 30px;
 }
 
 .forward {
