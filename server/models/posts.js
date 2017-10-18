@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate');
+const mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -16,7 +16,7 @@ var postSchema = new Schema
     },
 
     activity: {
-      type: String,
+      type: Schema.Types.ObjectId
     },
 
     discipline: {
@@ -35,12 +35,12 @@ var postSchema = new Schema
     },
 
     userId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       require:true
     },
 
     clientId: {
-      type: String,
+      type: Schema.Types.ObjectId,
       require:true
     },
 
@@ -50,5 +50,5 @@ var postSchema = new Schema
   timestamps: true
 });
 
-postSchema.plugin(mongoosePaginate);
+postSchema.plugin(mongooseAggregatePaginate);
 module.exports = mongoose.model('Posts', postSchema);
