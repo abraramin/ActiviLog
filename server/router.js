@@ -129,11 +129,10 @@ router.post('/api/register', visitor(), function(req, res) {
                 fullName: req.body.fullName,
                 email: req.body.email,
                 password: req.body.password,
-                organisationId: req.body.organisationId,
+                organisationId: orgId,
                 userType: 3,
                 active: true,
               }
-
             if (!validatePassword(req.body.password)) {
                 res.json({ success: false, message: 'Password does not meet the validation requirements' });
             } else {
