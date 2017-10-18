@@ -14,13 +14,24 @@ class User extends React.Component {
 			loading: false,
 			postData: null,
 			error: false,
+			openAll: true,
 		}
 		
 		this.loadPosts = this.loadPosts.bind(this);
+		this.openClose = this.openClose.bind(this);
 	}
 	
 	componentDidMount() {
 		this.loadPosts();		
+	}
+	
+	openClose() {
+		if(this.state.openAll) {
+			this.setState({openAll: false});
+		}
+		else {
+			this.setState({openAll: true});
+		}
 	}
 	
 	loadPosts() {
@@ -59,6 +70,7 @@ class User extends React.Component {
 			loading,
 			postData,
 			error,
+			openAll,
 		} = this.state;  
 		
 		return <div className="page">
@@ -77,7 +89,10 @@ class User extends React.Component {
 			</div>}
 			
 			{!loading && !error && postData != null && <div>
-				<List posts={this.state.postData} />
+				<div>
+					<button type="button" onClick={this.openClose}>Open/Close</button>
+				</div>
+				<List posts={this.state.postData} openAll={this.state.openAll} />
 			</div>}
 		</div>;
 	};

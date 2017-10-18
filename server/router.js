@@ -182,7 +182,7 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
     posts.find({
         $and:[{'userID': id},
 			{'active': true}]
-    }).exec(function(err, response) {
+    }).sort({'startTime': 1}).exec(function(err, response) {
         if (!err) {
 			for(var i=0; i < response.length; i++){
 				var val = {

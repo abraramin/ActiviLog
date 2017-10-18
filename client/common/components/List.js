@@ -40,7 +40,7 @@ class List extends React.Component {
 
 		return <div>
 			{Object.keys(this.state.posts).map((e) => {
-				return <Collapsible trigger={e}>
+				return <Collapsible trigger={e} open={this.props.openAll}>
 					<table>
 						<thead>
 							<tr>
@@ -51,8 +51,7 @@ class List extends React.Component {
 						<tbody>
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
 								return <tr key={i}>
-									{console.log(item.startTime)}
-									<th>{item.startTime.toLocaleString([], { hour12: true})}</th>
+									<th>{item.startTime.toTimeString().substring(0, 5)}</th>
 									<th>
 										<h1>{item.title}</h1>
 										<p1>{item.desc}</p1>
