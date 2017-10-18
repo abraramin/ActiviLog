@@ -13,12 +13,12 @@ web framework for routing, Mongo document database and a React.js frontend frame
 ---------------------------------
  2.0 The Team				
 ---------------------------------
-* Peter Joseph ................(Team Leader + Prototyper + Full-Stack developer)...(212.....@student.uwa.edu.au)
+* Peter Joseph ................(Team Leader + Prototyper + Full-Stack developer)...(21284021@student.uwa.edu.au)
 * Abrar Amin ..................(Git Repository Manager + Full-Stack developer).....(21518928@student.uwa.edu.au)
-* Srdjan Kusmuk ...............(UX Design + Full-Stack Developer)..................(217.....@student.uwa.edu.au)
-* Amelita Putri Karunia .......(Front-end developer)...............................(217.....@student.uwa.edu.au)
-* Richard Wen .................(Front-end developer)...............................(217.....@student.uwa.edu.au)
-* Samuel Brown ................(Site Reliability Engineer).........................(212.....@student.uwa.edu.au)
+* Srdjan Kusmuk ...............(UX Design + Full-Stack Developer)..................(21705391@student.uwa.edu.au)
+* Amelita Putri Karunia .......(Front-end developer)...............................(21771045@student.uwa.edu.au)
+* Richard Wen .................(Front-end developer)...............................(21805459@student.uwa.edu.au)
+* Samuel Brown ................(Site Reliability Engineer).........................(21195938@student.uwa.edu.au)
 
 ---------------------------------
  3.0 Requirements
