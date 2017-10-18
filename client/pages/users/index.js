@@ -102,10 +102,14 @@ class Users extends React.Component {
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
 								<th>{res.email}</th>
 								{res.userType === 3 &&<th onClick={() => this.props.history.push("users/edit/" + res.id)}>
-									<button type="button">Edit Account</button>
+									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "18px"}}>
+											<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
+								  </button>
 								</th>}
 								{res.userType !== 3 &&<th>
-									Action Unavailable
+									<div style={{"color": "#2F4F4F", "fontSize": "16px"}}>
+										<p>Action Unavailable</p>
+									</div>
 								</th>}
 							</tr>
 						})}

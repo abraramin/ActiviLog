@@ -477,7 +477,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 /* Dashboard CSS */
 #dashboard .welcome {
-	color: white;
+	color: black;
 	font-size: 26px;
 	text-transform: uppercase;
 	padding-top: 15px;
@@ -517,18 +517,21 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 
 @media only screen and (max-width: 480px), only screen and (max-device-width: 480px)
 {
-	
+
 .error {
 	color: red;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-size: 2em;
+	font-size: 2.2em !important;
 	margin-left: 25px;
 }
-	
 
 	
-	/* Authentication CSS */
+/* welcome page*/
+
+
+	
+/* Authentication CSS */
 
 #authenticate .container {
 	position: fixed;
@@ -563,7 +566,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 #authenticate .modal .organization_input input {
 	margin-bottom: 25px;
 	margin-left: 25px;
-	height: 2.6em;
+	height: 3.0em;
 	width: 70%;
 	font-size: 3.0em;
 }
@@ -772,6 +775,14 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	padding-bottom: 25px;
 }
 
+#dashboard .page List{
+	color: red;
+	font-size: 3.5em;
+	text-transform: uppercase;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
 #dashboard .logo img{
 	width: 50%;
 }
@@ -840,6 +851,16 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	padding: 15px;
 }
 
+.box .components .error {
+	font-size: 1.3em;
+	color: red;
+}
+
+.box .components .input .error {
+	font-size: 1.0em;
+	color: red;
+}
+
 .box .title {
 	font-size: 3em;
 	text-transform: uppercase;
@@ -865,7 +886,7 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	margin-top: 10px;
 	margin-bottom: 5px;
 	height: 2.8em;
-	font-size: 2.5em;
+	font-size: 1em;
 }
 
 .box .components option {
@@ -875,6 +896,14 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 }
 
 .box .components .input label {
+	display: block;
+	font-size: 2.8em;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-left: 10px;
+}
+
+.box .components .input select {
 	display: block;
 	font-size: 2.8em;
 	margin-top: 10px;
@@ -896,6 +925,32 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	height: 2.7em;
 }
 
+.box .components .register {
+	border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin-top: 25px;
+	background-color:#d12121;
+	cursor: pointer;
+	width: 100%;
+	border-radius: 15px;
+	font-size: 3em;
+	height: 2.7em;
+}
+
+
+.box .components .input .width24 {
+	margin-top: 20px;
+	margin-bottom: 30px;
+	width: 40% !important;
+	font-size: 2.4em;
+	height: 3.5em !important;
+}
+
+.box .components .input .width24 label{
+	font-size: 1.2em;
+}
 
 #color-selector .colors {
 	padding-top: 10px;
@@ -911,6 +966,42 @@ tbody tr:hover, tbody td:hover { color: #428be5; cursor: pointer }
 	border-radius: 3px;
 	cursor: pointer;
 	border: 3px solid transparent;
+}
+
+
+/* Table Styling */
+
+
+thead {  
+	font-weight: bold;
+	text-align: left;
+	color: #FFF;
+	border: 1px solid #428be5;
+	font-size: 2.2em;
+}
+
+thead tr {  
+    background: #428be5 !important;
+}
+
+thead th {  
+    background: #428be5 !important;
+}
+
+tbody {
+	font-size: 1.4em;
+    background: #FAFAFA;
+    text-align: left;
+}
+
+tr {
+	padding: 15px;
+	
+}
+
+th {
+	padding: 15px;
+	border: 1px solid #FFF;
 }
 
 }
