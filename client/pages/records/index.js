@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
 import { fetch_records } from '../../api';
 
+import moment from 'moment';
 import InnerLoader from '../../common/components/InnerLoader';
 import Pagination from '../../common/components/Pagination';
 
@@ -45,7 +46,6 @@ class Records extends React.Component {
 			if (result.success == true) {
 				let records = [];
 				result.result.map(function(result) {
-					console.log(result);
 					const values = {
 						id: result._id,
 						userId: result.user_details._id,
@@ -56,6 +56,7 @@ class Records extends React.Component {
 						startTime: result.startTime,
 						endTime: result.endTime,
 						activity: result.activity_info.title,
+						activityColor: result.activity_info.color,
 						discipline: result.discipline,
 						location: result.location,
 						notes: result.notes,
@@ -79,8 +80,6 @@ class Records extends React.Component {
 			records,
 			error,
 		} = this.state;
-
-		console.log(records);
 
 		return <div className="records width100">
 			<div className="header">Post Records</div>
@@ -107,10 +106,10 @@ class Records extends React.Component {
 							<th>Date</th>
 							<th>StartTime</th>
 							<th>EndTime</th>
-							<th>Activity</th>
 							<th>Discipline</th>
 							<th>Location</th>
 							<th style={{ "width": "20%" }}>Notes</th>
+							<th>Activity</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -121,12 +120,12 @@ class Records extends React.Component {
 								<th style={{"fontWeight": "bold" }}>{res.title}</th>
 								<th>{res.description}</th>
 								<th></th>
-								<th>{res.startTime}</th>
-								<th>{res.endTime}</th>
-								<th>{res.activity}</th>
+								<th>{moment(res.startTime).format("h:mm a")}</th>
+								<th>{moment(res.endTime).format("h:mm a")}</th>
 								<th>{res.discipline}</th>
 								<th>{res.location}</th>
 								<th>{res.notes}</th>
+								<th style={{"background": res.activityColor }}>{res.activity}</th>
 							</tr>
 						})}
 					</tbody>

@@ -1,4 +1,5 @@
 var path = require('path');
+var mongoose = require('mongoose');
 var express = require('express');
 var passport = require('passport');
 var account = require('./models/accounts');
@@ -242,13 +243,27 @@ router.post('/api/publish_post', passport.authenticate('jwt', { session: false }
 });
 
 router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
-    const id = req.user._id.toString();
+    const id = req.user._id;
+    const org = mongoose.Types.ObjectId(req.user.organisationId);
     var data = [];
-    posts.find({
-        $and:[{'userId': id},
-            {'clientId': req.user.organisationId.toString()},
-			{'active': true}]
-    }).sort({'startTime': -1}).exec(function(err, response) {
+    posts.aggregate([
+        {
+            $lookup:{
+                from: "activities",
+                localField: "activity",
+                foreignField: "_id",
+                as: "activity_info"
+            }
+        },
+        {   $unwind:"$activity_info" },
+    
+        {$match: { 
+            "userId": id,
+            "clientId": org,
+            "active": true
+        }},
+        { $sort : { startTime : -1 } }
+    ], function(err, response) {
         if (!err) {
 			for(var i=0; i < response.length; i++){
 				var val = {
@@ -256,8 +271,9 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
 					title: response[i].title,
 					desc: response[i].description,
 					startTime: response[i].startTime,
-					endTime: response[i].endTime,
-				}
+                    endTime: response[i].endTime,
+                    color: response[i].activity_info.color
+                }
 				data[i]=val;
 			}
 
@@ -284,7 +300,6 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
             } else {
                 account.create(userData, function (err, user) {
                 if (err) {
-                    console.log(err)
                     if (err.code == 11000) {
                         res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
                     } else {

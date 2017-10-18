@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Collapsible from "react-collapsible";
 
-import Loading from "../../../common/components/Loading";
+import InnerLoader from '../../../common/components/InnerLoader';
 import List from "../../../common/components/List";
 import { fetchPosts } from '../../../api';
 
@@ -52,6 +52,7 @@ class User extends React.Component {
 						startTime: new Date(post.startTime),
 						endTime: new Date(post.endTime),
 						date: new Date(post.startTime),
+						color: post.color,
 					}
 					return postData.push(values);
 				});
@@ -78,7 +79,8 @@ class User extends React.Component {
 			<div className="welcome">
 				Welcome <strong>{this.props.user.fullName}</strong>
 			</div>
-			
+			{loading && <InnerLoader />}
+
 			{!loading && error && <div className="error">
 				<img src={require('../../../common/images/info.png')} />
 				<p>There was an error loading the posts. Please refresh the page and try again.</p>

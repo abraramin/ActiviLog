@@ -92,7 +92,7 @@ class Users extends React.Component {
 						<tr>
 							<th style={{ "width": "20%" }}>Full Name</th>
 							<th>Email Address</th>
-							<th style={{ "width": "30%" }}>Action</th>
+							<th style={{ "width": "25%" }}>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,11 +102,11 @@ class Users extends React.Component {
 								<th>{res.email}</th>
 								{res.userType === 3 &&<th>
 									<div>
-											<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "16px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
+											<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
 												<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
 							  			</button>
 											&nbsp;
-											<button type="button" style={{"background": "red", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "16px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chpw/" + res.id)}>
+											<button type="button" style={{"background": "red", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chpw/" + res.id)}>
 										 		<p> <img src={require('../../common/images/lock_icon.png')} /> Change Password</p>
 											</button>
 									</div>

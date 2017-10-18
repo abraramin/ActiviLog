@@ -2,6 +2,7 @@ import React from "react";
 import Collapsible from "react-collapsible"; 
 import {withRouter} from "react-router-dom";
 import _ from 'lodash';
+import moment from 'moment';
 
 class List extends React.Component {
 	constructor(props) {
@@ -47,25 +48,14 @@ class List extends React.Component {
 
 		return <div>
 			{Object.keys(this.state.posts).map((e) => {
-				return <Collapsible trigger={e} open={this.props.openAll}>
+				return <Collapsible trigger={e} key={e} open={this.props.openAll}>
 					<table>
-						<thead>
-							<tr>
-								<th>Time</th>
-								<th>Description</th> 
-								<th>Action</th> 
-							</tr>
-						</thead>
 						<tbody>
 							{this.state.posts[e] != null && this.state.posts[e].map((item, i) => {
-								return <tr key={i}>
-									<th>{item.startTime.toTimeString().substring(0, 5)}</th>
-									<th>
-										<h1>{item.title}</h1>
-										<p1>{item.desc}</p1>
-									</th>
-									<th>
-										<button onClick={() => this.props.history.push("/edit/" + item.id)}>Edit</button>
+								return <tr key={i} onClick={() => this.props.history.push("/edit/" + item.id)}>
+									<th>{moment(item.startTime).format("h:mm a")}</th>
+									<th style={{"background": item.color }}>
+										<b>{item.title}</b> : {item.desc}
 									</th>
 								</tr>
 							})}

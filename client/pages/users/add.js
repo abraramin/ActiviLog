@@ -70,8 +70,6 @@ class AddUser extends React.Component {
 
 
 	changeField(evt) {
-		console.log(evt.target.value);
-
 		this.setState({[evt.target.name]: evt.target.value});
 	}
 

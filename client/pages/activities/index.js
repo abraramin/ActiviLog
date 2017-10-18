@@ -104,7 +104,7 @@ class Activities extends React.Component {
 								<th>{res.description}</th>
 								<th style={{"background": res.color }} />
 								<th>
-								<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "16px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
+								<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
 								<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
 						  		</button>
 								</th>
