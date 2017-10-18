@@ -319,8 +319,9 @@ router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false 
 
 
 router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const id = req.headers['userid'];
     account.findOne({
-        '_id': req.user._id,
+        '_id': id,
         'organisationId': req.user.organisationId.toString(),
         active: true,
     }).exec(function(err, response) {

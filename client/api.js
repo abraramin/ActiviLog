@@ -133,7 +133,7 @@ export function fetch_records(page, pageItems) {
     });
 }
 
-	
+
 // Add Activity
 export function add_activity(title, description, color) {
     return fetch('/api/add_activity/', {
@@ -212,6 +212,7 @@ export function fetch_single_user(id) {
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
             'Authorization': token,
+            'userId' : id,
         },
     });
 }
