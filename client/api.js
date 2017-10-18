@@ -94,6 +94,7 @@ export function fetchPosts(user) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
 			'Authorization': token,
+			'userID': user,
         },
     });
 }
@@ -111,6 +112,7 @@ export function publish_post(properties) {
     });
 }
 
+	
 // Add Activity
 export function add_activity(title, description, color) {
     return fetch('/api/add_activity/', {
@@ -235,9 +237,6 @@ export function edit_user(id, fullName, email) {
         })
     });
 }
-
-
-
 
 // Delete User
 export function delete_user(id) {

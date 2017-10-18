@@ -181,8 +181,8 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
     const id = req.headers['userID'];
 	var data = [];
     posts.find({
-        'userID': id,
-		'active': true,
+        $and:[{'userID': id},
+			{'active': true}]
     }).exec(function(err, response) {
         if (!err) {
 			for(var i=0; i < response.length; i++){
@@ -197,7 +197,7 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
 
             res.json({ success: true, posts: data });
         } else {
-            res.json({ success: false, message: "Activity could not be loaded" });
+            res.json({ success: false, message: "Posts could not be loaded" });
         }
     });
 });
@@ -229,10 +229,6 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
                 }});
             }
   });
-
-
-
-
 
 
 router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
@@ -284,8 +280,6 @@ router.get('/api/fetch_users', passport.authenticate('jwt', { session: false }),
 });
 
 
-
-
 router.get('/api/fetch_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const id = req.headers['activityid'];
     activities.findOne({
@@ -328,9 +322,6 @@ router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: fal
         }
     });
 });
-
-
-
 
 
 router.post('/api/delete_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
