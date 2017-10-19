@@ -176,6 +176,7 @@ html, body {
 .box {
 	width: 100%;
 	padding: 15px;
+	box-sizing: border-box;
 }
 
 .box .title {
@@ -511,7 +512,6 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 #dashboard .pill {
 	width: 200px;
 	text-align:center;
-	padding: 5px;
 	margin: 27px;
 	border-radius: 3px;
 }

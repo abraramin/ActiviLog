@@ -20,8 +20,10 @@ class EditPost extends React.Component {
 			id: "",
 			title: "",
 			description: "",
+			date: dateToday,
 			startTime: "13:00",
 			endTime: "14:30",
+			activity: "",
 			discipline: "",
 			location: "",
 			notes: "",
@@ -51,12 +53,12 @@ class EditPost extends React.Component {
 		this.loadPost();
 	}
 	
-	//TODO*******
 	loadPost() {
 		this.setState({ loading: true });
 		const id = document.location.pathname.toString().substr(17);
 		let self = this;
 		fetch_single_post(id).then(response => response.json()).then(function(result) {
+			console.log(load);
 			if (result.success) {
 				self.setState({
 					id: result.message.id,
@@ -78,7 +80,7 @@ class EditPost extends React.Component {
 			if (result.success) {
 				self.props.history.push("/");
 			} else {
-				this.setState({loading: false, deleting: false, error: {
+				self.setState({loading: false, deleting: false, error: {
 					generic: "Error. This post could not succesfully be deleted. Please refresh the page and try again."
 				}});
 			}
@@ -171,9 +173,11 @@ class EditPost extends React.Component {
 		const { 
 			id,
 			title,
+			date,
 			description,
 			startTime,
 			endTime,
+			activity,
 			discipline,
 			location,
 			notes,
@@ -186,6 +190,13 @@ class EditPost extends React.Component {
 		const {
 			user,
 		} = this.props;
+
+		// Create a moment date object
+		let momentObj = null;
+		if (date != "") {
+			let dateObj = new Date(date);
+			momentObj = moment(dateObj);
+		}
 
 		let startmer = "AM";
 		if (parseInt(startTime.substr(0, 2)) >= 12) {
@@ -200,7 +211,7 @@ class EditPost extends React.Component {
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-						<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/")}/> &nbsp; Edit {header}</p>
+						<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/")}/> &nbsp; Edit Event</p>
 					</div>
 					<div className="components">
 						<div className="input">
@@ -229,6 +240,16 @@ class EditPost extends React.Component {
 						</div>
 
 						<div className="input">
+							<div className="input width50">
+								<label>Date</label>
+								<input
+									type="text"
+									className="width50"
+									name="date"
+									value={momentObj}
+									disabled="true"
+								/>
+							</div>
 							<div style={{ "height": "75px" }}>
 								<div className="width24 marginr14 float-left">
 									<label>Start Time</label>
@@ -253,6 +274,16 @@ class EditPost extends React.Component {
 							</div>
 							{error.date && <div className="error">{error.date}</div>}
 						</div>
+						{activity && <div className="input width50">
+							<label>Activity</label>
+							<input
+								type="text"
+								className="width50"
+								name="activity"
+								value={activity}
+								disabled="true"
+							/>
+						</div>}
 						<div className="input">
 							<label>Discipline</label>
 							<input
@@ -292,7 +323,7 @@ class EditPost extends React.Component {
 						</div>
 
 						{error.generic && <div className="error">{error.generic}</div>}
-						<div>
+						<div style={{ "height": "60px" }}>
 							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update Post</button>
 							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{saving && <Spinner />}Delete Post</button>
 						</div>
