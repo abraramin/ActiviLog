@@ -176,6 +176,7 @@ html, body {
 .box {
 	width: 100%;
 	padding: 15px;
+	box-sizing: border-box;
 }
 
 .box .title {
@@ -217,6 +218,15 @@ html, body {
 	margin: 10px;
 	border-radius: 3px;
 	cursor: pointer;
+	border: 3px solid transparent;
+}
+
+#color-type button {
+	width: 30px;
+	height: 30px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 3px;
 	border: 3px solid transparent;
 }
 
@@ -376,14 +386,14 @@ table {
 	width: 100%; 
     border-collapse: 
 	collapse; border-spacing: 0; 
-	border: 1px solid #428be5;
+	border: 0px solid #428be5;
 }
 
 thead {  
 	font-weight: bold;
 	text-align: left;
 	color: #FFF;
-	border: 1px solid #428be5;
+	border: 0px solid #428be5;
 }
 
 thead tr {  
@@ -405,7 +415,7 @@ tr {
 
 th {
 	padding: 15px;
-	border: 1px solid #FFF;
+	border: 0px solid #FFF;
 }
        
 tr:nth-child(even) th { background: #F1F1F1; }   
@@ -511,7 +521,6 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 #dashboard .pill {
 	width: 200px;
 	text-align:center;
-	padding: 5px;
 	margin: 27px;
 	border-radius: 3px;
 }
@@ -529,6 +538,16 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 
 #dashboard .pill p {
 	margin-top: 30px;
+}
+
+.record-table {
+	display: absolute;
+	overflow: auto;
+	white-space: nowrap;
+	top: 190px;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 @media screen and (max-width: 480px) {

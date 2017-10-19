@@ -324,6 +324,8 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
 router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
     const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+    const org = mongoose.Types.ObjectId(req.user.organisationId);
+
     var aggregate = posts.aggregate([
             {
                 $lookup:{
@@ -343,7 +345,7 @@ router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }
                 }
             },
             {$unwind:"$user_details" },
-            {$match: { "active": true }},
+            {$match: { "active": true, "clientId": org }},
         ]);
     var options = { page : page, limit : pageItems}
      
