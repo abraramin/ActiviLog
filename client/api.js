@@ -346,6 +346,25 @@ export function reset_password(id, password) {
 }
 
 
+
+// Reset user's password
+export function reset_self_password(password, newpassword) {
+    return fetch('/api/reset_self_password/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'password': password,
+            'newpassword': newpassword
+        })
+    });
+}
+
+
 // Reset usertype
 export function reset_usertype(id, userType) {
     return fetch('/api/reset_usertype/', {

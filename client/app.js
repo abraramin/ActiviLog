@@ -21,9 +21,10 @@ import AddActivity from './pages/activities/add';
 import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
 import AddUser from './pages/users/actions/add';
-import EditUser from './pages/users/actions/edit'
-import EditUserPW from './pages/users/actions/editpw'
-import EditUserUType from './pages/users/actions/editutype'
+import EditUser from './pages/users/actions/edit';
+import EditUserPW from './pages/users/actions/editpw';
+import EditUserUType from './pages/users/actions/editutype';
+import EditUserSelfPW from './pages/users/actions/editselfpw'
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading";
@@ -284,6 +285,12 @@ class App extends React.Component {
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <EditUserUType user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/change_password/"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <EditUserSelfPW user={user} />}
 					/>
 					<RedirectRoute
 						user={user}
