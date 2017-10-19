@@ -1,34 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import { fetch_single_user, edit_user, delete_user } from '../../api';
+import { fetch_single_user, reset_password } from '../../api';
 import {notify} from 'react-notify-toast';
 
-import validateEmail from '../../common/utilities/validateEmail';
+import validatePassword from '../../common/utilities/validatePassword';
 import Spinner from '../../common/components/Spinner';
 
-class EditUser extends React.Component {
+class EditUserPW extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			id: "",
-			fullName: "",
-			email: "",
+			password: "",
+      confpassword: "",
 			header: "",
 			loading: false,
 			deleting: false,
 			saving: false,
 			error: {
-				fullName: null,
-				emailAddress: null,
+				password: null,
+				confirmPassword: null,
 				generic: null,
 			}
 		};
 
 		this.loadUser = this.loadUser.bind(this);
-		this.editUser = this.editUser.bind(this);
-		this.deleteUser = this.deleteUser.bind(this);
+		this.editPassword = this.editPassword.bind(this);
 		this.changeField = this.changeField.bind(this);
 	}
 
@@ -47,8 +46,8 @@ class EditUser extends React.Component {
 			if (result.success) {
 				self.setState({
 					id: result.message.id,
-					fullName: result.message.fullName,
-				  email: result.message.email,
+          password: "WeakPassword1",
+          confpassword: "",
 					header: result.message.fullName,
 					loading: false
 				});
@@ -59,55 +58,40 @@ class EditUser extends React.Component {
 		});
 	}
 
-	deleteUser() {
-		this.setState({ loading: true, deleting: true });
-		const id = this.state.id;
-		let self = this;
-		delete_user(id).then(response => response.json()).then(function(result) {
-			if (result.success) {
-				self.props.history.push("/users");
-			} else {
-				this.setState({loading: false, deleting: false, error: {
-					generic: "Error! This user could not succesfully be deleted :/. Please refresh the page and try again."
-				}});
-			}
-		});
-	}
-
-	editUser() {
+	editPassword() {
 		this.setState({ loading: true, saving: true });
 		let errors = this.state.error;
-		errors.fullName = "";
-		errors.emailAddress = "";
+		errors.password = "";
+		errors.confirmPassword = "";
 		errors.generic = "";
 
-    console.log(this.state.fullName);
-    console.log(this.state.email);
-    console.log(this.state.fullName.trim());
-		// Check fields are not empty
     // Check fields are not empty
-		if (this.state.fullName.trim() == "") {
-			errors.fullName = "Please add the Full Name of the new user.";
+		if (this.state.password.trim() == "") {
+			errors.password = "Please enter a password.";
 		} else {
-			errors.fullName = "";
+			errors.password = "";
 		}
-		if (this.state.email.trim() == "") {
-			errors.emailAddress = "Please enter an email address.";
+		if (this.state.confpassword.trim() == "") {
+			errors.confirmPassword = "Please retype the password.";
 		} else {
-			errors.emailAddress = "";
+			errors.confirmPassword = "";
 		}
-		if (validateEmail(this.state.email) == false) {
-			errors.emailAddress = "Please enter a valid email address e.g. jane.citizen@activilog.example.com";
+		if (validatePassword(this.state.password) == false) {
+			errors.password = "Invalid password! Password to be of at least 8 characters including a number and an uppercase letter.";
 		} else {
-			errors.emailAddress = "";
+			errors.password = "";
 		}
+    if(this.state.password.trim() === this.state.confpassword.trim())
+    {
+      errors.generic = "The two entered passwords don't match!"
+    }
 
 		// Attempt save to database
-		if (errors.fullName === "" && errors.emailAddress === "") {
+		if (errors.password === "" && errors.confirmPassword === "") {
 			let self = this;
-			edit_user(this.state.id, this.state.fullName, this.state.email).then(response => response.json()).then(function(result) {
+			reset_password(this.state.id, this.state.password).then(response => response.json()).then(function(result) {
 				if (result.success == true) {
-					notify.show('User has successfully been updated');
+					notify.show('Password has been successfully updated');
 					self.props.history.push("/users");
 				} else {
           notify.show('Sorry, something went wrong :/');
@@ -126,8 +110,8 @@ class EditUser extends React.Component {
 
 	render() {
 		const {
-			fullName,
-			email,
+			password,
+			confpassword,
 			header,
 			error,
 			loading,
@@ -135,53 +119,50 @@ class EditUser extends React.Component {
 			deleting,
 		} = this.state;
 
-		const {
+    const {
 			user,
 		} = this.props;
 
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Edit {header}'s Profile</p>
+                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Reset {header}s Password</p>
           </div>
 					<div className="components">
 						<div className="input">
-							<label>Full Name</label>
+							<label>Password</label>
 							<input
-								type="text"
-								name="fullName"
-								value={fullName}
+								name="password"
+                type="password"
+								value={password}
 								onChange={this.changeField}
 								disabled={loading}
-								placeholder="John Citizen"
 							/>
-							{error.fullName && <div className="error">{error.fullName}</div>}
+							{error.password && <div className="error">{error.password}</div>}
 						</div>
 						<div className="input">
-							<label>Email Address</label>
+							<label>Confirm Password</label>
 							<input
-								type="text"
-								name="email"
-								value={email}
+								type="password"
+								name="confpassword"
+								value={confpassword}
 								onChange={this.changeField}
 								disabled={loading}
-								placeholder="john.citizen@activilog.example.com"
 							/>
-							{error.emailAddress && <div className="error">{error.emailAddress}</div>}
+							{error.confirmPassword && <div className="error">{error.confirmPassword}</div>}
 						</div>
 						{error.generic && <div className="error">{error.generic}</div>}
 						<div>
-							<button type="button" className="submit width60 float-right" onClick={this.editUser} disabled={loading}>{saving && <Spinner />}Update User Info</button>
-							<button type="button" className="register width30 float-left" onClick={this.deleteUser} disabled={loading}>{deleting && <Spinner />}Delete User</button>
-						</div>
+							<button type="button" className="submit width60 float-right" onClick={this.editPassword} disabled={loading}>{saving && <Spinner />}Update User Info</button>
 					</div>
+          </div>
 			</div>
 		</div>;
 	};
 };
 
-EditUser.propTypes = {
+EditUserPW.propTypes = {
 	user: PropTypes.object,
 };
 
-export default withRouter(EditUser);
+export default withRouter(EditUserPW);

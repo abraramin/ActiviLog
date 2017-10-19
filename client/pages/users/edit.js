@@ -142,7 +142,7 @@ class EditUser extends React.Component {
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Edit {header}'s Profile</p>
+                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Edit {header}s Profile</p>
           </div>
 					<div className="components">
 						<div className="input">

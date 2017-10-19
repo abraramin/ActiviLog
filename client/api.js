@@ -311,6 +311,25 @@ export function edit_user(id, fullName, email) {
     });
 }
 
+
+// Reset password
+export function reset_password(id, password) {
+    return fetch('/api/reset_password/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id,
+            'password': password
+        })
+    });
+}
+
+
 // Delete User
 export function delete_user(id) {
     return fetch('/api/delete_user/', {

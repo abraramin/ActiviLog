@@ -22,6 +22,7 @@ import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
 import AddUser from './pages/users/add';
 import EditUser from './pages/users/edit'
+import EditUserPW from './pages/users/editpw'
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading";
@@ -270,6 +271,12 @@ class App extends React.Component {
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <EditUser user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/chpw/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <EditUserPW user={user} />}
 					/>
 					<RedirectRoute
 						user={user}
