@@ -540,6 +540,16 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 	margin-top: 30px;
 }
 
+.record-table {
+	display: absolute;
+	overflow: auto;
+	white-space: nowrap;
+	top: 190px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 @media screen and (max-width: 480px) {
 
 .error {

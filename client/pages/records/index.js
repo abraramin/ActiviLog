@@ -96,41 +96,43 @@ class Records extends React.Component {
 			</div>}
 
 			{!loading && !error && records !== null && <div>
-				<table>
-					<thead>
-						<tr>
-							<th style={{ "width": "10%" }}>Name</th>
-							<th style={{ "width": "10%" }}>Email</th> 
-							<th>Title</th>
-							<th>Description</th>
-							<th>Date</th>
-							<th>StartTime</th>
-							<th>EndTime</th>
-							<th>Discipline</th>
-							<th>Location</th>
-							<th style={{ "width": "20%" }}>Notes</th>
-							<th>Activity</th>
-						</tr>
-					</thead>
-					<tbody>
-						{!loading && records != null && records.map(res => {
-							return <tr key={res.id}>
-								<th>{res.fullName}</th>
-								<th>{res.email}</th>
-								<th style={{"fontWeight": "bold" }}>{res.title}</th>
-								<th>{res.description}</th>
-								<th></th>
-								<th>{moment(res.startTime).format("h:mm a")}</th>
-								<th>{moment(res.endTime).format("h:mm a")}</th>
-								<th>{res.discipline}</th>
-								<th>{res.location}</th>
-								<th>{res.notes}</th>
-								<th style={{"background": res.activityColor }}>{res.activity}</th>
+				<div className="record-table">
+					<table>
+						<thead>
+							<tr>
+								<th style={{ "width": "10%" }}>Name</th>
+								<th style={{ "width": "10%" }}>Email</th> 
+								<th>Title</th>
+								<th>Description</th>
+								<th>Date</th>
+								<th>StartTime</th>
+								<th>EndTime</th>
+								<th>Discipline</th>
+								<th>Location</th>
+								<th style={{ "width": "20%" }}>Notes</th>
+								<th>Activity</th>
 							</tr>
-						})}
-					</tbody>
-			</table>
-			<Pagination page={this.state.page} pageItems={this.state.pageItems} totalResults={this.state.totalResults} changePage={this.changePage} disabled={loading} />
+						</thead>
+						<tbody>
+							{!loading && records != null && records.map(res => {
+								return <tr key={res.id}>
+									<th>{res.fullName}</th>
+									<th>{res.email}</th>
+									<th style={{"fontWeight": "bold" }}>{res.title}</th>
+									<th>{res.description}</th>
+									<th></th>
+									<th>{moment(res.startTime).format("h:mm a")}</th>
+									<th>{moment(res.endTime).format("h:mm a")}</th>
+									<th>{res.discipline}</th>
+									<th>{res.location}</th>
+									<th>{res.notes}</th>
+									<th style={{"background": res.activityColor }}>{res.activity}</th>
+								</tr>
+							})}
+						</tbody>
+				</table>
+				<Pagination page={this.state.page} pageItems={this.state.pageItems} totalResults={this.state.totalResults} changePage={this.changePage} disabled={loading} />
+				</div>
 			</div>}
 		</div>
 	};
