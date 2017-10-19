@@ -40,7 +40,6 @@ class EditUser extends React.Component {
 		this.setState({ loading: true });
 		const fullstr = document.location.pathname.toString();
     const tmpfullsre = fullstr.split("/");
-    console.log(tmpfullsre);
     const id = tmpfullsre[3] ;
 		let self = this;
 		fetch_single_user(id).then(response => response.json()).then(function(result) {
@@ -53,7 +52,6 @@ class EditUser extends React.Component {
 					loading: false
 				});
 			} else {
-        console.log(result);
 				self.props.history.push("/users");
 			}
 		});
@@ -81,9 +79,6 @@ class EditUser extends React.Component {
 		errors.emailAddress = "";
 		errors.generic = "";
 
-    console.log(this.state.fullName);
-    console.log(this.state.email);
-    console.log(this.state.fullName.trim());
 		// Check fields are not empty
     // Check fields are not empty
 		if (this.state.fullName.trim() == "") {

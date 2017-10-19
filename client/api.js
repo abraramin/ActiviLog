@@ -120,7 +120,6 @@ export function fetch_single_post(id) {
     });
 }
 
-//Edit a Post *******TODO*******
 export function edit_post(properties) {
     return fetch('/api/edit_post/', {
         method: 'POST',

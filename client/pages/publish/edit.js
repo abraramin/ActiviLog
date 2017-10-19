@@ -87,13 +87,11 @@ class EditPost extends React.Component {
 		});
 	}
 	
-	//TODO******
 	editPost() {
 		this.setState({ loading: true, saving: true });
 		let errors = this.state.error;
 		errors.title = "";
 		errors.description = "";
-		errors.date = "";
 		errors.discipline = "";
 
 		// Check fields are not empty
@@ -107,16 +105,6 @@ class EditPost extends React.Component {
 		} else {
 			errors.description = "";
 		}
-		
-		// Check the two times
-		const beginningTime = moment(this.state.startTime, 'hh:mm');
-		const endTime = moment(this.state.endTime, 'hh:mm');
-
-		if (beginningTime.isBefore(endTime) == false) {
-			errors.date = "Please ensure your start and end times are correct";
-		} else {
-			errors.date = "";
-		}
 		if (this.state.discipline.trim() == "") {
 			errors.discipline = "Please enter a discipline";
 		} else {
@@ -125,11 +113,6 @@ class EditPost extends React.Component {
 
 		// Attempt save to database
 		if (errors.title == "" && errors.description == "" && errors.discipline == "") {
-			// Construct the final date objects
-			const bt = moment(this.state.startTime, 'hh:mm');
-			const et = moment(this.state.endTime, 'hh:mm');
-			const startTime = moment(this.state.date).set('hours', bt.get('hours')).set('minutes', bt.get('minutes')).toISOString();
-			const endTime = moment(this.state.date).set('hours', et.get('hours')).set('minutes', et.get('minutes')).toISOString();
 
 			const properties = {
 				id: this.state.id,
@@ -137,8 +120,6 @@ class EditPost extends React.Component {
 				description: this.state.description,
 				discipline: this.state.discipline,
 				location: this.state.location,
-				startTime: startTime,
-				endTime: endTime,
 				notes: this.state.notes,
 			}
 		
@@ -148,7 +129,7 @@ class EditPost extends React.Component {
 					notify.show('Post has successfully been updated');
 					self.props.history.push("/");
 				} else {
-					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not publish your post. Please refresh the page and try again."} });
+					self.setState({ loading: false, saving: false, error: {generic: "Sorry, something went wrong and we could not update your post. Please refresh the page and try again."} });
 				}
 			});
 		} else {
@@ -259,7 +240,7 @@ class EditPost extends React.Component {
 						{error.generic && <div className="error">{error.generic}</div>}
 						<div style={{ "height": "60px" }}>
 							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update Event</button>
-							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{saving && <Spinner />}Delete Event</button>
+							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{deleting && <Spinner />}Delete Event</button>
 						</div>
 					</div>
 			</div>

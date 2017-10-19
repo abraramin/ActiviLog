@@ -39,7 +39,6 @@ class EditUserPW extends React.Component {
 		this.setState({ loading: true });
 		const fullstr = document.location.pathname.toString();
     const tmpfullsre = fullstr.split("/");
-    console.log(tmpfullsre);
     const id = tmpfullsre[3] ;
 		let self = this;
 		fetch_single_user(id).then(response => response.json()).then(function(result) {
@@ -52,7 +51,6 @@ class EditUserPW extends React.Component {
 					loading: false
 				});
 			} else {
-        console.log(result);
 				self.props.history.push("/users");
 			}
 		});

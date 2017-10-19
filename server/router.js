@@ -159,22 +159,21 @@ router.post('/api/register', visitor(), function(req, res) {
 
 router.post('/api/edit_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
-        id: response.id,
-        title: response.title,
-		description: response.description,
-		discipline: response.discipline,
-		location: response.location,
-		notes: response.notes,
+        title: req.body.title,
+		description: req.body.description,
+		discipline: req.body.discipline,
+		location: req.body.location,
+		notes: req.body.notes,
     }
     posts.findOneAndUpdate({
-        '_id': properties.id,
-        'organisationId': mongoose.Types.ObjectId(req.user.organisationId),
+        '_id': req.body.id,
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
         active: true,
     }, properties).exec(function(err, response) {
         if (!err) {
-            res.json({ success: true, message: "Activity successfully modified" });
+            res.json({ success: true, message: "Post successfully modified" });
         } else {
-            res.json({ success: false, message: "Activity could not be modified" });
+            res.json({ success: false, message: "Post could not be modified" });
         }
     });
 });
@@ -307,7 +306,6 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
             } else {
                 account.create(userData, function (err, user) {
                 if (err) {
-                    console.log(err)
                     if (err.code == 11000) {
                         res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
                     } else {
@@ -573,7 +571,6 @@ router.post('/api/reset_usertype', passport.authenticate('jwt', { session: false
     const properties = {
         userType: req.body.userType,
     }
-    console.log(req.body.userType);
     account.findOneAndUpdate({
         '_id': req.body.id,
         'organisationId': req.user.organisationId.toString(),
@@ -591,7 +588,8 @@ router.post('/api/reset_usertype', passport.authenticate('jwt', { session: false
 
 router.post('/api/delete_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {
-        active: false
+        active: false,
+        email: ""
     }
     account.findOneAndUpdate({
         '_id': req.body.id,

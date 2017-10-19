@@ -35,7 +35,6 @@ class EditUserUtype extends React.Component {
 		this.setState({ loading: true });
 		const fullstr = document.location.pathname.toString();
     	const tmpfullsre = fullstr.split("/");
-    	console.log(tmpfullsre);
     	const id = tmpfullsre[3] ;
 		let self = this;
 		fetch_single_user(id).then(response => response.json()).then(function(result) {
@@ -47,7 +46,6 @@ class EditUserUtype extends React.Component {
 					loading: false
 				});
 			} else {
-        		console.log(result);
 				self.props.history.push("/users");
 			}
 		});
@@ -63,9 +61,6 @@ class EditUserUtype extends React.Component {
 			var utypeval = 3;
 		else
 			var utypeval = 1;
-		console.log(this.state.id);
-		console.log(this.state.userType);
-		console.log(this.state.utypeval);
 		// Attempt save to database
 		if (errors.generic === "") {
 			let self = this;
@@ -102,13 +97,10 @@ class EditUserUtype extends React.Component {
 			user,
 		} = this.props;
 
-		console.log("*");
-		console.log(this.state.userType);
-
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-                  		<p><img src={require('../../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Reset {header}'s Privilege</p>
+                  		<p><img src={require('../../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Change {header}'s Privilege</p>
         	  		</div>
 					<div className="components">
 						<div className="input">

@@ -118,7 +118,7 @@ class Records extends React.Component {
 		} = this.state;
 
 		return <div className="records width100">
-			<div className="header">Post Records</div>
+			<div className="header">Records</div>
 			{loading && <InnerLoader />}
 
 			{!loading && error && <div className="text-align-center">
