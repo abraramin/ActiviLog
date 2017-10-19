@@ -71,6 +71,11 @@ class Users extends React.Component {
 			users,
 			error,
 		} = this.state;
+
+		const {
+			user,
+		} = this.props;
+
 		return <div className="page width80">
 			<div className="header">Accounts</div>
 			{loading && <InnerLoader />}
@@ -90,28 +95,51 @@ class Users extends React.Component {
 				<table>
 					<thead>
 						<tr>
-							<th style={{ "width": "20%" }}>Full Name</th>
+							<th style={{ "width": "25%" }}>Full Name</th>
 							<th>Email Address</th>
-							<th style={{ "width": "25%" }} />
+							<th style={{ "width": "40%" }} />
 						</tr>
 					</thead>
 					<tbody>
 						{!loading && users != null && users.map(res => {
 							return <tr key={res.id}>
-								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
+							{res.userType === 3 && <th style={{"fontWeight": "bold" }}>{res.fullName}</th>}
+							{res.userType !== 3 && <th style={{"fontWeight": "bold"}}>
+										<div style={{justifyContent: 'center', alignItems: 'center'}}>
+												{res.fullName}
+												&nbsp;
+												<img src={require('../../common/images/admin_account.png')} title="admin" alt="admin"/>
+										</div>
+							</th>}
 								<th>{res.email}</th>
-								{res.userType === 3 &&<th style={{ textAlign: "center"}}>
+								{res.userType === 3 &&<th style={{textAlign: "center"}}>
 									<div>
 											<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
 												<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
-							  			</button>
+							  				</button>
 											&nbsp;
 											<button type="button" style={{"background": "red", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chpw/" + res.id)}>
-										 		<p> <img src={require('../../common/images/lock_icon.png')} /> Change Password</p>
+										 		<p> <img src={require('../../common/images/lock_icon.png')} /> Reset Password</p>
+											</button>
+											&nbsp;
+											<button type="button" style={{"background": "#e6b800", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chutype/" + res.id)}>
+												<p> <img src={require('../../common/images/settings-cogwheel-button.png')} /> Change Privilege</p>
 											</button>
 									</div>
 								</th>}
-								{res.userType !== 3 &&<th>
+								{(res.userType !== 3 && res.id !== user.id) &&<th style={{textAlign: "center"}}>
+									<div>
+											<button type="button" style={{"background": "#e6b800", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chutype/" + res.id)}>
+												<p> <img src={require('../../common/images/settings-cogwheel-button.png')} /> Change Privilege</p>
+											</button>
+									</div>
+								</th>}
+								{(res.userType !== 3 && res.id === user.id) &&<th style={{textAlign: "center"}}>
+									<div>
+											<button type="button" style={{"background": "#993399", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chpw/" + res.id)}>
+												<p> <img src={require('../../common/images/current_user.png')} /> Change Your Password</p>
+											</button>
+									</div>
 								</th>}
 							</tr>
 						})}

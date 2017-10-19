@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import { fetch_single_user, reset_password } from '../../api';
+import { fetch_single_user, reset_password } from '../../../api';
 import {notify} from 'react-notify-toast';
 
-import validatePassword from '../../common/utilities/validatePassword';
-import Spinner from '../../common/components/Spinner';
+import validatePassword from '../../../common/utilities/validatePassword';
+import Spinner from '../../../common/components/Spinner';
 
 class EditUserPW extends React.Component {
 	constructor(props) {
@@ -126,7 +126,7 @@ class EditUserPW extends React.Component {
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Reset {header}'s Password</p>
+                  <p><img src={require('../../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Reset {header}'s Password</p>
           </div>
 					<div className="components">
 						<div className="input">

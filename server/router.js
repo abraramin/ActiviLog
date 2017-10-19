@@ -482,6 +482,7 @@ router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: fal
                 id: response._id,
                 fullName: response.fullName,
                 email: response.email,
+                userType: response.userType
             }
             res.json({ success: true, message: data });
         } else {
@@ -570,6 +571,23 @@ router.post('/api/reset_password', passport.authenticate('jwt', { session: false
 
 
 
+router.post('/api/reset_usertype', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        userType: req.body.userType,
+    }
+    console.log(req.body.userType);
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully modified" });
+        } else {
+            res.json({ success: false, message: "User could not be modified at this time. :/" });
+        }
+    });
+});
 
 
 
