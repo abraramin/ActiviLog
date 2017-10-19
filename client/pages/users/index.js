@@ -92,7 +92,7 @@ class Users extends React.Component {
 						<tr>
 							<th style={{ "width": "20%" }}>Full Name</th>
 							<th>Email Address</th>
-							<th style={{ "width": "25%" }}>Action</th>
+							<th style={{ "width": "25%" }} />
 						</tr>
 					</thead>
 					<tbody>
@@ -100,7 +100,7 @@ class Users extends React.Component {
 							return <tr key={res.id}>
 								<th style={{"fontWeight": "bold" }}>{res.fullName}</th>
 								<th>{res.email}</th>
-								{res.userType === 3 &&<th>
+								{res.userType === 3 &&<th style={{ textAlign: "center"}}>
 									<div>
 											<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/edit/" + res.id)}>
 												<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
