@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Collapsible from "react-collapsible";
 
 import InnerLoader from '../../../common/components/InnerLoader';
+import Pagination from '../../../common/components/Pagination';
 import List from "../../../common/components/List";
 import { fetchPosts } from '../../../api';
 
@@ -15,14 +16,28 @@ class User extends React.Component {
 			postData: null,
 			error: false,
 			openAll: true,
+			page: 1,
+			pageItems: 50,
+			totalResults: 0,
 		}
 		
 		this.loadPosts = this.loadPosts.bind(this);
 		this.openClose = this.openClose.bind(this);
+		this.changePage = this.changePage.bind(this);
 	}
 	
 	componentDidMount() {
-		this.loadPosts();		
+		this.loadPosts(this.state.page, this.state.pageItems);		
+	}
+
+	changePage(direction) {
+		if (direction == "forward") {
+			const page = this.state.page + 1;
+			this.loadPosts(page, this.state.pageItems);
+		} else {
+			const page = this.state.page - 1;
+			this.loadPosts(page, this.state.pageItems);
+		}
 	}
 	
 	openClose() {
@@ -34,12 +49,12 @@ class User extends React.Component {
 		}
 	}
 	
-	loadPosts() {
+	loadPosts(page, pageItems) {
 		let self = this;
 		this.setState({loading: true});
 		
 		//Get user post data
-		fetchPosts(this.props.user.id).then(response => response.json()).then(function(result) {
+		fetchPosts(this.props.user.id, page, pageItems).then(response => response.json()).then(function(result) {
 			if (result.success == true) {
 				let postData = [];
 				
@@ -59,8 +74,7 @@ class User extends React.Component {
 				if (postData.length == 0) {
 					postData = null;
 				}
-				
-				self.setState({postData: postData, loading: false});
+				self.setState({postData: postData, loading: false, page: result.page, totalResults: result.total});
 			} else {				
 				self.setState({loading: false, postData: null, error: true});
 			}
@@ -90,6 +104,7 @@ class User extends React.Component {
 			
 			{!loading && !error && postData != null && <div>
 				<List posts={this.state.postData} openAll={this.state.openAll} />
+				<Pagination page={this.state.page} pageItems={this.state.pageItems} totalResults={this.state.totalResults} changePage={this.changePage} disabled={loading} />
 			</div>}
 		</div>;
 	};

@@ -92,14 +92,16 @@ export function fetchUserData() {
 }
 
 //Fetch Logged In User's Post Data
-export function fetchPosts(user) {
+export function fetchPosts(user, page, pageItems) {
     return fetch('/api/fetch_posts/', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
-			'Authorization': token
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems
         },
     });
 }

@@ -186,7 +186,7 @@ router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: fal
     posts.findOne({
         '_id': id,
         'organisationId': req.user.organisationId.toString(),
-        active: true,
+        'active': true,
     }).exec(function(err, response) {
         if (!err) {
             const data = {
@@ -207,7 +207,7 @@ router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: fal
 
 router.post('/api/delete_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
-        active: false
+        'active': false
     }
     account.findOneAndUpdate({
         '_id': req.body.id,
@@ -245,11 +245,14 @@ router.post('/api/publish_post', passport.authenticate('jwt', { session: false }
     });
 });
 
+// Loads the posts for an individual user
 router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const id = req.user._id;
     const org = mongoose.Types.ObjectId(req.user.organisationId);
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
     var data = [];
-    posts.aggregate([
+    var aggregate = posts.aggregate([
         {
             $lookup:{
                 from: "activities",
@@ -266,25 +269,28 @@ router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }),
             "active": true
         }},
         { $sort : { startTime : -1 } }
-    ], function(err, response) {
-        if (!err) {
-			for(var i=0; i < response.length; i++){
-				var val = {
-					id: response[i]._id,
-					title: response[i].title,
-					desc: response[i].description,
-					startTime: response[i].startTime,
-                    endTime: response[i].endTime,
-                    color: response[i].activity_info.color
-                }
-				data[i]=val;
-			}
+    ]);
 
-            res.json({ success: true, posts: data });
+   var options = { page : page, limit : pageItems}
+    
+   posts.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+        if (!err) {
+            for(var i=0; i < results.length; i++){
+                var val = {
+                    id: results[i]._id,
+                    title: results[i].title,
+                    desc: results[i].description,
+                    startTime: results[i].startTime,
+                    endTime: results[i].endTime,
+                    color: results[i].activity_info.color
+                }
+                data[i]=val;
+            }
+            res.json({ success: true, posts: data, total: count, page: page });
         } else {
             res.json({ success: false, message: "Posts could not be loaded" });
         }
-    });
+   })
 });
 
 router.post('/api/create_account', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
@@ -346,7 +352,7 @@ router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }
         res.json({ success: false, message: 'Post Records could not be loaded' });
       }
       else { 
-        res.json({ success: true, result: results, total: count, page: pageCount });
+        res.json({ success: true, result: results, total: count, page: page });
       }
     })
 });
