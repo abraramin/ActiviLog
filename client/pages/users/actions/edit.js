@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import { fetch_single_user, edit_user, delete_user } from '../../api';
+import { fetch_single_user, edit_user, delete_user } from '../../../api';
 import {notify} from 'react-notify-toast';
 
-import validateEmail from '../../common/utilities/validateEmail';
-import Spinner from '../../common/components/Spinner';
+import validateEmail from '../../../common/utilities/validateEmail';
+import Spinner from '../../../common/components/Spinner';
 
 class EditUser extends React.Component {
 	constructor(props) {
@@ -142,7 +142,7 @@ class EditUser extends React.Component {
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-                  <p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Edit {header}'s Profile</p>
+                  <p><img src={require('../../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Edit {header}'s Profile</p>
           </div>
 					<div className="components">
 						<div className="input">

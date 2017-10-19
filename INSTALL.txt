@@ -1,13 +1,13 @@
-+-----------------------------------------+
-|  ActiviLog v1.0.0 - Installation Guide  |
-+-----------------------------------------+
--------------------------------------------
++-------------------------------------------+
+|   ActiviLog v1.0.0 - Installation Guide   |
++-------------------------------------------+
+---------------------------------------------
  1.0 Requirements and Installations: 
--------------------------------------------
+---------------------------------------------
 * Please follow Section 3.0 and 3.1 in README.txt to install all prerequisite software before proceeding further. 
--------------------------------------------
+---------------------------------------------
  2.0 Building and Running the Project:
--------------------------------------------
+---------------------------------------------
 After installing requirements, Open a Windows Command Prompt (cmd.exe) or a bash terminal on a Linux/ macOS system :
 (1) To download and install all dependencies locally run on the Terminal/ Windows command prompt:
 $ npm install
@@ -19,8 +19,14 @@ $ npm start
 	$ pkill node
     On MS Command Prompt (Windows):
 	> taskkill /f /im node.exe
-----------------------------------------------
+------------------------------------------------
  3.0 Test Log In Accounts : (email + password):
-----------------------------------------------
-*Organisation: uwa; *Admin Account : (demo_administrator_account@activlog.com + demoadministrator1); 
-*User Account:(demo_user_account@activilog.com + demouser1); *Supervisor Account: (demo_supervisor_account@activilog.com + demosupervisor1)
+------------------------------------------------
+* Organisation Name : uwa     
+* Admin Account : (demo_administrator_account@activlog.com + demoadministrator1); 
+* User Account : (demo_user_account@activilog.com + demouser1);
+-------------------------------------------------
+ 4.0 Simplified Installation Guide
+-------------------------------------------------
+* You can find an even more simplified version of the Installation Guide (Including screencapture images) by visiting: 
+https://www.activilog.herokuapp.com/setup
