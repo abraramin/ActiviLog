@@ -46,7 +46,7 @@ class EditUserPW extends React.Component {
 			if (result.success) {
 				self.setState({
 					id: result.message.id,
-          password: "WeakPassword1",
+          password: "",
           confpassword: "",
 					header: result.message.fullName,
 					loading: false
@@ -81,9 +81,9 @@ class EditUserPW extends React.Component {
 		} else {
 			errors.password = "";
 		}
-    if(this.state.password.trim() === this.state.confpassword.trim())
+    if(this.state.password.trim() !== this.state.confpassword.trim())
     {
-      errors.generic = "The two entered passwords don't match!"
+      errors.confirmPassword = "The two entered passwords don't match!"
     }
 
 		// Attempt save to database
