@@ -531,8 +531,7 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 	margin-top: 30px;
 }
 
-@media only screen and (max-width: 480px), only screen and (max-device-width: 480px)
-{
+@media screen and (max-width: 480px) {
 
 .error {
 	color: red;
