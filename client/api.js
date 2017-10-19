@@ -179,6 +179,20 @@ export function fetch_records(page, pageItems) {
     });
 }
 
+export function search_records(page, pageItems, search) {
+    return fetch('/api/fetch_records/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems,
+			'search': search
+        },
+    });
+}
 
 // Add Activity
 export function add_activity(title, description, color) {

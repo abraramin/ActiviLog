@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {withRouter} from "react-router-dom";
-import { fetch_records } from '../../api';
+import { fetch_records, search_records } from '../../api';
 
 import moment from 'moment';
 import InnerLoader from '../../common/components/InnerLoader';
@@ -23,6 +23,7 @@ class Records extends React.Component {
 		
 		this.changePage = this.changePage.bind(this);
 		this.loadRecords = this.loadRecords.bind(this);
+		this.searchRecords = this.searchRecords.bind(this);
 	}
 
 	componentDidMount() {
@@ -43,6 +44,41 @@ class Records extends React.Component {
 		let self = this;
 		this.setState({ loading: true });
 		fetch_records(page, pageItems).then(response => response.json()).then(function(result) {
+			if (result.success == true) {
+				let records = [];
+				result.result.map(function(result) {
+					const values = {
+						id: result._id,
+						userId: result.user_details._id,
+						fullName: result.user_details.fullName,
+						email: result.user_details.email,
+						title: result.title,
+						description: result.description,
+						startTime: result.startTime,
+						endTime: result.endTime,
+						activity: result.activity_info.title,
+						activityColor: result.activity_info.color,
+						discipline: result.discipline,
+						location: result.location,
+						notes: result.notes,
+					}
+					return records.push(values);
+				});
+				if (records.length == 0) {
+					records = null;
+				}
+				Object.freeze(records);
+				self.setState({ loading: false, records: records, page: result.page, totalResults: result.total });
+			} else {
+				self.setState({ loading: false, records: null, error: true });
+			}
+		});
+	}
+	
+	searchRecords(page, pageItems, searchText) {
+		let self = this;
+		this.setState({ loading: true });
+		search_records(page, pageItems, searchText).then(response => response.json()).then(function(result) {
 			if (result.success == true) {
 				let records = [];
 				result.result.map(function(result) {

@@ -357,6 +357,45 @@ router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }
     })
 });
 
+router.get('/api/search_records', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+	const search = req.headers['search']
+    var aggregate = posts.aggregate([
+            {
+                $lookup:{
+                    from: "activities",  
+                    localField: "activity",
+                    foreignField: "_id",
+                    as: "activity_info"
+                }
+            },
+            {   $unwind:"$activity_info" },
+            {
+                $lookup:{
+                    from: "accounts", 
+                    localField: "userId", 
+                    foreignField: "_id",
+                    as: "user_details"
+                }
+            },
+            {$unwind:"$user_details" },
+            {$match: { "active": true, $and: [ 
+				{ $or: [{"location": search}, {"fullName": search}, {"email": search}]}] 
+			}},
+        ]);
+    var options = { page : page, limit : pageItems}
+     
+    posts.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+      if(err) {
+        res.json({ success: false, message: 'Post Records could not be loaded' });
+      }
+      else { 
+        res.json({ success: true, result: results, total: count, page: page });
+      }
+    })
+});
+
 router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {
         title: req.body.title,
