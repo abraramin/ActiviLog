@@ -222,8 +222,8 @@ html, body {
 }
 
 #color-type button {
-	width: 30px;
-	height: 30px;
+	width: 80px;
+	height: 25px;
 	list-style: none;
 	display: inline-block;
 	border-radius: 3px;

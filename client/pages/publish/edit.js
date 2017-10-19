@@ -20,9 +20,6 @@ class EditPost extends React.Component {
 			id: "",
 			title: "",
 			description: "",
-			date: dateToday,
-			startTime: "13:00",
-			endTime: "14:30",
 			activity: "",
 			discipline: "",
 			location: "",
@@ -33,8 +30,8 @@ class EditPost extends React.Component {
 			error: {
 				title: null,
 				description: null,
+				activity: null,
 				discipline: null,
-				date: null,
 				location: null,
 				notes: null,
 				generic: null,
@@ -55,15 +52,17 @@ class EditPost extends React.Component {
 	
 	loadPost() {
 		this.setState({ loading: true });
-		const id = document.location.pathname.toString().substr(17);
+		const id = document.location.pathname.toString().substr(6);
 		let self = this;
 		fetch_single_post(id).then(response => response.json()).then(function(result) {
-			console.log(load);
 			if (result.success) {
 				self.setState({
 					id: result.message.id,
 					title: result.message.title,
 					description: result.message.description,
+					discipline: result.message.discipline,
+					location: result.message.location,
+					notes: result.message.notes,
 					loading: false
 				});
 			} else {
@@ -78,6 +77,7 @@ class EditPost extends React.Component {
 		let self = this;
 		delete_post(id).then(response => response.json()).then(function(result) {
 			if (result.success) {
+				notify.show('Post has successfully been deleted');
 				self.props.history.push("/");
 			} else {
 				self.setState({loading: false, deleting: false, error: {
@@ -173,10 +173,7 @@ class EditPost extends React.Component {
 		const { 
 			id,
 			title,
-			date,
 			description,
-			startTime,
-			endTime,
 			activity,
 			discipline,
 			location,
@@ -190,23 +187,6 @@ class EditPost extends React.Component {
 		const {
 			user,
 		} = this.props;
-
-		// Create a moment date object
-		let momentObj = null;
-		if (date != "") {
-			let dateObj = new Date(date);
-			momentObj = moment(dateObj);
-		}
-
-		let startmer = "AM";
-		if (parseInt(startTime.substr(0, 2)) >= 12) {
-			startmer = "PM"
-		}
-
-		let endmer = "AM";
-		if (parseInt(endTime.substr(0, 2)) >= 12) {
-			endmer = "PM"
-		}
 
 		return <div className="page">
 			<div className="box">
@@ -238,52 +218,6 @@ class EditPost extends React.Component {
 							/>
 							{error.description && <div className="error">{error.description}</div>}
 						</div>
-
-						<div className="input">
-							<div className="input width50">
-								<label>Date</label>
-								<input
-									type="text"
-									className="width50"
-									name="date"
-									value={momentObj}
-									disabled="true"
-								/>
-							</div>
-							<div style={{ "height": "75px" }}>
-								<div className="width24 marginr14 float-left">
-									<label>Start Time</label>
-									<TimePicker
-										withoutIcon={true}
-										time={startTime}
-										theme="classic"
-										meridiem={startmer}
-										onTimeChange={this.onStartTimeChange}
-									/>
-								</div>
-								<div className="width24 float-left">
-									<label>End Time</label>
-									<TimePicker
-										withoutIcon={true}
-										time={endTime}
-										theme="classic"
-										meridiem={endmer}
-										onTimeChange={this.onEndTimeChange}
-									/>
-								</div>
-							</div>
-							{error.date && <div className="error">{error.date}</div>}
-						</div>
-						{activity && <div className="input width50">
-							<label>Activity</label>
-							<input
-								type="text"
-								className="width50"
-								name="activity"
-								value={activity}
-								disabled="true"
-							/>
-						</div>}
 						<div className="input">
 							<label>Discipline</label>
 							<input
@@ -324,8 +258,8 @@ class EditPost extends React.Component {
 
 						{error.generic && <div className="error">{error.generic}</div>}
 						<div style={{ "height": "60px" }}>
-							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update Post</button>
-							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{saving && <Spinner />}Delete Post</button>
+							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update Event</button>
+							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{saving && <Spinner />}Delete Event</button>
 						</div>
 					</div>
 			</div>

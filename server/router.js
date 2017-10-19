@@ -159,17 +159,16 @@ router.post('/api/register', visitor(), function(req, res) {
 
 router.post('/api/edit_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
+        id: response.id,
         title: response.title,
 		description: response.description,
 		discipline: response.discipline,
 		location: response.location,
-		startTime: response.startTime,
-		endTime: response.endTime,
 		notes: response.notes,
     }
-    activities.findOneAndUpdate({
-        '_id': req.body.id,
-        'organisationId': req.user.organisationId.toString(),
+    posts.findOneAndUpdate({
+        '_id': properties.id,
+        'organisationId': mongoose.Types.ObjectId(req.user.organisationId),
         active: true,
     }, properties).exec(function(err, response) {
         if (!err) {
@@ -185,17 +184,16 @@ router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: fal
     const id = req.headers['postid'];
     posts.findOne({
         '_id': id,
-        'organisationId': req.user.organisationId.toString(),
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
         'active': true,
     }).exec(function(err, response) {
         if (!err) {
             const data = {
+                id: response._id.toString(),
 				title: response.title,
-				description: response.description,
+                description: response.description,
 				discipline: response.discipline,
 				location: response.location,
-				startTime: response.startTime,
-				endTime: response.endTime,
 				notes: response.notes,
             }
             res.json({ success: true, message: data });
@@ -207,17 +205,17 @@ router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: fal
 
 router.post('/api/delete_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
-        'active': false
+        'active': false,
     }
-    account.findOneAndUpdate({
+    posts.findOneAndUpdate({
         '_id': req.body.id,
-        'organisationId': req.user.organisationId.toString(),
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
         active: true,
     }, properties).exec(function(err, response) {
         if (!err) {
-            res.json({ success: true, message: "User successfully deleted" });
+            res.json({ success: true, message: "Post successfully deleted" });
         } else {
-            res.json({ success: false, message: "User could not be deleted" });
+            res.json({ success: false, message: "Post could not be deleted" });
         }
     });
 });

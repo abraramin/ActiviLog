@@ -104,7 +104,7 @@ class Activities extends React.Component {
 								<th>{res.description}</th>
 								<th>
 									<div id="color-type">
-										<button style={{"background": res.color}}></button>
+										<button style={{"background": res.color}} disabled></button>
 									</div>
 								</th>
 								<th style={{ textAlign: "center"}}>
