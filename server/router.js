@@ -579,23 +579,23 @@ router.post('/api/reset_self_password', passport.authenticate('jwt', { session: 
     req.user.comparePassword(req.body.password, function(err, isMatch) {
         if (!isMatch || err) {
             res.json({ success: false, message: 'Authentication failed. Current password is incorrect.' });
-        }
-        console.log("passwords do match.");
-    });
-    var salt = bcrypt.genSaltSync(10);
-    var hashpw = bcrypt.hashSync(req.body.newpassword, salt);
-    const properties = {
-        password: hashpw,
-    }
-    account.findOneAndUpdate({
-        '_id': req.user.id,
-        'organisationId': req.user.organisationId.toString(),
-        active: true,
-    }, properties).exec(function(err, response) {
-        if (!err) {
-            res.json({ success: true, message: "User successfully modified" });
         } else {
-            res.json({ success: false, message: "User could not be modified at this time. :/" });
+            var salt = bcrypt.genSaltSync(10);
+            var hashpw = bcrypt.hashSync(req.body.newpassword, salt);
+            const properties = {
+                password: hashpw,
+            }
+            account.findOneAndUpdate({
+                '_id': req.user.id,
+                'organisationId': req.user.organisationId.toString(),
+                active: true,
+            }, properties).exec(function(err, response) {
+                if (!err) {
+                    res.json({ success: true, message: "User successfully modified" });
+                } else {
+                    res.json({ success: false, message: "User password could not be modified at this time." });
+                }
+            });
         }
     });
 });
