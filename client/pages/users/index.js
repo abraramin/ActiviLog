@@ -134,13 +134,6 @@ class Users extends React.Component {
 											</button>
 									</div>
 								</th>}
-								{(res.userType !== 3 && res.id === user.id) &&<th style={{textAlign: "center"}}>
-									<div>
-											<button type="button" style={{"background": "#993399", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("users/chpw/" + res.id)}>
-												<p> <img src={require('../../common/images/current_user.png')} /> Change Your Password</p>
-											</button>
-									</div>
-								</th>}
 							</tr>
 						})}
 					</tbody>

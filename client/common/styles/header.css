@@ -184,4 +184,18 @@ img.sub-header-icon {
   padding: 3px 10px 5px 10px;
 }
 
+#sub-header {
+  position: fixed;
+  z-index: 9999;
+  top: 50px;
+}
+
+.search-bar {
+  display: none;
+}
+
+#sub-header li a {
+  padding: 0px 10px 0px 10px;
+}
+
 }

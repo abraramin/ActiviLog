@@ -541,7 +541,7 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 }
 
 .record-table {
-	display: absolute;
+	position: absolute;
 	overflow: auto;
 	white-space: nowrap;
 	top: 190px;
@@ -586,6 +586,29 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 	.pagination {
 		margin-top: 10px;
 		margin-bottom: 10px;
+	}
+
+	.address {
+		display: none;
+	}
+
+	#dashboard .welcome {
+		text-align: center;
+	}
+
+	.record-table {
+		top: 130px;
+	}
+
+	#dashboard .container {
+		width: 100%;
+		margin: 0px;
+		margin-bottom: 10px;
+	}
+
+	#dashboard .pill {
+		width: 100%;
+		margin: 0px;
 	}
 
 }
