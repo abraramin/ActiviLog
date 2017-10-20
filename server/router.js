@@ -577,11 +577,8 @@ router.post('/api/reset_self_password', passport.authenticate('jwt', { session: 
     console.log(req.body.password);
     console.log(req.body.newpassword);
     req.user.comparePassword(req.body.password, function(err, isMatch) {
-        if (!isMatch && err) {
+        if (!isMatch || err) {
             res.json({ success: false, message: 'Authentication failed. Current password is incorrect.' });
-            console.log("Passwords don't match.");
-            console.log(err);
-            return;
         }
         console.log("passwords do match.");
     });
@@ -591,7 +588,7 @@ router.post('/api/reset_self_password', passport.authenticate('jwt', { session: 
         password: hashpw,
     }
     account.findOneAndUpdate({
-        '_id': req.body.id,
+        '_id': req.user.id,
         'organisationId': req.user.organisationId.toString(),
         active: true,
     }, properties).exec(function(err, response) {
