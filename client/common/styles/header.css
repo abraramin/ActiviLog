@@ -165,7 +165,7 @@ img.sub-header-icon {
 }
 
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 600px) {
 #header ul .logo {
     display: none;
 }

@@ -239,8 +239,8 @@ class EditPost extends React.Component {
 
 						{error.generic && <div className="error">{error.generic}</div>}
 						<div style={{ "height": "60px" }}>
-							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update Event</button>
-							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{deleting && <Spinner />}Delete Event</button>
+							<button type="button" className="submit width60 float-right" onClick={this.editPost} disabled={loading}>{saving && <Spinner />}Update</button>
+							<button type="button" className="register width30 float-left" onClick={this.deletePost} disabled={loading}>{deleting && <Spinner />}Delete</button>
 						</div>
 					</div>
 			</div>

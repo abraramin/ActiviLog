@@ -266,7 +266,7 @@ class Publish extends React.Component {
 								/>
 							</div>
 							<div style={{ "height": "75px" }}>
-								<div className="width24 marginr14 float-left">
+								<div className="timepicker width24 marginr14 float-left">
 									<label>Start Time</label>
 									<TimePicker
 										withoutIcon={true}
@@ -276,7 +276,7 @@ class Publish extends React.Component {
 										onTimeChange={this.onStartTimeChange}
 									/>
 								</div>
-								<div className="width24 float-left">
+								<div className="timepicker width24 float-left">
 									<label>End Time</label>
 									<TimePicker
 										withoutIcon={true}
