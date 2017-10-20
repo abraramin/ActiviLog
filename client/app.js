@@ -292,6 +292,15 @@ class App extends React.Component {
 						render={(props) => <EditUserUType user={user} />}
 					/>
 					<RedirectRoute
+						exact path="/setup"
+					/>
+					<RedirectRoute
+						exact path="/set_up"
+					/>
+					<RedirectRoute
+						exact path="/set_up.html"
+					/>
+					<RedirectRoute
 						user={user}
 						component={MissingPath}
 					/>

@@ -20,6 +20,11 @@ class RedirectRoute extends React.Component {
 			return <Route {...this.props} />;
 		}
 
+		if(path === '/setup' || path === '/set_up' || path === '/set_up.html')
+		{
+			window.location.href = "https://github.com/Perth155/ActiviLog/wiki/Beginners-Guide-to-Setting-up-ActiviLog-Web-Application";
+		}
+
 		// Redirect if user is not logged in and tries to access restricted page
 		if (path !== "/login" && (user.token == null && user.loggedIn == false)) {
 			return <Redirect to='/login'/>;
