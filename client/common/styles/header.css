@@ -166,6 +166,12 @@ img.sub-header-icon {
 
 
 @media screen and (max-width: 600px) {
+#header {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+}
+
 #header ul .logo {
     display: none;
 }
