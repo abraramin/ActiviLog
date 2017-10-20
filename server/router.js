@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+var mongoose = require('mongoose');
 var path = require('path');
 var express = require('express');
 var passport = require('passport');
@@ -110,6 +112,8 @@ router.post('/api/login', visitor(), function(req, res) {
     });
 });
 
+
+
 router.get('/api/fetch_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER, ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const userData = {
         id: req.user._id,
@@ -153,6 +157,68 @@ router.post('/api/register', visitor(), function(req, res) {
     });
 });
 
+router.post('/api/edit_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const properties = {
+        title: req.body.title,
+		description: req.body.description,
+		discipline: req.body.discipline,
+		location: req.body.location,
+		notes: req.body.notes,
+    }
+    posts.findOneAndUpdate({
+        '_id': req.body.id,
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "Post successfully modified" });
+        } else {
+            res.json({ success: false, message: "Post could not be modified" });
+        }
+    });
+});
+
+
+router.get('/api/fetch_single_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const id = req.headers['postid'];
+    posts.findOne({
+        '_id': id,
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
+        'active': true,
+    }).exec(function(err, response) {
+        if (!err) {
+            const data = {
+                id: response._id.toString(),
+				title: response.title,
+                description: response.description,
+				discipline: response.discipline,
+				location: response.location,
+				notes: response.notes,
+            }
+            res.json({ success: true, message: data });
+        } else {
+            res.json({ success: false, message: err });
+        }
+    });
+});
+
+router.post('/api/delete_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
+    const properties = {
+        'active': false,
+    }
+    posts.findOneAndUpdate({
+        '_id': req.body.id,
+        'clientId': mongoose.Types.ObjectId(req.user.organisationId),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "Post successfully deleted" });
+        } else {
+            res.json({ success: false, message: "Post could not be deleted" });
+        }
+    });
+});
+
 router.post('/api/publish_post', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
     const properties = {
         title: req.body.title,
@@ -176,29 +242,52 @@ router.post('/api/publish_post', passport.authenticate('jwt', { session: false }
     });
 });
 
+// Loads the posts for an individual user
 router.get('/api/fetch_posts', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.USER]), function(req, res) {
-    const id = req.headers['userID'];
-	var data = [];
-    posts.find({
-        $and:[{'userID': id},
-			{'active': true}]
-    }).exec(function(err, response) {
-        if (!err) {
-			for(var i=0; i < response.length; i++){
-				var val = {
-					title: response[i].title,
-					desc: response[i].description,
-					startTime: response[i].startTime,
-					endTime: response[i].endTime,
-				}
-				data[i]=val;
-			}
+    const id = req.user._id;
+    const org = mongoose.Types.ObjectId(req.user.organisationId);
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+    var data = [];
+    var aggregate = posts.aggregate([
+        {
+            $lookup:{
+                from: "activities",
+                localField: "activity",
+                foreignField: "_id",
+                as: "activity_info"
+            }
+        },
+        {   $unwind:"$activity_info" },
+    
+        {$match: { 
+            "userId": id,
+            "clientId": org,
+            "active": true
+        }},
+        { $sort : { startTime : -1 } }
+    ]);
 
-            res.json({ success: true, posts: data });
+   var options = { page : page, limit : pageItems}
+    
+   posts.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+        if (!err) {
+            for(var i=0; i < results.length; i++){
+                var val = {
+                    id: results[i]._id,
+                    title: results[i].title,
+                    desc: results[i].description,
+                    startTime: results[i].startTime,
+                    endTime: results[i].endTime,
+                    color: results[i].activity_info.color
+                }
+                data[i]=val;
+            }
+            res.json({ success: true, posts: data, total: count, page: page });
         } else {
             res.json({ success: false, message: "Posts could not be loaded" });
         }
-    });
+   })
 });
 
 router.post('/api/create_account', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
@@ -217,7 +306,6 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
             } else {
                 account.create(userData, function (err, user) {
                 if (err) {
-                    console.log(err)
                     if (err.code == 11000) {
                         res.json({ success: false, code: 11000, message: 'An account with this email already exists' });
                     } else {
@@ -229,6 +317,82 @@ router.post('/api/create_account', passport.authenticate('jwt', { session: false
             }
   });
 
+router.get('/api/fetch_records', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+    const org = mongoose.Types.ObjectId(req.user.organisationId);
+
+    var aggregate = posts.aggregate([
+            {
+                $lookup:{
+                    from: "activities",  
+                    localField: "activity",
+                    foreignField: "_id",
+                    as: "activity_info"
+                }
+            },
+            {   $unwind:"$activity_info" },
+            {
+                $lookup:{
+                    from: "accounts", 
+                    localField: "userId", 
+                    foreignField: "_id",
+                    as: "user_details"
+                }
+            },
+            {$unwind:"$user_details" },
+            {$match: { "active": true, "clientId": org }},
+        ]);
+    var options = { page : page, limit : pageItems}
+     
+    posts.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+      if(err) {
+        res.json({ success: false, message: 'Post Records could not be loaded' });
+      }
+      else { 
+        res.json({ success: true, result: results, total: count, page: page });
+      }
+    })
+});
+
+router.get('/api/search_records', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const page = req.headers['page'] ? parseInt(req.headers['page']) : 1;
+    const pageItems = req.headers['pageitems'] ? parseInt(req.headers['pageitems']) : 0;
+	const search = req.headers['search']
+    var aggregate = posts.aggregate([
+            {
+                $lookup:{
+                    from: "activities",  
+                    localField: "activity",
+                    foreignField: "_id",
+                    as: "activity_info"
+                }
+            },
+            {   $unwind:"$activity_info" },
+            {
+                $lookup:{
+                    from: "accounts", 
+                    localField: "userId", 
+                    foreignField: "_id",
+                    as: "user_details"
+                }
+            },
+            {$unwind:"$user_details" },
+            {$match: { "active": true, $and: [ 
+				{ $or: [{"location": search}, {"fullName": search}, {"email": search}]}] 
+			}},
+        ]);
+    var options = { page : page, limit : pageItems}
+     
+    posts.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+      if(err) {
+        res.json({ success: false, message: 'Post Records could not be loaded' });
+      }
+      else { 
+        res.json({ success: true, result: results, total: count, page: page });
+      }
+    })
+});
 
 router.post('/api/add_activity', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {
@@ -314,6 +478,7 @@ router.get('/api/fetch_single_user', passport.authenticate('jwt', { session: fal
                 id: response._id,
                 fullName: response.fullName,
                 email: response.email,
+                userType: response.userType
             }
             res.json({ success: true, message: data });
         } else {
@@ -380,11 +545,51 @@ router.post('/api/edit_user', passport.authenticate('jwt', { session: false }), 
 });
 
 
+router.post('/api/reset_password', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    var salt = bcrypt.genSaltSync(10);
+    var hashpw = bcrypt.hashSync(req.body.password, salt);
+    const properties = {
+        password: hashpw,
+    }
+
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully modified" });
+        } else {
+            res.json({ success: false, message: "User could not be modified at this time. :/" });
+        }
+    });
+});
+
+
+
+router.post('/api/reset_usertype', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
+    const properties = {
+        userType: req.body.userType,
+    }
+    account.findOneAndUpdate({
+        '_id': req.body.id,
+        'organisationId': req.user.organisationId.toString(),
+        active: true,
+    }, properties).exec(function(err, response) {
+        if (!err) {
+            res.json({ success: true, message: "User successfully modified" });
+        } else {
+            res.json({ success: false, message: "User could not be modified at this time. :/" });
+        }
+    });
+});
+
 
 
 router.post('/api/delete_user', passport.authenticate('jwt', { session: false }), hasRole([ACCOUNT_TYPE.ADMINISTRATOR]), function(req, res) {
     const properties = {
-        active: false
+        active: false,
+        email: ""
     }
     account.findOneAndUpdate({
         '_id': req.body.id,

@@ -92,16 +92,60 @@ export function fetchUserData() {
 }
 
 //Fetch Logged In User's Post Data
-export function fetchPosts(user) {
+export function fetchPosts(user, page, pageItems) {
     return fetch('/api/fetch_posts/', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Pragma': 'no-cache',
-			'Authorization': token,
-			'userID': user,
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems
         },
+    });
+}
+
+//Fetches a Single User Post
+export function fetch_single_post(id) {
+    return fetch('/api/fetch_single_post/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+			'Authorization': token,
+			'postid': id
+        },
+    });
+}
+
+export function edit_post(properties) {
+    return fetch('/api/edit_post/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+			'Authorization': token
+        },
+		body: JSON.stringify(properties)
+    });
+}
+
+//Deletes a Logged In User's Post
+export function delete_post(id) {
+    return fetch('/api/delete_post/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+			'Authorization': token
+        },
+		body: JSON.stringify({
+            'id': id
+        })
     });
 }
 
@@ -119,7 +163,36 @@ export function publish_post(properties) {
     });
 }
 
-	
+// Fetch list of user posts for the records page
+export function fetch_records(page, pageItems) {
+    return fetch('/api/fetch_records/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems
+        },
+    });
+}
+
+export function search_records(page, pageItems, search) {
+    return fetch('/api/fetch_records/', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+            'page': page,
+            'pageItems': pageItems,
+			'search': search
+        },
+    });
+}
+
 // Add Activity
 export function add_activity(title, description, color) {
     return fetch('/api/add_activity/', {
@@ -252,6 +325,43 @@ export function edit_user(id, fullName, email) {
         })
     });
 }
+
+
+// Reset password
+export function reset_password(id, password) {
+    return fetch('/api/reset_password/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id,
+            'password': password
+        })
+    });
+}
+
+
+// Reset usertype
+export function reset_usertype(id, userType) {
+    return fetch('/api/reset_usertype/', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Pragma': 'no-cache',
+            'Authorization': token,
+        },
+        body: JSON.stringify({
+            'id': id,
+            'userType': userType
+        })
+    });
+}
+
 
 // Delete User
 export function delete_user(id) {

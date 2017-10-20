@@ -94,7 +94,7 @@ class Activities extends React.Component {
 							<th style={{ "width": "30%" }}>Name</th>
 							<th>Description</th> 
 							<th style={{ "width": "10%" }}>Colour</th>
-							<th style={{ "width": "10%" }}>Action</th>
+							<th style={{ "width": "10%" }} />
 						</tr>
 					</thead>
 					<tbody>
@@ -102,11 +102,15 @@ class Activities extends React.Component {
 							return <tr key={res.id}>
 								<th style={{"fontWeight": "bold" }}>{res.title}</th>
 								<th>{res.description}</th>
-								<th style={{"background": res.color }} />
 								<th>
-									<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "18px", "cursor": "pointer"}} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
-											<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
-								  	</button>
+									<div id="color-type">
+										<button style={{"background": res.color}} disabled></button>
+									</div>
+								</th>
+								<th style={{ textAlign: "center"}}>
+								<button type="button" style={{"background": "#4CAF50", "color" : "white", "textAlign": "center", "textDecoration": "none", "border":"none", "display": "inline-block", "fontSize": "14px", "cursor": "pointer", "borderRadius" : "3px"}} onClick={() => this.props.history.push("activities/edit/" + res.id)}>
+								<p> <img src={require('../../common/images/create-new-pencil-button.png')} /> Edit</p>
+						  		</button>
 								</th>
 							</tr>
 						})}

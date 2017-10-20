@@ -4,7 +4,7 @@ html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
+small, strike, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
@@ -73,10 +73,10 @@ html, body {
 }
 
 .page-spinner {
-	width: 60px;
-	height: 60px;
+	width: 100px;
+	height: 100px;
 	background: url(../images/loading-dark.gif) no-repeat;
-	background-size: 32px 32px;
+	background-size: 100px 100px;
 	background-position: center center;
 	margin: auto;
 }
@@ -142,6 +142,10 @@ html, body {
 	width: 80% !important;
 }
 
+.width100 {
+	width: 100% !important;
+}
+
 .page {
 	width: 800px;
 	margin-top: 30px;
@@ -160,9 +164,19 @@ html, body {
 	font-weight: bold;
 }
 
+.records .header {
+	margin-top: 35px;
+	margin-bottom: 35px;
+	margin-left: 30px;
+	font-size: 24px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
 .box {
 	width: 100%;
 	padding: 15px;
+	box-sizing: border-box;
 }
 
 .box .title {
@@ -204,6 +218,15 @@ html, body {
 	margin: 10px;
 	border-radius: 3px;
 	cursor: pointer;
+	border: 3px solid transparent;
+}
+
+#color-type button {
+	width: 80px;
+	height: 25px;
+	list-style: none;
+	display: inline-block;
+	border-radius: 3px;
 	border: 3px solid transparent;
 }
 
@@ -328,6 +351,7 @@ textarea {
 .pagination {
 	margin-top: 20px;
 	margin-bottom: 20px;
+	height: 30px;
 }
 
 .forward {
@@ -362,14 +386,14 @@ table {
 	width: 100%; 
     border-collapse: 
 	collapse; border-spacing: 0; 
-	border: 1px solid #428be5;
+	border: 0px solid #428be5;
 }
 
 thead {  
 	font-weight: bold;
 	text-align: left;
 	color: #FFF;
-	border: 1px solid #428be5;
+	border: 0px solid #428be5;
 }
 
 thead tr {  
@@ -391,7 +415,7 @@ tr {
 
 th {
 	padding: 15px;
-	border: 1px solid #FFF;
+	border: 0px solid #FFF;
 }
        
 tr:nth-child(even) th { background: #F1F1F1; }   
@@ -497,7 +521,6 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 #dashboard .pill {
 	width: 200px;
 	text-align:center;
-	padding: 5px;
 	margin: 27px;
 	border-radius: 3px;
 }
@@ -517,493 +540,75 @@ tr:nth-child(odd) th { background: #FEFEFE; }
 	margin-top: 30px;
 }
 
-@media only screen and (max-width: 480px), only screen and (max-device-width: 480px)
-{
-
-.error {
-	color: red;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	font-size: 2.2em !important;
-	margin-left: 25px;
+.record-table {
+	position: absolute;
+	overflow: auto;
+	white-space: nowrap;
+	top: 190px;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
-	
-/* welcome page*/
-
-
-	
-/* Authentication CSS */
-
-#authenticate .container {
-	position: fixed;
-	width: 85vw;
-	left: 50%;
-	top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-#authenticate .logo {
-	width: 100%;
-	text-align: center;
-	margin-bottom: "10%";
-	transform: translate(0, -100%);
-}
-
-#authenticate .logo img{
-	width: 60%;
-	text-align: center;
-}
-
-#authenticate .modal {
-	background-color: #FFF;
-	border-radius: 5px;
-	padding: 15px;
-}
-
-#authenticate .modal .organization_input {
-	width: 100%;
-}
-
-#authenticate .modal .organization_input input {
-	margin-bottom: 25px;
-	margin-left: 25px;
-	height: 3.0em;
-	width: 70%;
-	font-size: 3.0em;
-}
-
-#authenticate .modal .organization_input .address {
-	padding-left: 15px;
-	font-size: 2.5em;
-	color: #555;
-}
-
-#authenticate .modal .submit {
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 10px;
-	cursor: pointer;
-	background-color:#428be5;
-	width: 100%;
-	border-radius: 5px;
-	font-size: 3.5em;
-}
-
-#authenticate .modal .organization_input .title h2 {
-	font-weight: bold;
-	font-size: 3.5em;
-	margin-bottom: 15px;
-	margin-top: 18px;
-	margin-left: 25px;
-}
-
-#authenticate .modal .organization_input .title p {
-	margin-top: 25px;
-	margin-bottom: 18px;
-	margin-left: 25px;
-	font-size: 2.4em;
-}
-
-#authenticate .modal .loginform .title h2, #authenticate .modal .registrationform .title h2, #authenticate .modal .forgotform .title h2 {
-	font-weight: bold;
-	font-size: 3.5em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	text-align: center;
-
-}
-
-#authenticate .modal .loginform .enter {
-	width: 80%;
-	font-size: 2.2em;
-	height: 12px;
-}
-
-#authenticate .modal .loginform .forgotPassword {
-	text-align: right;
-	margin-top: 20px;
-	cursor: pointer;
-}
-	
-#authenticate .modal .loginform label {
-	font-size: 2.4em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	text-align: center;
-	margin-left: 25px;
-}
-
-#authenticate .modal .loginform .submit {
-	border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 10px;
-	cursor: pointer;
-	background-color:#428be5;
-	width: 100%;
-	border-radius: 15px;
-	font-size: 2em;
-	margin-left: 25px;
-}
-
-#authenticate .modal .loginform .register {
-	border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 10px;
-	cursor: pointer;
-	background-color:#d12121;
-	width: 100%;
-	border-radius: 15px;
-	font-size: 2em;
-}
-	
-
-
-#authenticate .modal .loginform	.width48 {
-	width: 48% !important;
-}
-
-	
-#authenticate .modal .loginform input {
-	margin-top: 20px;
-	margin-bottom: 25px;
-	margin-left: 25px;
-	height: 2.4em;
-	font-size: 2.5em;
-	width: 90%;
-}	
-
-#authenticate .modal .registrationform input {
-	margin-top: 20px;
-	margin-bottom: 25px;
-	margin-left: 25px;
-	height: 2.4em;
-	font-size: 2.5em;
-	width: 90%;
-}	
-
-#authenticate .modal .registrationform label {
-	font-size: 2.4em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	text-align: center;
-	margin-left: 25px;
-}
-
-#authenticate .modal .registrationform .register {
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 10px;
-	cursor: pointer;
-	background-color:#d12121;
-	width: 100%;
-	border-radius: 5px;
-	font-size: 3.5em;
-}
-
-#authenticate .modal .forgotform input {
-	margin-top: 20px;
-	margin-bottom: 25px;
-	margin-left: 25px;
-	height: 2.4em;
-	font-size: 2.5em;
-	width: 95%;
-}	
-
-#authenticate .modal .forgotform label {
-	font-size: 2.4em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	text-align: center;
-	margin-left: 25px;
-}
-
-#authenticate .modal .forgotform p {
-	margin-top: 25px;
-	margin-bottom: 18px;
-	margin-left: 25px;
-	font-size: 2.4em;
-}
-
-
-#authenticate .modal .forgotform .reset {
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 10px;
-	cursor: pointer;
-	background-color:#e08c3d;
-	width: 100%;
-	border-radius: 5px;
-	font-size: 3.5em;
-}
-
-
-.edit_button
-{
-	background-color: green;
-	color: yellow;
-}
-
-/* Footer CSS */
-#footer {
-	position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #2E61A0;
-	padding: 10px;
-	text-align:center;
-	color: #fff;
-	font-size: 2.2em;
-	
-}
-
-/* Dashboard CSS */
-#dashboard .welcome {
-	color: black;
-	font-size: 3.5em;
-	text-transform: uppercase;
-	padding-top: 25px;
-	padding-bottom: 25px;
-}
-
-#dashboard .page List{
-	color: red;
-	font-size: 3.5em;
-	text-transform: uppercase;
-	padding-top: 25px;
-	padding-bottom: 25px;
-}
-
-#dashboard .logo img{
-	width: 50%;
-}
-
-
-#dashboard .welcome strong {
-	font-weight: bold;
-}
-
-#dashboard .container {
-	display: inline-block;
-	text-align: center;
-}
-
-#dashboard .pill {
-	width: 320px;
-	text-align:center;
-	padding: 5px;
-	margin: 27px;
-	border-radius: 3px;
-}
-
-#dashboard .pill a {
-	text-align: center;
-	text-decoration: none;
-	color: #333;
-}
-
-#dashboard .pill a:hover {
-	color: #2E61A0;
-	text-decoration: underline;
-}
-
-#dashboard .pill p {
-	margin-top: 20px;
-	font-size: 3em;
-}
-
-#dashboard .pill img {
-	height: 200px;
-	margin-top: 20px;
-}
-
-/* Form inputs */
-
-.page {
-	width: 800px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	margin-left:auto;
-	margin-right:auto;
-	max-width: 1300px;
-}
-
-.page .header {
-	width: 100%;
-	margin-top: 35px;
-	margin-bottom: 35px;
-	font-size: 24px;
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-.box {
-	width: 100%;
-	padding: 15px;
-}
-
-.box .components .error {
-	font-size: 1.3em;
-	color: red;
-}
-
-.box .components .input .error {
-	font-size: 1.0em;
-	color: red;
-}
-
-.box .title {
-	font-size: 3em;
-	text-transform: uppercase;
-	text-align: center;
-	width: 100%;
-	padding: 20px;
-	font-weight: bold;
-}
-
-.box .components {
-	padding-top: 20px;
-}
-
-.box .components input {
-	margin-top: 10px;
-	margin-bottom: 5px;
-	height: 2.8em;
-	font-size: 2.8em;
-	width: 100%;
-}
-
-.box .components select {
-	margin-top: 10px;
-	margin-bottom: 5px;
-	height: 2.8em;
-	font-size: 1em;
-}
-
-.box .components option {
-	margin-top: 10px;
-	margin-bottom: 5px;
-	font-size: 1.3em;
-}
-
-.box .components .input label {
-	display: block;
-	font-size: 2.8em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	margin-left: 10px;
-}
-
-.box .components .input select {
-	display: block;
-	font-size: 2.8em;
-	margin-top: 10px;
-	margin-bottom: 15px;
-	margin-left: 10px;
-}
-
-.box .components .submit {
-	border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 25px;
-	cursor: pointer;
-	background-color:#428be5;
-	width: 100%;
-	border-radius: 15px;
-	font-size: 3em;
-	height: 2.7em;
-}
-
-.box .components .register {
-	border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin-top: 25px;
-	background-color:#d12121;
-	cursor: pointer;
-	width: 100%;
-	border-radius: 15px;
-	font-size: 3em;
-	height: 2.7em;
-}
-
-
-.box .components .input .width24 {
-	margin-top: 20px;
-	margin-bottom: 30px;
-	width: 40% !important;
-	font-size: 2.4em;
-	height: 3.5em !important;
-}
-
-.box .components .input .width24 label{
-	font-size: 1.2em;
-}
-
-#color-selector .colors {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-#color-selector button {
-	width: 75px;
-	height: 75px;
-	list-style: none;
-	display: inline-block;
-	margin: 15px;
-	border-radius: 3px;
-	cursor: pointer;
-	border: 3px solid transparent;
-}
-
-
-/* Table Styling */
-
-
-thead {  
-	font-weight: bold;
-	text-align: left;
-	color: #FFF;
-	border: 1px solid #428be5;
-	font-size: 2.2em;
-}
-
-thead tr {  
-    background: #428be5 !important;
-}
-
-thead th {  
-    background: #428be5 !important;
-}
-
-tbody {
-	font-size: 1.4em;
-    background: #FAFAFA;
-    text-align: left;
-}
-
-tr {
-	padding: 15px;
-	
-}
-
-th {
-	padding: 15px;
-	border: 1px solid #FFF;
-}
+@media screen and (max-width: 600px) {
+
+	.page {
+		width: 100%;
+		margin-top: 60px;
+		margin-bottom: 10px;
+	}
+
+	.page .header {
+		margin-top: 25px;
+		margin-bottom: 25px;
+	}
+
+	.box .components .input {
+		width: 100% !important;
+	}
+
+	input[type=text], input[type=password] {
+		width: 100% !important;
+	}
+
+	.react-datepicker__input-container {
+		width: 100%;
+	}
+
+	.timepicker {
+		width: 40% !important;
+	}
+
+	.box .title {
+		padding: 0px;
+	}
+
+	.pagination {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.address {
+		display: none;
+	}
+
+	#dashboard .welcome {
+		text-align: center;
+	}
+
+	.record-table {
+		top: 130px;
+	}
+
+	#dashboard .container {
+		width: 100%;
+		margin: 0px;
+		margin-bottom: 10px;
+	}
+
+	#dashboard .pill {
+		width: 100%;
+		margin: 0px;
+	}
 
 }

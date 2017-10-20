@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
-import {create_account} from '../../api';
+import {create_account} from '../../../api';
 
-import Spinner from '../../common/components/Spinner';
-import validateEmail from '../../common/utilities/validateEmail';
+import Spinner from '../../../common/components/Spinner';
+import validateEmail from '../../../common/utilities/validateEmail';
 
 class AddUser extends React.Component {
 	constructor(props) {
@@ -89,7 +89,7 @@ class AddUser extends React.Component {
 		return <div className="page">
 			<div className="box">
 					<div className="title">
-								<p><img src={require('../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Add New User</p>
+								<p><img src={require('../../../common/images/go_back.png')} onClick={() => this.props.history.push("/users")}/> &nbsp; Add New User</p>
 					</div>
 					<div className="components">
 						<div className="input">

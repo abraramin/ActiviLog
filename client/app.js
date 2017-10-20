@@ -13,14 +13,17 @@ import Header from "./common/components/Header"
 import Dashboard from './pages/dashboard/';
 import Login from './pages/login/';
 import Register from './pages/register/';
-import Publish from './pages/publish/';
+import Publish from './pages/publish';
+import EditPost from './pages/publish/edit'
 import Records from './pages/records/';
 import Activities from './pages/activities/';
 import AddActivity from './pages/activities/add';
 import EditActivity from './pages/activities/edit';
 import Users from './pages/users/';
-import AddUser from './pages/users/add';
-import EditUser from './pages/users/edit'
+import AddUser from './pages/users/actions/add';
+import EditUser from './pages/users/actions/edit'
+import EditUserPW from './pages/users/actions/editpw'
+import EditUserUType from './pages/users/actions/editutype'
 import MissingPath from './pages/MissingPath';
 
 import Loading from "./common/components/Loading";
@@ -220,10 +223,16 @@ class App extends React.Component {
 						exact path="/edit/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.USER]}
-						render={(props) => <Publish user={user} />}
+						render={(props) => <EditPost user={user} />}
 					/>
 					<RedirectRoute
 						exact path="/records"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
+						path="/records/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <Records user={user} />}
@@ -269,6 +278,18 @@ class App extends React.Component {
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
 						render={(props) => <EditUser user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/chpw/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <EditUserPW user={user} />}
+					/>
+					<RedirectRoute
+						exact path="/users/chutype/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <EditUserUType user={user} />}
 					/>
 					<RedirectRoute
 						user={user}
