@@ -232,6 +232,12 @@ class App extends React.Component {
 						render={(props) => <Records user={user} />}
 					/>
 					<RedirectRoute
+						path="/records/:id"
+						user={user}
+						role={[ACCOUNT_TYPE.ADMINISTRATOR]}
+						render={(props) => <Records user={user} />}
+					/>
+					<RedirectRoute
 						exact path="/records/edit/:id"
 						user={user}
 						role={[ACCOUNT_TYPE.ADMINISTRATOR]}

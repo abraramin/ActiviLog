@@ -17,7 +17,7 @@ class Records extends React.Component {
 			records: null,
 			error: false,
 			page: 1,
-			pageItems: 10,
+			pageItems: 100000,
 			totalResults: 0,
 		};
 		
@@ -29,6 +29,14 @@ class Records extends React.Component {
 	componentDidMount() {
 		this.loadRecords(this.state.page, this.state.pageItems);
 	}
+
+	componentWillReceiveProps() {
+		const fullstr = document.location.pathname.toString();
+		const tmpfullsre = fullstr.split("/");
+		if (tmpfullsre[2] == "csv") {
+			this.props.history.push("/records");
+		}
+   }
 
 	changePage(direction) {
 		if (direction == "forward") {
@@ -54,6 +62,7 @@ class Records extends React.Component {
 						email: result.user_details.email,
 						title: result.title,
 						description: result.description,
+						date: result.startTime,
 						startTime: result.startTime,
 						endTime: result.endTime,
 						activity: result.activity_info.title,
@@ -156,7 +165,7 @@ class Records extends React.Component {
 									<th>{res.email}</th>
 									<th style={{"fontWeight": "bold" }}>{res.title}</th>
 									<th>{res.description}</th>
-									<th></th>
+									<th>{moment(res.date).format("DD/MM/YY")}</th>
 									<th>{moment(res.startTime).format("h:mm a")}</th>
 									<th>{moment(res.endTime).format("h:mm a")}</th>
 									<th>{res.discipline}</th>

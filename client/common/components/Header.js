@@ -106,14 +106,21 @@ class Header extends React.Component {
 						<div id={"sub-header"}>
 							<ul>
 								<li>
-									<a>
+									<Link to={{pathname: '/records/csv'}}>
 										<span>Export Records (.csv)</span>
-									</a>
+									</Link>
 								</li>
+								<Search />
+							</ul>
+						</div>
+					}/>
+					<Route path="/records/csv" render={() =>
+						<div id={"sub-header"}>
+							<ul>
 								<li>
-									<a>
-										<span>Export Records (.xlsx)</span>
-									</a>
+									<Link to={{pathname: '/records/csv'}}>
+										<span>Export Records (.csv)</span>
+									</Link>
 								</li>
 								<Search />
 							</ul>
